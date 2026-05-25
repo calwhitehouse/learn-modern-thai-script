@@ -44,6 +44,14 @@ body {
   display: flex;
 }
 
+.app-nav-auth-desktop {
+  display: none;
+}
+
+.app-nav-auth-mobile {
+  display: block;
+}
+
 @media (min-width: 768px) {
   .app-nav-desktop {
     display: flex;
@@ -52,5 +60,13 @@ body {
   .app-nav-burger,
   .app-nav-mobile-panel {
     display: none !important;
+  }
+
+  .app-nav-auth-desktop {
+    display: block;
+  }
+
+  .app-nav-auth-mobile {
+    display: none;
   }
 }
