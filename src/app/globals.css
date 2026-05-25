@@ -24,3 +24,33 @@ body {
 .font-thai-looped {
   font-family: var(--font-thai-looped), system-ui, sans-serif;
 }
+
+/* App nav: burger on small screens, horizontal pills on desktop */
+.app-nav-desktop {
+  display: none;
+}
+
+.app-nav-burger {
+  display: inline-flex;
+}
+
+.app-nav-mobile-panel {
+  display: none;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.app-nav-mobile-panel.is-open {
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  .app-nav-desktop {
+    display: flex;
+  }
+
+  .app-nav-burger,
+  .app-nav-mobile-panel {
+    display: none !important;
+  }
+}
