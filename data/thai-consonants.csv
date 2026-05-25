@@ -1,0 +1,45 @@
+﻿Position,Thai Letter,Thai Word,Phonetic,Meaning,Class,Initial Sound,Final Sound
+1,ก,กไก่,gaaw gài,Chicken,Middle,g,k
+2,ข,ขไข่,khǎaw khài,Egg,High,kh,k
+3,ฃ,ฃขวด,khǎaw khùuat,Bottle,High,kh,k
+4,ค,ค ควาย,khaaw khwaai,Water Buffalo,Low,kh,k
+5,ฅ,ฅ คน,khaaw khon,Person,Low,kh,k
+6,ฆ,ฆ ระฆัง,khaaw rá-khang,Temple Bell,Low,kh,k
+7,ง,ง งู,ngaaw nguu,Snake,Low,ng,ng
+8,จ,จ จาน,jaaw jaan,Plate,Middle,j,t
+9,ฉ,ฉ ฉิ่ง,chǎaw chìng,Small Cymbal,High,ch,n/a
+10,ช,ช ช้าง,chaaw cháang,Elephant,Low,ch,t
+11,ซ,ซ โซ่,saaw sôo,Chain for Animals,Low,s,s (only used in foreign loanwords)
+12,ฌ,ฌ เฌอ,chaaw chuuhr,Small Tree,Low,ch,t
+13,ญ,ญ หญิง,yaaw yǐng,Woman,Low,y,n
+14,ฎ,ฎ ชฎา,daaw chá-daa,Dance Hat,Middle,d,t
+15,ฏ,ฏ ปฏัก,dtaaw bpà-dtàk,Harpoon,Middle,dt,t
+16,ฐ,ฐ ฐาน,thǎaw thǎan,Pedestal,High,th,t
+17,ฑ,ฑ มณโฑ,thaaw mon-thoo,Ramayana Character,Low,th,t
+18,ฒ,ฒ ผู้เฒ่า,thaaw phûu-thâo,Old Man,Low,th,t
+19,ณ,ณ เณร,naaw neen,Buddhist Monk,Low,n,n
+20,ด,ด เด็ก,daaw dèk,Child,Middle,d,t
+21,ต,ต เต่า,dtaaw dtào,Turtle,Middle,dt,t
+22,ถ,ถ ถุง,thǎaw thǔng,Shopping Bag,High,th,t
+23,ท,ท ทหาร,thaaw thá-hǎan,Soldier,Low,th,t
+24,ธ,ธ ธง,thaaw thong,Flag,Low,th,t
+25,น,น หนู,naaw nǔu,Mouse,Low,n,n
+26,บ,บ ใบไม้,baaw bai-máai,Leaf,Middle,b,p
+27,ป,ป ปลา,bpaaw bplaa,Fish,Middle,bp,p
+28,ผ,ผ ผึ้ง,phǎaw phûeng,Bee,High,ph,n/a
+29,ฝ,ฝ ฝา,fǎaw fǎa,Lid,High,f,n/a
+30,พ,พ พาน,phaaw phaan,Offering Tray,Low,ph,p
+31,ฟ,ฟ ฟัน,faaw fan,Tooth,Low,f,p
+32,ภ,ภ สำเภา,phaaw sǎm phao,Small Chinese Boat,Low,ph,p
+33,ม,ม ม้า,maaw máa,Horse,Low,m,m
+34,ย,ย ยักษ์,yaaw yák,Demon / Giant,Low,y,(vowel)
+35,ร,ร เรือ,raaw ruuea,Boat,Low,r,n
+36,ล,ล ลิง,laaw ling,Monkey,Low,l,n
+37,ว,ว แหวน,waaw wǎaen,Ring,Low,w,(vowel)
+38,ศ,ศ ศาลา,sǎaw sǎa-laa,Gazebo / Pavilion,High,s,t
+39,ษ,ษ ฤๅษี,sǎaw ruue-sǐi,Hermit,High,s,t
+40,ส,ส เสือ,sǎaw sǔuea,Tiger,High,s,t
+41,ห,ห หีบ,hǎaw hìip,Box / Trunk,High,h,n/a
+42,ฬ,ฬ จุฬา,laaw jù-laa,Kite,Low,l,n
+43,อ,อ อ่าง,aaw àang,Tub / Bucket,Middle,-,(vowel)
+44,ฮ,ฮ นกฮูก,haaw nók-hûuk,Owl,Low,h,n/a

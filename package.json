@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "import:cards": "node scripts/generate-card-import.mjs"
+    "import:cards": "node scripts/generate-card-import.mjs",
+    "generate:consonants": "node scripts/generate-consonants.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",

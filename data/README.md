@@ -1,6 +1,20 @@
-# Importing words and sentences
+# Data files for imports
 
 Use this folder to bulk-add cards. The app reads from Supabase; these files are only for generating SQL.
+
+## Thai consonants (44 letters)
+
+[`thai-consonants.csv`](thai-consonants.csv) defines the official order, Thai names, and English meanings.
+
+Regenerate the keyboard and letter-deck SQL after editing the CSV:
+
+```bash
+npm run generate:consonants
+```
+
+Then run **`supabase/sync-consonants.sql`** in the Supabase SQL Editor (production).
+
+## Importing words and sentences
 
 ## Step 1 — Add your lists
 
