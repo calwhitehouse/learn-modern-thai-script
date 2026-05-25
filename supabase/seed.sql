@@ -2,7 +2,7 @@
 
 insert into public.decks (slug, title, description, sort_order)
 values
-  ('letters', 'Letters', 'All Thai consonants — match modern to looped forms', 1),
+  ('letters', 'Letters', 'Consonants, vowels, and tone marks — match modern to looped forms', 1),
   ('words', 'Words', 'High-frequency vocabulary', 2),
   ('sentences', 'Sentences', 'Short everyday sentences', 3)
 on conflict (slug) do update set
@@ -10,7 +10,7 @@ on conflict (slug) do update set
   description = excluded.description,
   sort_order = excluded.sort_order;
 
--- All 44 Thai consonants
+-- All letter-deck cards (68: consonants + rare letters + vowels + tone marks)
 insert into public.cards (deck_id, type, prompt_text, answer_text, explanation, difficulty)
 select d.id, 'letter', v.prompt_text, v.answer_text, v.explanation, v.difficulty
 from public.decks d
@@ -59,7 +59,31 @@ cross join (
     ('ห', 'ห', 'ห — hǎaw hìip (Box / Trunk)', 2),
     ('ฬ', 'ฬ', 'ฬ — laaw jù-laa (Kite)', 2),
     ('อ', 'อ', 'อ — aaw àang (Tub / Bucket)', 1),
-    ('ฮ', 'ฮ', 'ฮ — haaw nók-hûuk (Owl)', 2)
+    ('ฮ', 'ฮ', 'ฮ — haaw nók-hûuk (Owl)', 2),
+    ('ฤ', 'ฤ', 'ฤ — rue / ri (season)', 2),
+    ('ฦ', 'ฦ', 'ฦ — lue (rare/obsolete usage)', 2),
+    ('่', '่', '่ — mai ek (low tone mark)', 2),
+    ('้', '้', '้ — mai tho (falling tone mark)', 2),
+    ('๊', '๊', '๊ — mai tri (high tone mark)', 2),
+    ('๋', '๋', '๋ — mai chattawa (rising tone mark)', 2),
+    ('็', '็', '็ — mai taikhu (short vowel mark)', 2),
+    ('์', '์', '์ — thanthakhat (silent final consonant)', 2),
+    ('ํ', 'ํ', 'ํ — nikhahit (nasal vowel mark (with ำ))', 2),
+    ('ะ', 'ะ', 'ะ — sara a (short a vowel)', 1),
+    ('ั', 'ั', 'ั — sara a (upper) (short a before consonant)', 2),
+    ('า', 'า', 'า — sara aa (long a vowel)', 1),
+    ('ำ', 'ำ', 'ำ — sara am (am vowel)', 1),
+    ('ิ', 'ิ', 'ิ — sara i (short i vowel)', 1),
+    ('ี', 'ี', 'ี — sara ii (long i vowel)', 1),
+    ('ึ', 'ึ', 'ึ — sara ue (short ue vowel)', 2),
+    ('ื', 'ื', 'ื — sara uue (long ue vowel)', 2),
+    ('ุ', 'ุ', 'ุ — sara u (short u vowel)', 1),
+    ('ู', 'ู', 'ู — sara uu (long u vowel)', 1),
+    ('เ', 'เ', 'เ — sara e (leading e vowel)', 1),
+    ('แ', 'แ', 'แ — sara ae (leading ae vowel)', 1),
+    ('โ', 'โ', 'โ — sara o (leading o vowel)', 1),
+    ('ใ', 'ใ', 'ใ — sara ai mai muan (ai vowel (ใ))', 2),
+    ('ไ', 'ไ', 'ไ — sara ai mai malai (ai vowel (ไ))', 2)
 ) as v(prompt_text, answer_text, explanation, difficulty)
 where d.slug = 'letters'
   and not exists (

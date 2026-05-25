@@ -1,8 +1,9 @@
 /**
- * Reads data/thai-consonants.csv and updates:
+ * Reads data/thai-consonants.csv + data/thai-vowels-marks.csv and updates:
  * - src/lib/thai-alphabet.ts (THAI_CONSONANTS order)
- * - supabase/seed.sql (letters block)
- * - supabase/sync-consonants.sql (production upsert)
+ * - supabase/seed.sql (letters deck — consonants, rare letters, vowels, tone marks)
+ * - supabase/sync-letters.sql (production upsert for full letter deck)
+ * - supabase/sync-consonants.sql (same content; kept for existing workflows)
  *
  * Usage: npm run generate:consonants
  */
@@ -13,7 +14,8 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
-const csvPath = path.join(root, "data", "thai-consonants.csv");
+const consonantsPath = path.join(root, "data", "thai-consonants.csv");
+const vowelsMarksPath = path.join(root, "data", "thai-vowels-marks.csv");
 
 function parseCsv(text) {
   const lines = text.trim().split(/\r?\n/);
@@ -48,7 +50,6 @@ function sqlEscape(value) {
   return value.replace(/'/g, "''");
 }
 
-/** e.g. ฎ — daaw chá-daa (Dance Hat) — Phonetic + Meaning from CSV */
 function explanation(row) {
   const letter = row["Thai Letter"];
   const phonetic = row.Phonetic;
@@ -56,8 +57,9 @@ function explanation(row) {
   return `${letter} — ${phonetic} (${meaning})`;
 }
 
-function difficulty(row) {
+function consonantDifficulty(row) {
   const letter = row["Thai Letter"];
+  if (row.Class === "Special Character") return 2;
   const easy = new Set([
     "ก",
     "ข",
@@ -84,14 +86,35 @@ function difficulty(row) {
   return easy.has(letter) ? 1 : 2;
 }
 
-const rows = parseCsv(fs.readFileSync(csvPath, "utf8"));
-if (rows.length !== 44) {
-  throw new Error(`Expected 44 consonants, got ${rows.length}`);
+function vowelMarkDifficulty(row) {
+  const d = Number.parseInt(row.Difficulty, 10);
+  return Number.isFinite(d) && d >= 1 && d <= 5 ? d : 2;
 }
 
-const letters = rows.map((r) => r["Thai Letter"]);
+function toSqlRow(row, difficulty) {
+  const letter = row["Thai Letter"];
+  const expl = sqlEscape(explanation(row));
+  return `    ('${letter}', '${letter}', '${expl}', ${difficulty})`;
+}
 
-// --- thai-alphabet.ts ---
+const consonantRows = parseCsv(fs.readFileSync(consonantsPath, "utf8"));
+if (consonantRows.length < 44) {
+  throw new Error(`Expected at least 44 consonants, got ${consonantRows.length}`);
+}
+
+const vowelMarkRows = parseCsv(fs.readFileSync(vowelsMarksPath, "utf8"));
+if (vowelMarkRows.length === 0) {
+  throw new Error("Expected vowels and tone marks in thai-vowels-marks.csv");
+}
+
+const letterRows = [
+  ...consonantRows.map((r) => ({ row: r, difficulty: consonantDifficulty(r) })),
+  ...vowelMarkRows.map((r) => ({ row: r, difficulty: vowelMarkDifficulty(r) })),
+];
+
+const letters = consonantRows.map((r) => r["Thai Letter"]);
+
+// --- thai-alphabet.ts (consonants only; vowels/marks stay in source) ---
 const alphabetPath = path.join(root, "src", "lib", "thai-alphabet.ts");
 const alphabetContent = fs.readFileSync(alphabetPath, "utf8");
 const consonantBlock = letters.map((l) => `  "${l}",`).join("\n");
@@ -101,46 +124,37 @@ const updatedAlphabet = alphabetContent.replace(
 );
 fs.writeFileSync(alphabetPath, updatedAlphabet);
 
-// --- seed.sql letters values ---
-const seedValues = rows
-  .map((r) => {
-    const letter = r["Thai Letter"];
-    const expl = sqlEscape(explanation(r));
-    const diff = difficulty(r);
-    return `    ('${letter}', '${letter}', '${expl}', ${diff})`;
-  })
+const seedValues = letterRows
+  .map(({ row, difficulty }) => toSqlRow(row, difficulty))
   .join(",\n");
 
 const seedPath = path.join(root, "supabase", "seed.sql");
 let seedSql = fs.readFileSync(seedPath, "utf8");
+seedSql = seedSql.replace(
+  /('letters', 'Letters', ')[^']*(')/,
+  "$1Consonants, vowels, and tone marks — match modern to looped forms$2",
+);
+seedSql = seedSql.replace(
+  /-- All \d+ Thai consonants/,
+  `-- All letter-deck cards (${letterRows.length}: consonants + rare letters + vowels + tone marks)`,
+);
 seedSql = seedSql.replace(
   /cross join \(\s*values[\s\S]*?\) as v\(prompt_text, answer_text, explanation, difficulty\)\s*where d\.slug = 'letters'/,
   `cross join (\n  values\n${seedValues}\n) as v(prompt_text, answer_text, explanation, difficulty)\nwhere d.slug = 'letters'`,
 );
 fs.writeFileSync(seedPath, seedSql);
 
-// --- sync-consonants.sql for production ---
-const insertValues = rows
-  .map((r) => {
-    const letter = r["Thai Letter"];
-    const expl = sqlEscape(explanation(r));
-    const diff = difficulty(r);
-    return `    ('${letter}', '${letter}', '${expl}', ${diff})`;
-  })
-  .join(",\n");
-
-const updateCases = rows
-  .map((r) => {
-    const letter = r["Thai Letter"];
-    const expl = sqlEscape(explanation(r));
-    const diff = difficulty(r);
-    return `    when '${letter}' then '${expl}'`;
-  })
-  .join("\n");
+const insertValues = seedValues;
+const updateCases = letterRows
+  .map(({ row, difficulty }) => {
+    const letter = row["Thai Letter"];
+    const expl = sqlEscape(explanation(row));
+    return { letter, expl, difficulty };
+  });
 
 const syncSql = `-- Generated by: npm run generate:consonants
--- Run in Supabase SQL Editor to sync letter deck with data/thai-consonants.csv
--- Inserts missing letters; updates explanations and difficulty for existing ones.
+-- Run in Supabase SQL Editor to sync the letters deck (consonants, ฤ/ฦ, vowels, tone marks).
+-- Inserts missing cards; updates explanations and difficulty for existing ones.
 
 insert into public.cards (deck_id, type, prompt_text, answer_text, explanation, difficulty)
 select d.id, 'letter', v.prompt_text, v.answer_text, v.explanation, v.difficulty
@@ -158,13 +172,11 @@ where d.slug = 'letters'
 update public.cards c
 set
   explanation = case c.prompt_text
-${updateCases}
+${updateCases.map((u) => `    when '${u.letter}' then '${u.expl}'`).join("\n")}
     else c.explanation
   end,
   difficulty = case c.prompt_text
-${rows
-  .map((r) => `    when '${r["Thai Letter"]}' then ${difficulty(r)}`)
-  .join("\n")}
+${updateCases.map((u) => `    when '${u.letter}' then ${u.difficulty}`).join("\n")}
     else c.difficulty
   end
 from public.decks d
@@ -173,9 +185,13 @@ where c.deck_id = d.id
   and c.type = 'letter';
 `;
 
-fs.writeFileSync(path.join(root, "supabase", "sync-consonants.sql"), syncSql);
+const syncLettersPath = path.join(root, "supabase", "sync-letters.sql");
+const syncConsonantsPath = path.join(root, "supabase", "sync-consonants.sql");
+fs.writeFileSync(syncLettersPath, syncSql);
+fs.writeFileSync(syncConsonantsPath, syncSql);
 
-console.log(`Updated ${letters.length} consonants in:`);
+console.log(`Updated ${letterRows.length} letter-deck cards (${consonantRows.length} consonants + ${vowelMarkRows.length} vowels/marks):`);
 console.log("  src/lib/thai-alphabet.ts");
 console.log("  supabase/seed.sql");
+console.log("  supabase/sync-letters.sql");
 console.log("  supabase/sync-consonants.sql");

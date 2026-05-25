@@ -1,0 +1,23 @@
+Category,Thai Letter,Phonetic,Meaning,Difficulty
+tone,่,mai ek,low tone mark,2
+tone,้,mai tho,falling tone mark,2
+tone,๊,mai tri,high tone mark,2
+tone,๋,mai chattawa,rising tone mark,2
+tone,็,mai taikhu,short vowel mark,2
+tone,์,thanthakhat,silent final consonant,2
+tone,ํ,nikhahit,nasal vowel mark (with ำ),2
+vowel,ะ,sara a,short a vowel,1
+vowel,ั,sara a (upper),short a before consonant,2
+vowel,า,sara aa,long a vowel,1
+vowel,ำ,sara am,am vowel,1
+vowel,ิ,sara i,short i vowel,1
+vowel,ี,sara ii,long i vowel,1
+vowel,ึ,sara ue,short ue vowel,2
+vowel,ื,sara uue,long ue vowel,2
+vowel,ุ,sara u,short u vowel,1
+vowel,ู,sara uu,long u vowel,1
+vowel,เ,sara e,leading e vowel,1
+vowel,แ,sara ae,leading ae vowel,1
+vowel,โ,sara o,leading o vowel,1
+vowel,ใ,sara ai mai muan,ai vowel (ใ),2
+vowel,ไ,sara ai mai malai,ai vowel (ไ),2

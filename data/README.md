@@ -2,17 +2,21 @@
 
 Use this folder to bulk-add cards. The app reads from Supabase; these files are only for generating SQL.
 
-## Thai consonants (44 letters)
+## Letters deck (consonants + vowels + tone marks)
 
-[`thai-consonants.csv`](thai-consonants.csv) defines the official order, Thai names, and English meanings.
+[`thai-consonants.csv`](thai-consonants.csv) — 44 core consonants plus rare ฤ, ฦ (46 rows). [`thai-special-characters.csv`](thai-special-characters.csv) is a reference copy of ฤ/ฦ.
 
-Regenerate the keyboard and letter-deck SQL after editing the CSV:
+[`thai-vowels-marks.csv`](thai-vowels-marks.csv) — tone marks and sara vowels used on the spelling keyboard (22 rows).
+
+Together these define every **letter pick** prompt card (modern font → tap matching looped form).
+
+Regenerate the keyboard consonant list and all letter-deck SQL after editing either CSV:
 
 ```bash
-npm run generate:consonants
+npm run generate:letters
 ```
 
-Then run **`supabase/sync-consonants.sql`** in the Supabase SQL Editor (production).
+Then run **`supabase/sync-letters.sql`** (or `sync-consonants.sql`, same file) in the Supabase SQL Editor (production).
 
 ## Importing words and sentences
 

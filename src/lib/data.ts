@@ -6,7 +6,8 @@ export const DECK_META: Record<
 > = {
   letters: {
     title: "Letters",
-    description: "Pick the matching old-style looped letter.",
+    description:
+      "Pick the matching looped consonant, vowel, or tone mark for each modern prompt.",
     href: "/practice/letters",
   },
   words: {
