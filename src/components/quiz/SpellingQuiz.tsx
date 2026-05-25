@@ -113,7 +113,7 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
       </p>
 
       <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
-        <p className="text-sm text-stone-600">Modern (Prompt)</p>
+        <p className="text-sm text-stone-600">Modern Script</p>
         <ThaiText variant="modern" className="mt-3 block text-4xl leading-relaxed">
           {card.prompt_text}
         </ThaiText>
