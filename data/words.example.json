@@ -1,0 +1,14 @@
+[
+  {
+    "prompt_text": "มา",
+    "answer_text": "มา",
+    "explanation": "to come",
+    "difficulty": 1
+  },
+  {
+    "prompt_text": "ไป",
+    "answer_text": "ไป",
+    "explanation": "to go",
+    "difficulty": 1
+  }
+]

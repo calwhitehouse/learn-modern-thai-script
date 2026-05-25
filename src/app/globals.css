@@ -1,0 +1,26 @@
+﻿@import "tailwindcss";
+
+:root {
+  --background: #fafaf9;
+  --foreground: #1c1917;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-thai-modern: var(--font-thai-modern);
+  --font-thai-looped: var(--font-thai-looped);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.font-thai-modern {
+  font-family: var(--font-thai-modern), system-ui, sans-serif;
+}
+
+.font-thai-looped {
+  font-family: var(--font-thai-looped), system-ui, sans-serif;
+}

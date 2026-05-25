@@ -1,0 +1,14 @@
+[
+  {
+    "prompt_text": "ราคาเท่าไหร่",
+    "answer_text": "ราคาเท่าไหร่",
+    "explanation": "How much does it cost?",
+    "difficulty": 2
+  },
+  {
+    "prompt_text": "คุณไปไหน",
+    "answer_text": "คุณไปไหน",
+    "explanation": "Where are you going?",
+    "difficulty": 2
+  }
+]
