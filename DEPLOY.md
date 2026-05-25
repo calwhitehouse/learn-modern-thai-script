@@ -1,12 +1,18 @@
 # Production deployment checklist
 
-## 1. GitHub
+## 0. Pre-deploy checks (local)
 
 ```bash
-git init
-git add .
-git commit -m "Initial commit: Thai script trainer"
-git branch -M main
+npm run build
+npm run lint
+node scripts/verify-security.mjs
+```
+
+## 1. GitHub
+
+Git is already initialized with commits on `main`. After you create an empty repo on GitHub:
+
+```bash
 git remote add origin https://github.com/YOUR_USER/YOUR_REPO.git
 git push -u origin main
 ```

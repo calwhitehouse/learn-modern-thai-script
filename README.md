@@ -117,6 +117,7 @@ JSON format is also supported (`data/words.json`, `data/sentences.json`).
 - `npm run start` — run production build
 - `npm run lint` — ESLint
 - `npm run import:cards` — generate SQL from `data/words.*` and `data/sentences.*`
+- `node scripts/verify-security.mjs` — pre-deploy secret scan
 
 ## License
 
