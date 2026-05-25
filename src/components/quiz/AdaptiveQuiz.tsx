@@ -2,7 +2,9 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { LoopedLetterGrid } from "@/components/quiz/LoopedLetterGrid";
+import { QuizSuccessPanel } from "@/components/quiz/QuizSuccessPanel";
 import { SessionSummary } from "@/components/quiz/SessionSummary";
+import { useScrollToRefWhen } from "@/hooks/useScrollToRefWhen";
 import { useQuizSession } from "@/components/quiz/useQuizSession";
 import { ThaiText } from "@/components/ThaiText";
 import { THAI_LETTER_GRID, THAI_SPELLING_KEYBOARD_GROUPS } from "@/lib/thai-alphabet";
@@ -41,6 +43,7 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
   const prevCardIdRef = useRef<string | null>(null);
   const hadWrongRef = useRef(false);
   const flashTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const successRef = useRef<HTMLDivElement>(null);
 
   const isLetter = card?.type === "letter";
   const segments = useMemo(
@@ -66,6 +69,8 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
     },
     [],
   );
+
+  useScrollToRefWhen(Boolean(letterAnswer || spellingDone), successRef);
 
   if (done || !card) {
     return (
@@ -133,6 +138,7 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
 
   const built = picked.join("");
   const answered = isLetter ? letterAnswered : spellingFinished;
+  const showSuccess = Boolean(letterAnswer || spellingDone);
 
   return (
     <section className="mx-auto flex w-full max-w-lg flex-col gap-5">
@@ -187,8 +193,8 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
         )}
       </div>
 
-      {(letterAnswer || spellingDone) && (
-        <div className="rounded-xl border border-green-400 bg-green-100 p-4 text-sm text-stone-700">
+      {showSuccess && (
+        <QuizSuccessPanel ref={successRef}>
           {isLetter ? (
             <p className="text-emerald-800 font-semibold text-lg">Correct</p>
           ) : (
@@ -216,7 +222,7 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
           >
             {index + 1 >= queue.length ? "See summary" : "Next card"}
           </button>
-        </div>
+        </QuizSuccessPanel>
       )}
 
       <LoopedLetterGrid

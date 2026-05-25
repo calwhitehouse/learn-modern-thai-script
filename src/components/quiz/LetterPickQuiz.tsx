@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { LoopedLetterGrid } from "@/components/quiz/LoopedLetterGrid";
+import { QuizSuccessPanel } from "@/components/quiz/QuizSuccessPanel";
 import { SessionSummary } from "@/components/quiz/SessionSummary";
+import { useScrollToRefWhen } from "@/hooks/useScrollToRefWhen";
 import { useQuizSession } from "@/components/quiz/useQuizSession";
 import { ThaiText } from "@/components/ThaiText";
 import { THAI_LETTER_GRID } from "@/lib/thai-alphabet";
@@ -36,6 +38,7 @@ export function LetterPickQuiz({ deckId, cards, finishHref }: LetterPickQuizProp
   const prevCardIdRef = useRef<string | null>(null);
   const hadWrongRef = useRef(false);
   const flashTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const successRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!card?.id || prevCardIdRef.current === card.id) return;
@@ -52,6 +55,8 @@ export function LetterPickQuiz({ deckId, cards, finishHref }: LetterPickQuizProp
     },
     [],
   );
+
+  useScrollToRefWhen(Boolean(answerState), successRef);
 
   if (done || !card) {
     return (
@@ -104,7 +109,7 @@ export function LetterPickQuiz({ deckId, cards, finishHref }: LetterPickQuizProp
       </div>
 
       {answerState && (
-        <div className="rounded-xl border border-green-400 bg-green-100 p-4 text-sm text-stone-700">
+        <QuizSuccessPanel ref={successRef}>
           <p className="text-emerald-800 font-semibold text-lg">Correct</p>
           {card.explanation ? (
             <p className="mt-2 text-lg">{card.explanation}</p>
@@ -116,7 +121,7 @@ export function LetterPickQuiz({ deckId, cards, finishHref }: LetterPickQuizProp
           >
             {index + 1 >= queue.length ? "See summary" : "Next card"}
           </button>
-        </div>
+        </QuizSuccessPanel>
       )}
 
       <LoopedLetterGrid

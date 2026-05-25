@@ -2,7 +2,9 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { LoopedLetterGrid } from "@/components/quiz/LoopedLetterGrid";
+import { QuizSuccessPanel } from "@/components/quiz/QuizSuccessPanel";
 import { SessionSummary } from "@/components/quiz/SessionSummary";
+import { useScrollToRefWhen } from "@/hooks/useScrollToRefWhen";
 import { useQuizSession } from "@/components/quiz/useQuizSession";
 import { ThaiText } from "@/components/ThaiText";
 import { THAI_SPELLING_KEYBOARD_GROUPS } from "@/lib/thai-alphabet";
@@ -36,6 +38,7 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
   const prevCardIdRef = useRef<string | null>(null);
   const hadWrongRef = useRef(false);
   const flashTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const successRef = useRef<HTMLDivElement>(null);
 
   const segments = useMemo(
     () => (card ? splitThaiForSpelling(card.answer_text) : []),
@@ -59,6 +62,8 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
     },
     [],
   );
+
+  useScrollToRefWhen(finished, successRef);
 
   if (done || !card) {
     return (
@@ -152,7 +157,7 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
       </div>
 
       {finished && (
-        <div className="rounded-xl border border-green-400 bg-green-100 p-4 text-sm text-stone-700">
+        <QuizSuccessPanel ref={successRef}>
           <p className={hadWrong ? "text-amber-950 font-semibold text-lg" : "text-emerald-800 font-semibold text-lg"}>
             {hadWrong
               ? "Completed — there was at least one wrong choice."
@@ -174,7 +179,7 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
           >
             {index + 1 >= queue.length ? "See summary" : "Next card"}
           </button>
-        </div>
+        </QuizSuccessPanel>
       )}
 
       <LoopedLetterGrid
