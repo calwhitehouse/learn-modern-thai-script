@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+﻿import { AppLink } from "@/components/AppLink";
 import { DECK_META } from "@/lib/data";
 import { getDecks, getProgressStats, getUserEmail } from "@/lib/queries";
 
@@ -26,32 +26,32 @@ export default async function DashboardPage() {
       <section className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-medium text-stone-800">Practice decks</h2>
-          <Link href="/practice" className="text-xs text-stone-500 hover:text-stone-800">
+          <AppLink href="/practice" className="text-xs text-stone-500 hover:text-stone-800">
             View all
-          </Link>
+          </AppLink>
         </div>
         {decks.map((deck) => {
           const meta = DECK_META[deck.slug as keyof typeof DECK_META];
           if (!meta) return null;
           return (
-            <Link
+            <AppLink
               key={deck.id}
               href={meta.href}
-              className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm"
+              className="block rounded-xl border border-stone-200 bg-white p-4 shadow-sm"
             >
               <h3 className="font-medium text-stone-900">{meta.title}</h3>
               <p className="mt-1 text-sm text-stone-600">{meta.description}</p>
-            </Link>
+            </AppLink>
           );
         })}
       </section>
 
-      <Link
+      <AppLink
         href="/review"
-        className="rounded-xl border border-stone-300 bg-stone-100 px-4 py-3 text-center text-sm font-medium text-stone-800"
+        className="block rounded-xl border border-stone-300 bg-stone-100 px-4 py-3 text-center text-sm font-medium text-stone-800"
       >
         Review due cards ({stats.dueCount})
-      </Link>
+      </AppLink>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+﻿import { AppLink } from "@/components/AppLink";
 import { DECK_META } from "@/lib/data";
 import { getDecks } from "@/lib/queries";
 
@@ -20,13 +20,13 @@ export default async function PracticePage() {
           if (!meta) return null;
           return (
             <li key={deck.id}>
-              <Link
+              <AppLink
                 href={meta.href}
                 className="block rounded-xl border border-stone-200 bg-white p-4 shadow-sm"
               >
                 <h2 className="font-medium text-stone-900">{meta.title}</h2>
                 <p className="mt-1 text-sm text-stone-600">{meta.description}</p>
-              </Link>
+              </AppLink>
             </li>
           );
         })}

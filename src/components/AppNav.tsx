@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { NavLink } from "@/components/NavLink";
 import { NAV_ITEMS } from "@/lib/data";
-import { cn } from "@/lib/cn";
 import { signOut } from "@/app/actions/auth";
 
 export function AppNav() {
@@ -30,18 +30,7 @@ export function AppNav() {
             const active =
               pathname === item.href || pathname.startsWith(`${item.href}/`);
             return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "whitespace-nowrap rounded-full px-3 py-1.5 transition-colors",
-                  active
-                    ? "bg-stone-900 text-white"
-                    : "text-stone-600 hover:bg-stone-100",
-                )}
-              >
-                {item.label}
-              </Link>
+              <NavLink key={item.href} href={item.href} label={item.label} active={active} />
             );
           })}
         </nav>

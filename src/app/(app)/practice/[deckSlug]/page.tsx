@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+﻿import { AppLink } from "@/components/AppLink";
 import { notFound } from "next/navigation";
 import { LetterPickQuiz } from "@/components/quiz/LetterPickQuiz";
 import { SpellingQuiz } from "@/components/quiz/SpellingQuiz";
@@ -28,9 +28,9 @@ export default async function PracticeDeckPage({ params }: PracticeDeckPageProps
   return (
     <div className="flex flex-col gap-6">
       <header>
-        <Link href="/practice" className="text-xs text-stone-500 hover:text-stone-800">
+        <AppLink href="/practice" className="text-xs text-stone-500 hover:text-stone-800">
           Back to practice
-        </Link>
+        </AppLink>
         <h1 className="mt-2 text-2xl font-semibold text-stone-900">{meta.title}</h1>
         <p className="mt-1 text-sm text-stone-600">{meta.description}</p>
         {sessionCards.length > 0 && sessionCards.length < allCards.length ? (
