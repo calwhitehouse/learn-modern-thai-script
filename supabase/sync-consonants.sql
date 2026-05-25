@@ -7,50 +7,50 @@ select d.id, 'letter', v.prompt_text, v.answer_text, v.explanation, v.difficulty
 from public.decks d
 cross join (
   values
-    ('ก', 'ก', 'ก — กไก่ (Chicken)', 1),
-    ('ข', 'ข', 'ข — ขไข่ (Egg)', 1),
-    ('ฃ', 'ฃ', 'ฃ — ฃขวด (Bottle)', 2),
-    ('ค', 'ค', 'ค — ค ควาย (Water Buffalo)', 1),
-    ('ฅ', 'ฅ', 'ฅ — ฅ คน (Person)', 2),
-    ('ฆ', 'ฆ', 'ฆ — ฆ ระฆัง (Temple Bell)', 2),
-    ('ง', 'ง', 'ง — ง งู (Snake)', 1),
-    ('จ', 'จ', 'จ — จ จาน (Plate)', 1),
-    ('ฉ', 'ฉ', 'ฉ — ฉ ฉิ่ง (Small Cymbal)', 2),
-    ('ช', 'ช', 'ช — ช ช้าง (Elephant)', 1),
-    ('ซ', 'ซ', 'ซ — ซ โซ่ (Chain for Animals)', 1),
-    ('ฌ', 'ฌ', 'ฌ — ฌ เฌอ (Small Tree)', 2),
-    ('ญ', 'ญ', 'ญ — ญ หญิง (Woman)', 2),
-    ('ฎ', 'ฎ', 'ฎ — ฎ ชฎา (Dance Hat)', 2),
-    ('ฏ', 'ฏ', 'ฏ — ฏ ปฏัก (Harpoon)', 2),
-    ('ฐ', 'ฐ', 'ฐ — ฐ ฐาน (Pedestal)', 2),
-    ('ฑ', 'ฑ', 'ฑ — ฑ มณโฑ (Ramayana Character)', 2),
-    ('ฒ', 'ฒ', 'ฒ — ฒ ผู้เฒ่า (Old Man)', 2),
-    ('ณ', 'ณ', 'ณ — ณ เณร (Buddhist Monk)', 2),
-    ('ด', 'ด', 'ด — ด เด็ก (Child)', 1),
-    ('ต', 'ต', 'ต — ต เต่า (Turtle)', 1),
-    ('ถ', 'ถ', 'ถ — ถ ถุง (Shopping Bag)', 2),
-    ('ท', 'ท', 'ท — ท ทหาร (Soldier)', 1),
-    ('ธ', 'ธ', 'ธ — ธ ธง (Flag)', 2),
-    ('น', 'น', 'น — น หนู (Mouse)', 1),
-    ('บ', 'บ', 'บ — บ ใบไม้ (Leaf)', 1),
-    ('ป', 'ป', 'ป — ป ปลา (Fish)', 1),
-    ('ผ', 'ผ', 'ผ — ผ ผึ้ง (Bee)', 2),
-    ('ฝ', 'ฝ', 'ฝ — ฝ ฝา (Lid)', 2),
-    ('พ', 'พ', 'พ — พ พาน (Offering Tray)', 1),
-    ('ฟ', 'ฟ', 'ฟ — ฟ ฟัน (Tooth)', 2),
-    ('ภ', 'ภ', 'ภ — ภ สำเภา (Small Chinese Boat)', 2),
-    ('ม', 'ม', 'ม — ม ม้า (Horse)', 1),
-    ('ย', 'ย', 'ย — ย ยักษ์ (Demon / Giant)', 1),
-    ('ร', 'ร', 'ร — ร เรือ (Boat)', 1),
-    ('ล', 'ล', 'ล — ล ลิง (Monkey)', 1),
-    ('ว', 'ว', 'ว — ว แหวน (Ring)', 1),
-    ('ศ', 'ศ', 'ศ — ศ ศาลา (Gazebo / Pavilion)', 2),
-    ('ษ', 'ษ', 'ษ — ษ ฤๅษี (Hermit)', 2),
-    ('ส', 'ส', 'ส — ส เสือ (Tiger)', 1),
-    ('ห', 'ห', 'ห — ห หีบ (Box / Trunk)', 2),
-    ('ฬ', 'ฬ', 'ฬ — ฬ จุฬา (Kite)', 2),
-    ('อ', 'อ', 'อ — อ อ่าง (Tub / Bucket)', 1),
-    ('ฮ', 'ฮ', 'ฮ — ฮ นกฮูก (Owl)', 2)
+    ('ก', 'ก', 'ก — gaaw gài (Chicken)', 1),
+    ('ข', 'ข', 'ข — khǎaw khài (Egg)', 1),
+    ('ฃ', 'ฃ', 'ฃ — khǎaw khùuat (Bottle)', 2),
+    ('ค', 'ค', 'ค — khaaw khwaai (Water Buffalo)', 1),
+    ('ฅ', 'ฅ', 'ฅ — khaaw khon (Person)', 2),
+    ('ฆ', 'ฆ', 'ฆ — khaaw rá-khang (Temple Bell)', 2),
+    ('ง', 'ง', 'ง — ngaaw nguu (Snake)', 1),
+    ('จ', 'จ', 'จ — jaaw jaan (Plate)', 1),
+    ('ฉ', 'ฉ', 'ฉ — chǎaw chìng (Small Cymbal)', 2),
+    ('ช', 'ช', 'ช — chaaw cháang (Elephant)', 1),
+    ('ซ', 'ซ', 'ซ — saaw sôo (Chain for Animals)', 1),
+    ('ฌ', 'ฌ', 'ฌ — chaaw chuuhr (Small Tree)', 2),
+    ('ญ', 'ญ', 'ญ — yaaw yǐng (Woman)', 2),
+    ('ฎ', 'ฎ', 'ฎ — daaw chá-daa (Dance Hat)', 2),
+    ('ฏ', 'ฏ', 'ฏ — dtaaw bpà-dtàk (Harpoon)', 2),
+    ('ฐ', 'ฐ', 'ฐ — thǎaw thǎan (Pedestal)', 2),
+    ('ฑ', 'ฑ', 'ฑ — thaaw mon-thoo (Ramayana Character)', 2),
+    ('ฒ', 'ฒ', 'ฒ — thaaw phûu-thâo (Old Man)', 2),
+    ('ณ', 'ณ', 'ณ — naaw neen (Buddhist Monk)', 2),
+    ('ด', 'ด', 'ด — daaw dèk (Child)', 1),
+    ('ต', 'ต', 'ต — dtaaw dtào (Turtle)', 1),
+    ('ถ', 'ถ', 'ถ — thǎaw thǔng (Shopping Bag)', 2),
+    ('ท', 'ท', 'ท — thaaw thá-hǎan (Soldier)', 1),
+    ('ธ', 'ธ', 'ธ — thaaw thong (Flag)', 2),
+    ('น', 'น', 'น — naaw nǔu (Mouse)', 1),
+    ('บ', 'บ', 'บ — baaw bai-máai (Leaf)', 1),
+    ('ป', 'ป', 'ป — bpaaw bplaa (Fish)', 1),
+    ('ผ', 'ผ', 'ผ — phǎaw phûeng (Bee)', 2),
+    ('ฝ', 'ฝ', 'ฝ — fǎaw fǎa (Lid)', 2),
+    ('พ', 'พ', 'พ — phaaw phaan (Offering Tray)', 1),
+    ('ฟ', 'ฟ', 'ฟ — faaw fan (Tooth)', 2),
+    ('ภ', 'ภ', 'ภ — phaaw sǎm phao (Small Chinese Boat)', 2),
+    ('ม', 'ม', 'ม — maaw máa (Horse)', 1),
+    ('ย', 'ย', 'ย — yaaw yák (Demon / Giant)', 1),
+    ('ร', 'ร', 'ร — raaw ruuea (Boat)', 1),
+    ('ล', 'ล', 'ล — laaw ling (Monkey)', 1),
+    ('ว', 'ว', 'ว — waaw wǎaen (Ring)', 1),
+    ('ศ', 'ศ', 'ศ — sǎaw sǎa-laa (Gazebo / Pavilion)', 2),
+    ('ษ', 'ษ', 'ษ — sǎaw ruue-sǐi (Hermit)', 2),
+    ('ส', 'ส', 'ส — sǎaw sǔuea (Tiger)', 1),
+    ('ห', 'ห', 'ห — hǎaw hìip (Box / Trunk)', 2),
+    ('ฬ', 'ฬ', 'ฬ — laaw jù-laa (Kite)', 2),
+    ('อ', 'อ', 'อ — aaw àang (Tub / Bucket)', 1),
+    ('ฮ', 'ฮ', 'ฮ — haaw nók-hûuk (Owl)', 2)
 ) as v(prompt_text, answer_text, explanation, difficulty)
 where d.slug = 'letters'
   and not exists (
@@ -61,50 +61,50 @@ where d.slug = 'letters'
 update public.cards c
 set
   explanation = case c.prompt_text
-    when 'ก' then 'ก — กไก่ (Chicken)'
-    when 'ข' then 'ข — ขไข่ (Egg)'
-    when 'ฃ' then 'ฃ — ฃขวด (Bottle)'
-    when 'ค' then 'ค — ค ควาย (Water Buffalo)'
-    when 'ฅ' then 'ฅ — ฅ คน (Person)'
-    when 'ฆ' then 'ฆ — ฆ ระฆัง (Temple Bell)'
-    when 'ง' then 'ง — ง งู (Snake)'
-    when 'จ' then 'จ — จ จาน (Plate)'
-    when 'ฉ' then 'ฉ — ฉ ฉิ่ง (Small Cymbal)'
-    when 'ช' then 'ช — ช ช้าง (Elephant)'
-    when 'ซ' then 'ซ — ซ โซ่ (Chain for Animals)'
-    when 'ฌ' then 'ฌ — ฌ เฌอ (Small Tree)'
-    when 'ญ' then 'ญ — ญ หญิง (Woman)'
-    when 'ฎ' then 'ฎ — ฎ ชฎา (Dance Hat)'
-    when 'ฏ' then 'ฏ — ฏ ปฏัก (Harpoon)'
-    when 'ฐ' then 'ฐ — ฐ ฐาน (Pedestal)'
-    when 'ฑ' then 'ฑ — ฑ มณโฑ (Ramayana Character)'
-    when 'ฒ' then 'ฒ — ฒ ผู้เฒ่า (Old Man)'
-    when 'ณ' then 'ณ — ณ เณร (Buddhist Monk)'
-    when 'ด' then 'ด — ด เด็ก (Child)'
-    when 'ต' then 'ต — ต เต่า (Turtle)'
-    when 'ถ' then 'ถ — ถ ถุง (Shopping Bag)'
-    when 'ท' then 'ท — ท ทหาร (Soldier)'
-    when 'ธ' then 'ธ — ธ ธง (Flag)'
-    when 'น' then 'น — น หนู (Mouse)'
-    when 'บ' then 'บ — บ ใบไม้ (Leaf)'
-    when 'ป' then 'ป — ป ปลา (Fish)'
-    when 'ผ' then 'ผ — ผ ผึ้ง (Bee)'
-    when 'ฝ' then 'ฝ — ฝ ฝา (Lid)'
-    when 'พ' then 'พ — พ พาน (Offering Tray)'
-    when 'ฟ' then 'ฟ — ฟ ฟัน (Tooth)'
-    when 'ภ' then 'ภ — ภ สำเภา (Small Chinese Boat)'
-    when 'ม' then 'ม — ม ม้า (Horse)'
-    when 'ย' then 'ย — ย ยักษ์ (Demon / Giant)'
-    when 'ร' then 'ร — ร เรือ (Boat)'
-    when 'ล' then 'ล — ล ลิง (Monkey)'
-    when 'ว' then 'ว — ว แหวน (Ring)'
-    when 'ศ' then 'ศ — ศ ศาลา (Gazebo / Pavilion)'
-    when 'ษ' then 'ษ — ษ ฤๅษี (Hermit)'
-    when 'ส' then 'ส — ส เสือ (Tiger)'
-    when 'ห' then 'ห — ห หีบ (Box / Trunk)'
-    when 'ฬ' then 'ฬ — ฬ จุฬา (Kite)'
-    when 'อ' then 'อ — อ อ่าง (Tub / Bucket)'
-    when 'ฮ' then 'ฮ — ฮ นกฮูก (Owl)'
+    when 'ก' then 'ก — gaaw gài (Chicken)'
+    when 'ข' then 'ข — khǎaw khài (Egg)'
+    when 'ฃ' then 'ฃ — khǎaw khùuat (Bottle)'
+    when 'ค' then 'ค — khaaw khwaai (Water Buffalo)'
+    when 'ฅ' then 'ฅ — khaaw khon (Person)'
+    when 'ฆ' then 'ฆ — khaaw rá-khang (Temple Bell)'
+    when 'ง' then 'ง — ngaaw nguu (Snake)'
+    when 'จ' then 'จ — jaaw jaan (Plate)'
+    when 'ฉ' then 'ฉ — chǎaw chìng (Small Cymbal)'
+    when 'ช' then 'ช — chaaw cháang (Elephant)'
+    when 'ซ' then 'ซ — saaw sôo (Chain for Animals)'
+    when 'ฌ' then 'ฌ — chaaw chuuhr (Small Tree)'
+    when 'ญ' then 'ญ — yaaw yǐng (Woman)'
+    when 'ฎ' then 'ฎ — daaw chá-daa (Dance Hat)'
+    when 'ฏ' then 'ฏ — dtaaw bpà-dtàk (Harpoon)'
+    when 'ฐ' then 'ฐ — thǎaw thǎan (Pedestal)'
+    when 'ฑ' then 'ฑ — thaaw mon-thoo (Ramayana Character)'
+    when 'ฒ' then 'ฒ — thaaw phûu-thâo (Old Man)'
+    when 'ณ' then 'ณ — naaw neen (Buddhist Monk)'
+    when 'ด' then 'ด — daaw dèk (Child)'
+    when 'ต' then 'ต — dtaaw dtào (Turtle)'
+    when 'ถ' then 'ถ — thǎaw thǔng (Shopping Bag)'
+    when 'ท' then 'ท — thaaw thá-hǎan (Soldier)'
+    when 'ธ' then 'ธ — thaaw thong (Flag)'
+    when 'น' then 'น — naaw nǔu (Mouse)'
+    when 'บ' then 'บ — baaw bai-máai (Leaf)'
+    when 'ป' then 'ป — bpaaw bplaa (Fish)'
+    when 'ผ' then 'ผ — phǎaw phûeng (Bee)'
+    when 'ฝ' then 'ฝ — fǎaw fǎa (Lid)'
+    when 'พ' then 'พ — phaaw phaan (Offering Tray)'
+    when 'ฟ' then 'ฟ — faaw fan (Tooth)'
+    when 'ภ' then 'ภ — phaaw sǎm phao (Small Chinese Boat)'
+    when 'ม' then 'ม — maaw máa (Horse)'
+    when 'ย' then 'ย — yaaw yák (Demon / Giant)'
+    when 'ร' then 'ร — raaw ruuea (Boat)'
+    when 'ล' then 'ล — laaw ling (Monkey)'
+    when 'ว' then 'ว — waaw wǎaen (Ring)'
+    when 'ศ' then 'ศ — sǎaw sǎa-laa (Gazebo / Pavilion)'
+    when 'ษ' then 'ษ — sǎaw ruue-sǐi (Hermit)'
+    when 'ส' then 'ส — sǎaw sǔuea (Tiger)'
+    when 'ห' then 'ห — hǎaw hìip (Box / Trunk)'
+    when 'ฬ' then 'ฬ — laaw jù-laa (Kite)'
+    when 'อ' then 'อ — aaw àang (Tub / Bucket)'
+    when 'ฮ' then 'ฮ — haaw nók-hûuk (Owl)'
     else c.explanation
   end,
   difficulty = case c.prompt_text

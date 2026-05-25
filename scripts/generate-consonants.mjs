@@ -48,11 +48,12 @@ function sqlEscape(value) {
   return value.replace(/'/g, "''");
 }
 
+/** e.g. ฎ — daaw chá-daa (Dance Hat) — Phonetic + Meaning from CSV */
 function explanation(row) {
   const letter = row["Thai Letter"];
-  const word = row["Thai Word"];
+  const phonetic = row.Phonetic;
   const meaning = row.Meaning;
-  return `${letter} — ${word} (${meaning})`;
+  return `${letter} — ${phonetic} (${meaning})`;
 }
 
 function difficulty(row) {
