@@ -8,6 +8,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
   --font-thai-modern: var(--font-thai-modern);
   --font-thai-looped: var(--font-thai-looped);
 }
@@ -15,6 +16,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
 .font-thai-modern {
