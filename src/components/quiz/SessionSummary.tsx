@@ -17,7 +17,7 @@ export function SessionSummary({ total, correct, onDone }: SessionSummaryProps) 
   const message = sessionMessage(correct, total, accuracy);
 
   return (
-    <section className="mx-auto flex w-full max-w-lg flex-col gap-6 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
+    <section className="flex w-full flex-col gap-6 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
       <div>
         <h2 className="text-lg font-semibold text-stone-900 text-center">Session complete</h2>
         <p className="mt-1 text-base font-semibold text-stone-600 text-center">{message}</p>

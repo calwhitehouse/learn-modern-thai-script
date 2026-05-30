@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { LoopedLetterGrid } from "@/components/quiz/LoopedLetterGrid";
+import { QuizCard, QuizThaiBlock } from "@/components/quiz/QuizCard";
 import { QuizSuccessPanel } from "@/components/quiz/QuizSuccessPanel";
 import { SessionSummary } from "@/components/quiz/SessionSummary";
 import { useScrollToRefWhen } from "@/hooks/useScrollToRefWhen";
@@ -93,20 +94,22 @@ export function LetterPickQuiz({ deckId, cards, finishHref }: LetterPickQuizProp
   };
 
   return (
-    <section className="mx-auto flex w-full max-w-lg flex-col gap-5">
+    <section className="flex w-full flex-col gap-5">
       <p className="text-xs text-stone-500">
         Card {index + 1} of {queue.length}
       </p>
 
-      <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
+      <QuizCard>
         <p className="text-sm text-stone-600">Modern Script</p>
-        <ThaiText variant="modern" className="mt-3 block text-5xl">
-          {card.prompt_text}
-        </ThaiText>
+        <QuizThaiBlock className="mt-2">
+          <ThaiText variant="modern" className="block text-5xl">
+            {card.prompt_text}
+          </ThaiText>
+        </QuizThaiBlock>
         <p className="mt-4 text-sm text-stone-600">
           Tap the matching old-style looped letter below.
         </p>
-      </div>
+      </QuizCard>
 
       {answerState && (
         <QuizSuccessPanel ref={successRef}>

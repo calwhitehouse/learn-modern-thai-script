@@ -27,9 +27,20 @@ body {
   font-family: var(--font-thai-looped), system-ui, sans-serif;
 }
 
+.app-container {
+  width: 100%;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 /* App nav: burger on small screens, horizontal pills on desktop */
 .app-nav-desktop {
   display: none;
+  flex-wrap: wrap;
+  overflow-x: hidden;
 }
 
 .app-nav-burger {

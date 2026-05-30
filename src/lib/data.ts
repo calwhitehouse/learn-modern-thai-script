@@ -22,13 +22,25 @@ export const DECK_META: Record<
   },
 };
 
-export const NAV_ITEMS = [
-  { href: "/dashboard", label: "Home" },
+export type NavItem = { href: string; label: string };
+
+export const PUBLIC_NAV_ITEMS: readonly NavItem[] = [
+  { href: "/", label: "Home" },
+  { href: "/login", label: "Login" },
+];
+
+export const AUTH_NAV_ITEMS: readonly NavItem[] = [
+  { href: "/", label: "Home" },
+  { href: "/dashboard", label: "Dashboard" },
   { href: "/practice", label: "Practice" },
   { href: "/review", label: "Review" },
   { href: "/progress", label: "Progress" },
   { href: "/about", label: "About" },
-] as const;
+];
+
+export function getNavItemsForUser(isAuthenticated: boolean): readonly NavItem[] {
+  return isAuthenticated ? AUTH_NAV_ITEMS : PUBLIC_NAV_ITEMS;
+}
 
 /** Add entries here for Privacy Policy and other footer links. */
 export const FOOTER_LINKS: { href: string; label: string }[] = [

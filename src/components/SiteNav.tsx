@@ -1,10 +1,11 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { NavLink } from "@/components/NavLink";
-import { NAV_ITEMS } from "@/lib/data";
+import { useNavigationLoading } from "@/components/NavigationLoading";
+import type { NavItem } from "@/lib/data";
 import { cn } from "@/lib/cn";
 import { signOut } from "@/app/actions/auth";
 
@@ -35,8 +36,19 @@ function MenuIcon({ open }: { open: boolean }) {
   );
 }
 
-export function AppNav() {
+function isNavActive(pathname: string, href: string): boolean {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+type SiteNavProps = {
+  items: readonly NavItem[];
+  showSignOut?: boolean;
+};
+
+export function SiteNav({ items, showSignOut = false }: SiteNavProps) {
   const pathname = usePathname();
+  const startNavigation = useNavigationLoading();
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -56,10 +68,11 @@ export function AppNav() {
 
   return (
     <header className="border-b border-stone-200 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex max-w-lg flex-col gap-3 px-4 py-3">
+      <div className="app-container flex flex-col gap-3 py-3">
         <div className="flex items-center justify-between gap-3">
           <Link
-            href="/dashboard"
+            href="/"
+            onClick={() => startNavigation?.()}
             className="min-w-0 flex-1 truncate text-sm font-semibold tracking-tight text-stone-900"
           >
             Learn Modern Thai Script
@@ -77,28 +90,31 @@ export function AppNav() {
               <MenuIcon open={menuOpen} />
             </button>
 
-            <form action={signOut} className="app-nav-auth-desktop">
-              <button
-                type="submit"
-                className="text-xs text-stone-500 underline-offset-2 hover:text-stone-800 hover:underline"
-              >
-                Sign out
-              </button>
-            </form>
+            {showSignOut ? (
+              <form action={signOut} className="app-nav-auth-desktop">
+                <button
+                  type="submit"
+                  className="text-xs text-stone-500 underline-offset-2 hover:text-stone-800 hover:underline"
+                >
+                  Sign out
+                </button>
+              </form>
+            ) : null}
           </div>
         </div>
 
         <nav
-          className="app-nav-desktop gap-1 overflow-x-auto pb-1 text-sm"
+          className="app-nav-desktop gap-1 pb-1 text-sm"
           aria-label="Main"
         >
-          {NAV_ITEMS.map((item) => {
-            const active =
-              pathname === item.href || pathname.startsWith(`${item.href}/`);
-            return (
-              <NavLink key={item.href} href={item.href} label={item.label} active={active} />
-            );
-          })}
+          {items.map((item) => (
+            <NavLink
+              key={item.href}
+              href={item.href}
+              label={item.label}
+              active={isNavActive(pathname, item.href)}
+            />
+          ))}
         </nav>
 
         <nav
@@ -109,28 +125,29 @@ export function AppNav() {
           )}
           aria-label="Main"
         >
-          {NAV_ITEMS.map((item) => {
-            const active =
-              pathname === item.href || pathname.startsWith(`${item.href}/`);
-            return (
-              <NavLink
-                key={item.href}
-                href={item.href}
-                label={item.label}
-                active={active}
-                layout="stack"
-                onNavigate={closeMenu}
-              />
-            );
-          })}
-          <form action={signOut} className="app-nav-auth-mobile mt-2 border-t border-stone-200 pt-2">
-            <button
-              type="submit"
-              className="w-full rounded-lg px-3 py-2.5 text-left text-base text-stone-600 hover:bg-stone-100"
+          {items.map((item) => (
+            <NavLink
+              key={item.href}
+              href={item.href}
+              label={item.label}
+              active={isNavActive(pathname, item.href)}
+              layout="stack"
+              onNavigate={closeMenu}
+            />
+          ))}
+          {showSignOut ? (
+            <form
+              action={signOut}
+              className="app-nav-auth-mobile mt-2 border-t border-stone-200 pt-2"
             >
-              Sign out
-            </button>
-          </form>
+              <button
+                type="submit"
+                className="w-full rounded-lg px-3 py-2.5 text-left text-base text-stone-600 hover:bg-stone-100"
+              >
+                Sign out
+              </button>
+            </form>
+          ) : null}
         </nav>
       </div>
     </header>

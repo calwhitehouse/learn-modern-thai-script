@@ -1,4 +1,4 @@
-﻿import { LoginFormsLoader } from "@/components/LoginFormsLoader";
+import { LoginFormsLoader } from "@/components/LoginFormsLoader";
 
 type LoginPageProps = {
   searchParams: Promise<{ error?: string; message?: string; next?: string; mode?: string }>;
@@ -22,10 +22,12 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
     ) : null;
 
   return (
-    <div className="mx-auto flex min-h-full w-full max-w-md flex-col justify-center px-4 py-10">
+    <div className="mx-auto flex w-full max-w-md flex-col justify-center py-4">
       <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
-        <h1 className="text-xl font-semibold text-stone-900 text-center">Learn Modern Thai Script</h1>
-        <p className="mt-2 text-sm text-stone-600 text-center">
+        <h1 className="text-center text-xl font-semibold text-stone-900">
+          Learn Modern Thai Script
+        </h1>
+        <p className="mt-2 text-center text-sm text-stone-600">
           Sign in to practice learning modern Thai script.
         </p>
 
@@ -42,7 +44,6 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
         ) : null}
 
         <LoginFormsLoader next={next} isSignup={isSignup} />
-
       </div>
     </div>
   );

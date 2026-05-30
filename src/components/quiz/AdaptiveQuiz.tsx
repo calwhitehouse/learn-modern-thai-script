@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { LoopedLetterGrid } from "@/components/quiz/LoopedLetterGrid";
+import { QuizCard, QuizSpellingTrack, QuizThaiBlock } from "@/components/quiz/QuizCard";
 import { QuizSuccessPanel } from "@/components/quiz/QuizSuccessPanel";
 import { SessionSummary } from "@/components/quiz/SessionSummary";
 import { useScrollToRefWhen } from "@/hooks/useScrollToRefWhen";
@@ -141,19 +142,21 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
   const showSuccess = Boolean(letterAnswer || spellingDone);
 
   return (
-    <section className="mx-auto flex w-full max-w-lg flex-col gap-5">
+    <section className="flex w-full flex-col gap-5">
       <p className="text-xs text-stone-500">
         Card {index + 1} of {queue.length}
       </p>
 
-      <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
-        <p className="text-sm text-stone-600">Modern (Prompt)</p>
-        <ThaiText
-          variant="modern"
-          className={cn("mt-3 block leading-relaxed", isLetter ? "text-5xl" : "text-4xl")}
-        >
-          {card.prompt_text}
-        </ThaiText>
+      <QuizCard>
+        <p className="text-sm text-stone-600">Modern Script</p>
+        <QuizThaiBlock className="mt-2">
+          <ThaiText
+            variant="modern"
+            className={cn("block leading-relaxed", isLetter ? "text-5xl" : "text-4xl")}
+          >
+            {card.prompt_text}
+          </ThaiText>
+        </QuizThaiBlock>
         <p className="mt-4 text-sm text-stone-600">
           {isLetter
             ? "Tap the matching looped letter below"
@@ -162,12 +165,12 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
 
         {!isLetter && (
           <>
-            <div className="mt-4 flex min-h-[3rem] flex-wrap items-center gap-1 rounded-lg bg-stone-50 px-3 py-2">
+            <QuizSpellingTrack>
               {segments.map((seg, i) => (
                 <span
                   key={`${card.id}-slot-${i}-${seg}`}
                   className={cn(
-                    "inline-flex min-w-[2rem] items-center justify-center border-b-2 border-stone-300 px-1",
+                    "inline-flex min-w-[2rem] items-center justify-center border-b-2 border-stone-300 px-2",
                     picked[i] && "border-emerald-600",
                   )}
                 >
@@ -180,18 +183,20 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
                   )}
                 </span>
               ))}
-            </div>
+            </QuizSpellingTrack>
             {built.length > 0 && (
-              <p className="mt-3 text-xs text-stone-500">
-                Your looped text:{" "}
-                <ThaiText variant="looped" className="text-lg">
-                  {built}
-                </ThaiText>
-              </p>
+              <div className="mt-3">
+                <p className="text-xs text-stone-500">Your looped text:</p>
+                <QuizThaiBlock className="mt-1 py-0">
+                  <ThaiText variant="looped" className="text-lg">
+                    {built}
+                  </ThaiText>
+                </QuizThaiBlock>
+              </div>
             )}
           </>
         )}
-      </div>
+      </QuizCard>
 
       {showSuccess && (
         <QuizSuccessPanel ref={successRef}>
@@ -205,12 +210,14 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
             </p>
           )}
           {!isLetter && (
-            <p className="mt-2">
-              Answer:{" "}
-              <ThaiText variant="looped" className="text-xl">
-                {card.answer_text}
-              </ThaiText>
-            </p>
+            <QuizThaiBlock className="mt-2">
+              <p>
+                Answer:{" "}
+                <ThaiText variant="looped" className="text-xl">
+                  {card.answer_text}
+                </ThaiText>
+              </p>
+            </QuizThaiBlock>
           )}
           {card.explanation ? (
             <p className="mt-2">English: {card.explanation}</p>

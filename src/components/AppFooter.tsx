@@ -9,8 +9,8 @@ export function AppFooter() {
       <div
         className={
           hasLinks
-            ? "mx-auto flex max-w-lg flex-col items-center gap-3 px-4 py-6 text-sm text-stone-500 sm:flex-row sm:justify-between"
-            : "mx-auto max-w-lg px-4 py-6 text-center text-sm text-stone-500"
+            ? "app-container flex flex-col items-center gap-3 py-6 text-sm text-stone-500 sm:flex-row sm:justify-between"
+            : "app-container py-6 text-center text-sm text-stone-500"
         }
       >
         <p>Built by Callum Whitehouse</p>

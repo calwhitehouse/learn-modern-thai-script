@@ -58,14 +58,15 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Sign up on `/login`, then practice from `/dashboard`.
+Open [http://localhost:3000](http://localhost:3000) for the public letter reference. Sign up on `/login`, then practice from `/dashboard`.
 
 ## Routes
 
 | Route | Description |
 |-------|-------------|
+| `/` | Public letter reference (modern vs looped script) |
 | `/login` | Email/password sign in and sign up |
-| `/dashboard` | Overview and deck shortcuts |
+| `/dashboard` | Signed-in overview and deck shortcuts |
 | `/practice` | Deck list |
 | `/practice/[deckSlug]` | Quiz (`letters`, `words`, `sentences`) |
 | `/review` | Due cards (SRS) |

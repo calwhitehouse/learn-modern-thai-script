@@ -9,7 +9,7 @@ export const QuizSuccessPanel = forwardRef<HTMLDivElement, QuizSuccessPanelProps
     return (
       <div
         ref={ref}
-        className="scroll-mt-4 rounded-xl border border-green-400 bg-green-100 p-4 text-sm text-stone-700"
+        className="scroll-mt-4 rounded-xl border border-green-400 bg-green-100 px-5 py-4 text-sm text-stone-700"
       >
         {children}
       </div>
