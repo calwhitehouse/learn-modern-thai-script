@@ -1,7 +1,7 @@
-import { useEffect, type RefObject } from "react";
+import { useLayoutEffect, type RefObject } from "react";
 
 type ScrollOptions = {
-  /** When true (default), only scroll on narrow / touch viewports. */
+  /** When true, only scroll on narrow / touch viewports. */
   mobileOnly?: boolean;
 };
 
@@ -18,16 +18,18 @@ export function useScrollToRefWhen(
   ref: RefObject<HTMLElement | null>,
   options: ScrollOptions = {},
 ) {
-  const { mobileOnly = true } = options;
+  const { mobileOnly = false } = options;
 
-  useEffect(() => {
-    if (!active || !ref.current) return;
+  useLayoutEffect(() => {
+    if (!active) return;
     if (!shouldScrollOnDevice(mobileOnly)) return;
 
-    const frame = requestAnimationFrame(() => {
+    const scroll = () => {
       ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-    });
+    };
 
-    return () => cancelAnimationFrame(frame);
-  }, [active, mobileOnly]);
+    scroll();
+    const retry = window.setTimeout(scroll, 50);
+    return () => window.clearTimeout(retry);
+  }, [active, mobileOnly, ref]);
 }

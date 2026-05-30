@@ -1,3 +1,4 @@
+import { ThaiText } from "@/components/ThaiText";
 import { cn } from "@/lib/cn";
 
 type QuizCardProps = {
@@ -10,7 +11,7 @@ export function QuizCard({ children, className }: QuizCardProps) {
   return (
     <div
       className={cn(
-        "rounded-2xl border border-stone-200 bg-white p-6 shadow-sm",
+        "rounded-2xl border border-stone-200 bg-white p-6 text-center shadow-sm",
         className,
       )}
     >
@@ -27,9 +28,39 @@ type QuizThaiBlockProps = {
 /** Extra horizontal inset so Thai glyphs (especially leading vowels) are not tight on the card edge. */
 export function QuizThaiBlock({ children, className }: QuizThaiBlockProps) {
   return (
-    <div className={cn("overflow-visible py-1 ps-4 pe-3 sm:ps-5 sm:pe-4", className)}>
+    <div className={cn("overflow-visible px-4 py-1 sm:px-5", className)}>
       {children}
     </div>
+  );
+}
+
+type QuizPromptTextProps = {
+  children: React.ReactNode;
+  variant?: "modern" | "looped";
+  size?: "letter" | "word";
+  className?: string;
+};
+
+/** Large Thai prompt line on quiz cards (modern or looped). */
+export function QuizPromptText({
+  children,
+  variant = "modern",
+  size = "word",
+  className,
+}: QuizPromptTextProps) {
+  return (
+    <QuizThaiBlock className="mt-2">
+      <ThaiText
+        variant={variant}
+        className={cn(
+          "block",
+          size === "letter" ? "text-5xl leading-none" : "text-4xl leading-relaxed",
+          className,
+        )}
+      >
+        {children}
+      </ThaiText>
+    </QuizThaiBlock>
   );
 }
 
@@ -43,7 +74,7 @@ export function QuizSpellingTrack({ children, className }: QuizSpellingTrackProp
   return (
     <div
       className={cn(
-        "mt-4 flex min-h-[3rem] flex-wrap items-center gap-2 rounded-lg bg-stone-50 py-3 ps-5 pe-4",
+        "mt-4 flex min-h-[3rem] flex-wrap items-center justify-center gap-2 rounded-lg bg-stone-50 px-3 py-2",
         className,
       )}
     >

@@ -2,8 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { LoopedLetterGrid } from "@/components/quiz/LoopedLetterGrid";
-import { QuizCard, QuizThaiBlock } from "@/components/quiz/QuizCard";
-import { QuizSuccessPanel } from "@/components/quiz/QuizSuccessPanel";
+import { QuizCard, QuizPromptText } from "@/components/quiz/QuizCard";
+import {
+  QuizSuccessExplanation,
+  QuizSuccessPanel,
+} from "@/components/quiz/QuizSuccessPanel";
 import { SessionSummary } from "@/components/quiz/SessionSummary";
 import { useScrollToRefWhen } from "@/hooks/useScrollToRefWhen";
 import { useQuizSession } from "@/components/quiz/useQuizSession";
@@ -101,11 +104,7 @@ export function LetterPickQuiz({ deckId, cards, finishHref }: LetterPickQuizProp
 
       <QuizCard>
         <p className="text-sm text-stone-600">Modern Script</p>
-        <QuizThaiBlock className="mt-2">
-          <ThaiText variant="modern" className="block text-5xl">
-            {card.prompt_text}
-          </ThaiText>
-        </QuizThaiBlock>
+        <QuizPromptText size="letter">{card.prompt_text}</QuizPromptText>
         <p className="mt-4 text-sm text-stone-600">
           Tap the matching old-style looped letter below.
         </p>
@@ -115,7 +114,7 @@ export function LetterPickQuiz({ deckId, cards, finishHref }: LetterPickQuizProp
         <QuizSuccessPanel ref={successRef}>
           <p className="text-emerald-800 font-semibold text-lg">Correct</p>
           {card.explanation ? (
-            <p className="mt-2 text-lg">{card.explanation}</p>
+            <QuizSuccessExplanation text={card.explanation} />
           ) : null}
           <button
             type="button"

@@ -2,8 +2,11 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { LoopedLetterGrid } from "@/components/quiz/LoopedLetterGrid";
-import { QuizCard, QuizSpellingTrack, QuizThaiBlock } from "@/components/quiz/QuizCard";
-import { QuizSuccessPanel } from "@/components/quiz/QuizSuccessPanel";
+import { QuizCard, QuizPromptText, QuizSpellingTrack } from "@/components/quiz/QuizCard";
+import {
+  QuizSuccessExplanation,
+  QuizSuccessPanel,
+} from "@/components/quiz/QuizSuccessPanel";
 import { SessionSummary } from "@/components/quiz/SessionSummary";
 import { useScrollToRefWhen } from "@/hooks/useScrollToRefWhen";
 import { useQuizSession } from "@/components/quiz/useQuizSession";
@@ -120,11 +123,7 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
 
       <QuizCard>
         <p className="text-sm text-stone-600">Modern Script</p>
-        <QuizThaiBlock className="mt-2">
-          <ThaiText variant="modern" className="block text-4xl leading-relaxed">
-            {card.prompt_text}
-          </ThaiText>
-        </QuizThaiBlock>
+        <QuizPromptText>{card.prompt_text}</QuizPromptText>
         <p className="mt-4 text-sm text-stone-600">
           Tap each looped letter in order ({picked.length}/{segments.length})
         </p>
@@ -150,13 +149,11 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
         </QuizSpellingTrack>
 
         {built.length > 0 && (
-          <div className="mt-3">
+          <div>
             <p className="text-xs text-stone-500">Your looped text:</p>
-            <QuizThaiBlock className="mt-1 py-0">
-              <ThaiText variant="looped" className="text-lg">
-                {built}
-              </ThaiText>
-            </QuizThaiBlock>
+            <ThaiText as="div" variant="looped" className="mt-1 w-full text-lg">
+              {built}
+            </ThaiText>
           </div>
         )}
       </QuizCard>
@@ -168,16 +165,14 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
               ? "Completed — there was at least one wrong choice."
               : "Correct — perfect spelling."}
           </p>
-          <QuizThaiBlock className="mt-2">
-            <p>
-              Answer:{" "}
-              <ThaiText variant="looped" className="text-xl">
-                {card.answer_text}
-              </ThaiText>
-            </p>
-          </QuizThaiBlock>
+          <p className="mt-2">
+            Answer:{" "}
+            <ThaiText variant="looped" className="text-xl">
+              {card.answer_text}
+            </ThaiText>
+          </p>
           {card.explanation ? (
-            <p className="mt-2">English: {card.explanation}</p>
+            <QuizSuccessExplanation text={card.explanation} prefix="English: " />
           ) : null}
           <button
             type="button"

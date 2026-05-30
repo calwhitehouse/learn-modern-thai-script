@@ -2,8 +2,11 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { LoopedLetterGrid } from "@/components/quiz/LoopedLetterGrid";
-import { QuizCard, QuizSpellingTrack, QuizThaiBlock } from "@/components/quiz/QuizCard";
-import { QuizSuccessPanel } from "@/components/quiz/QuizSuccessPanel";
+import { QuizCard, QuizPromptText, QuizSpellingTrack } from "@/components/quiz/QuizCard";
+import {
+  QuizSuccessExplanation,
+  QuizSuccessPanel,
+} from "@/components/quiz/QuizSuccessPanel";
 import { SessionSummary } from "@/components/quiz/SessionSummary";
 import { useScrollToRefWhen } from "@/hooks/useScrollToRefWhen";
 import { useQuizSession } from "@/components/quiz/useQuizSession";
@@ -149,14 +152,9 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
 
       <QuizCard>
         <p className="text-sm text-stone-600">Modern Script</p>
-        <QuizThaiBlock className="mt-2">
-          <ThaiText
-            variant="modern"
-            className={cn("block leading-relaxed", isLetter ? "text-5xl" : "text-4xl")}
-          >
-            {card.prompt_text}
-          </ThaiText>
-        </QuizThaiBlock>
+        <QuizPromptText size={isLetter ? "letter" : "word"}>
+          {card.prompt_text}
+        </QuizPromptText>
         <p className="mt-4 text-sm text-stone-600">
           {isLetter
             ? "Tap the matching looped letter below"
@@ -185,13 +183,11 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
               ))}
             </QuizSpellingTrack>
             {built.length > 0 && (
-              <div className="mt-3">
+              <div>
                 <p className="text-xs text-stone-500">Your looped text:</p>
-                <QuizThaiBlock className="mt-1 py-0">
-                  <ThaiText variant="looped" className="text-lg">
-                    {built}
-                  </ThaiText>
-                </QuizThaiBlock>
+                <ThaiText as="div" variant="looped" className="mt-1 w-full text-lg">
+                  {built}
+                </ThaiText>
               </div>
             )}
           </>
@@ -210,17 +206,15 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
             </p>
           )}
           {!isLetter && (
-            <QuizThaiBlock className="mt-2">
-              <p>
-                Answer:{" "}
-                <ThaiText variant="looped" className="text-xl">
-                  {card.answer_text}
-                </ThaiText>
-              </p>
-            </QuizThaiBlock>
+            <p className="mt-2">
+              Answer:{" "}
+              <ThaiText variant="looped" className="text-xl">
+                {card.answer_text}
+              </ThaiText>
+            </p>
           )}
           {card.explanation ? (
-            <p className="mt-2">English: {card.explanation}</p>
+            <QuizSuccessExplanation text={card.explanation} prefix="English: " />
           ) : null}
           <button
             type="button"
