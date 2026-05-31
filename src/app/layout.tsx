@@ -41,6 +41,9 @@ const sarabun = Sarabun({
 export const metadata: Metadata = {
   title: "Learn Modern Thai Script",
   description: "Practice reading modern Thai script from looped letterforms.",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

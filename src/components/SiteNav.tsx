@@ -73,9 +73,15 @@ export function SiteNav({ items, showSignOut = false }: SiteNavProps) {
           <Link
             href="/"
             onClick={() => startNavigation?.()}
-            className="min-w-0 flex-1 truncate text-sm font-semibold tracking-tight text-stone-900"
+            className="inline-flex min-w-0 flex-1 items-center"
           >
-            Learn Modern Thai Script
+            <img
+              src="/learn-modern-thai-script-logo.png"
+              alt="Learn Modern Thai Script"
+              width={300}
+              height={100}
+              className="h-11 w-auto max-w-[min(100%,20rem)] object-contain object-left"
+            />
           </Link>
 
           <div className="flex shrink-0 items-center gap-2">
