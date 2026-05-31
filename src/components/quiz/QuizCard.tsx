@@ -1,24 +1,29 @@
+import { forwardRef, type ReactNode } from "react";
 import { ThaiText } from "@/components/ThaiText";
 import { cn } from "@/lib/cn";
 
 type QuizCardProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 };
 
 /** White prompt card used in practice and review quizzes. */
-export function QuizCard({ children, className }: QuizCardProps) {
+export const QuizCard = forwardRef<HTMLDivElement, QuizCardProps>(function QuizCard(
+  { children, className },
+  ref,
+) {
   return (
     <div
+      ref={ref}
       className={cn(
-        "rounded-2xl border border-stone-200 bg-white p-6 text-center shadow-sm",
+        "scroll-mt-4 rounded-2xl border border-stone-200 bg-white p-6 text-center shadow-sm",
         className,
       )}
     >
       {children}
     </div>
   );
-}
+});
 
 type QuizThaiBlockProps = {
   children: React.ReactNode;

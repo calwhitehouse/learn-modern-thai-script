@@ -3,6 +3,8 @@ import { useLayoutEffect, type RefObject } from "react";
 type ScrollOptions = {
   /** When true, only scroll on narrow / touch viewports. */
   mobileOnly?: boolean;
+  /** Re-scroll when this value changes (e.g. increment after each correct tap). */
+  trigger?: number;
 };
 
 function shouldScrollOnDevice(mobileOnly: boolean): boolean {
@@ -18,7 +20,7 @@ export function useScrollToRefWhen(
   ref: RefObject<HTMLElement | null>,
   options: ScrollOptions = {},
 ) {
-  const { mobileOnly = false } = options;
+  const { mobileOnly = false, trigger } = options;
 
   useLayoutEffect(() => {
     if (!active) return;
@@ -31,5 +33,5 @@ export function useScrollToRefWhen(
     scroll();
     const retry = window.setTimeout(scroll, 50);
     return () => window.clearTimeout(retry);
-  }, [active, mobileOnly, ref]);
+  }, [active, mobileOnly, ref, trigger]);
 }

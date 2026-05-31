@@ -47,7 +47,9 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
   const prevCardIdRef = useRef<string | null>(null);
   const hadWrongRef = useRef(false);
   const flashTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const promptRef = useRef<HTMLDivElement>(null);
   const successRef = useRef<HTMLDivElement>(null);
+  const [promptScrollTick, setPromptScrollTick] = useState(0);
 
   const isLetter = card?.type === "letter";
   const segments = useMemo(
@@ -64,6 +66,7 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
     hadWrongRef.current = false;
     setFlashWrong(null);
     setSpellingDone(false);
+    setPromptScrollTick(0);
     if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
   }, [card?.id]);
 
@@ -74,6 +77,7 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
     [],
   );
 
+  useScrollToRefWhen(promptScrollTick > 0, promptRef, { trigger: promptScrollTick });
   useScrollToRefWhen(Boolean(letterAnswer || spellingDone), successRef);
 
   if (done || !card) {
@@ -127,6 +131,8 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
     if (next.length === segments.length) {
       setSpellingDone(true);
       completeCard(!hadWrongRef.current);
+    } else {
+      setPromptScrollTick((tick) => tick + 1);
     }
   };
 
@@ -150,7 +156,7 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
         Card {index + 1} of {queue.length}
       </p>
 
-      <QuizCard>
+      <QuizCard ref={promptRef}>
         <p className="text-sm text-stone-600">Modern Script</p>
         <QuizPromptText size={isLetter ? "letter" : "word"}>
           {card.prompt_text}

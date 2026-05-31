@@ -42,7 +42,9 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
   const prevCardIdRef = useRef<string | null>(null);
   const hadWrongRef = useRef(false);
   const flashTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const promptRef = useRef<HTMLDivElement>(null);
   const successRef = useRef<HTMLDivElement>(null);
+  const [promptScrollTick, setPromptScrollTick] = useState(0);
 
   const segments = useMemo(
     () => (card ? splitThaiForSpelling(card.answer_text) : []),
@@ -57,6 +59,7 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
     hadWrongRef.current = false;
     setFlashWrong(null);
     setFinished(false);
+    setPromptScrollTick(0);
     if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
   }, [card?.id]);
 
@@ -67,6 +70,7 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
     [],
   );
 
+  useScrollToRefWhen(promptScrollTick > 0, promptRef, { trigger: promptScrollTick });
   useScrollToRefWhen(finished, successRef);
 
   if (done || !card) {
@@ -101,6 +105,8 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
     if (next.length === segments.length) {
       setFinished(true);
       completeCard(!hadWrongRef.current);
+    } else {
+      setPromptScrollTick((tick) => tick + 1);
     }
   };
 
@@ -121,7 +127,7 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
         Card {index + 1} of {queue.length}
       </p>
 
-      <QuizCard>
+      <QuizCard ref={promptRef}>
         <p className="text-sm text-stone-600">Modern Script</p>
         <QuizPromptText>{card.prompt_text}</QuizPromptText>
         <p className="mt-4 text-sm text-stone-600">
