@@ -1,6 +1,7 @@
 ﻿"use server";
 
 import { revalidatePath } from "next/cache";
+import { isQuizSelectedAnswerLengthValid } from "@/lib/quiz-limits";
 import { applyCardCompletion, applyWrongLetterTap } from "@/lib/srs";
 import { createClient } from "@/lib/supabase/server";
 
@@ -100,6 +101,10 @@ export async function submitCardCompletion(input: SubmitCardCompletionInput) {
 
   if (!user) {
     return { ok: false as const, error: "Not signed in" };
+  }
+
+  if (!isQuizSelectedAnswerLengthValid(input.correctAnswer)) {
+    return { ok: false as const, error: "Invalid answer length" };
   }
 
   const { error: attemptError } = await supabase.from("quiz_attempts").insert({

@@ -43,7 +43,7 @@ create table public.quiz_attempts (
   card_id uuid not null references public.cards (id) on delete cascade,
   deck_id uuid not null references public.decks (id) on delete cascade,
   was_correct boolean not null,
-  selected_answer text not null,
+  selected_answer text not null check (char_length(selected_answer) between 1 and 500),
   session_id uuid not null,
   created_at timestamptz not null default now()
 );
