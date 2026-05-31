@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import { LoginFormsLoader } from "@/components/LoginFormsLoader";
+import { NO_INDEX } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "Sign in",
+  robots: NO_INDEX,
+};
 
 type LoginPageProps = {
   searchParams: Promise<{ error?: string; message?: string; next?: string; mode?: string }>;

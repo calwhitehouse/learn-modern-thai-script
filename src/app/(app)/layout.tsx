@@ -1,6 +1,12 @@
-﻿import { MainWithNavigationLoading } from "@/components/NavigationLoading";
+﻿import type { Metadata } from "next";
+import { MainWithNavigationLoading } from "@/components/NavigationLoading";
 import { SiteNav } from "@/components/SiteNav";
 import { AUTH_NAV_ITEMS } from "@/lib/data";
+import { NO_INDEX } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  robots: NO_INDEX,
+};
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (

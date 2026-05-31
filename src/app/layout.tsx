@@ -2,6 +2,13 @@
 import localFont from "next/font/local";
 import { Prompt, Sarabun } from "next/font/google";
 import { AppFooter } from "@/components/AppFooter";
+import {
+  DEFAULT_DESCRIPTION,
+  SITE_NAME,
+  openGraphDefaults,
+  twitterDefaults,
+} from "@/lib/seo";
+import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
 const finlandicaText = localFont({
@@ -39,11 +46,17 @@ const sarabun = Sarabun({
 });
 
 export const metadata: Metadata = {
-  title: "Learn Modern Thai Script",
-  description: "Practice reading modern Thai script from looped letterforms.",
+  metadataBase: new URL(getSiteUrl()),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: DEFAULT_DESCRIPTION,
   icons: {
     icon: "/favicon.png",
   },
+  openGraph: openGraphDefaults(),
+  twitter: twitterDefaults(),
 };
 
 export default function RootLayout({
