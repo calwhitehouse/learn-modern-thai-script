@@ -2,14 +2,18 @@ import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV === "development";
 
-/** Basic CSP compatible with Next.js (inline scripts/styles) and self-hosted fonts. */
+/** hCaptcha domains — required when Auth CAPTCHA is enabled (see Supabase auth-captcha guide). */
+const hcaptchaSources = "https://hcaptcha.com https://*.hcaptcha.com";
+
+/** Basic CSP compatible with Next.js (inline scripts/styles), self-hosted fonts, and hCaptcha. */
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  `script-src 'self' 'unsafe-inline' ${hcaptchaSources}${isDev ? " 'unsafe-eval'" : ""}`,
+  `style-src 'self' 'unsafe-inline' ${hcaptchaSources}`,
+  `img-src 'self' data: blob: ${hcaptchaSources}`,
   "font-src 'self'",
-  `connect-src 'self'${isDev ? " ws: wss:" : ""}`,
+  `connect-src 'self' ${hcaptchaSources}${isDev ? " ws: wss:" : ""}`,
+  `frame-src 'self' ${hcaptchaSources}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

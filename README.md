@@ -33,6 +33,7 @@ A calm, mobile-first Next.js app for learning to read **looped** Thai script whe
 6. Under **Authentication → URL configuration**:
    - **Site URL:** `http://localhost:3000`
    - **Redirect URLs:** add `http://localhost:3000/auth/callback` (and your production URL later)
+7. Optional — **CAPTCHA** ([Supabase guide](https://supabase.com/docs/guides/auth/auth-captcha)): enable hCaptcha in **Auth → Bot and Abuse Protection**, paste the **secret** in Supabase, and set `NEXT_PUBLIC_HCAPTCHA_SITE_KEY` in `.env.local` (site key only). For local dev, add `localhost` to your hCaptcha site hostnames.
 
 ### 2. Environment variables
 
@@ -42,6 +43,7 @@ Copy [`.env.local.example`](.env.local.example) to `.env.local`:
 NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_HCAPTCHA_SITE_KEY=your-hcaptcha-sitekey
 ```
 
 Find both under **Project Settings → API**:

@@ -30,6 +30,7 @@ Use a **private** repository. Confirm `git status` never lists `.env.local`.
    | `NEXT_PUBLIC_SUPABASE_URL` | `https://xxxx.supabase.co` |
    | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `eyJ…` (anon public only) |
    | `NEXT_PUBLIC_SITE_URL` | `https://your-app.vercel.app` |
+   | `NEXT_PUBLIC_HCAPTCHA_SITE_KEY` | hCaptcha **site** key (if CAPTCHA enabled in Supabase) |
 
 4. Deploy and copy the production URL.
 
