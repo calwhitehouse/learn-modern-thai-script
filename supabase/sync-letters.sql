@@ -9,15 +9,15 @@ cross join (
   values
     ('ก', 'ก', 'ก — gaaw gài (Chicken)', 1),
     ('ข', 'ข', 'ข — khǎaw khài (Egg)', 1),
-    ('ฃ', 'ฃ', 'ฃ — khǎaw khùuat (Bottle)', 2),
+    ('ฃ', 'ฃ', 'ฃ — khǎaw khùuat (obsolete letter; keyword: bottle)', 2),
     ('ค', 'ค', 'ค — khaaw khwaai (Water Buffalo)', 1),
-    ('ฅ', 'ฅ', 'ฅ — khaaw khon (Person)', 2),
+    ('ฅ', 'ฅ', 'ฅ — khaaw khon (obsolete letter; keyword: person)', 2),
     ('ฆ', 'ฆ', 'ฆ — khaaw rá-khang (Temple Bell)', 2),
     ('ง', 'ง', 'ง — ngaaw nguu (Snake)', 1),
     ('จ', 'จ', 'จ — jaaw jaan (Plate)', 1),
     ('ฉ', 'ฉ', 'ฉ — chǎaw chìng (Small Cymbal)', 2),
     ('ช', 'ช', 'ช — chaaw cháang (Elephant)', 1),
-    ('ซ', 'ซ', 'ซ — saaw sôo (Chain for Animals)', 1),
+    ('ซ', 'ซ', 'ซ — saaw sôo (chain or shackle (โซ่))', 1),
     ('ฌ', 'ฌ', 'ฌ — chaaw chuuhr (Small Tree)', 2),
     ('ญ', 'ญ', 'ญ — yaaw yǐng (Woman)', 2),
     ('ฎ', 'ฎ', 'ฎ — daaw chá-daa (Dance Hat)', 2),
@@ -51,30 +51,30 @@ cross join (
     ('ฬ', 'ฬ', 'ฬ — laaw jù-laa (Kite)', 2),
     ('อ', 'อ', 'อ — aaw àang (Tub / Bucket)', 1),
     ('ฮ', 'ฮ', 'ฮ — haaw nók-hûuk (Owl)', 2),
-    ('ฤ', 'ฤ', 'ฤ — rue / ri (season)', 2),
-    ('ฦ', 'ฦ', 'ฦ — lue (rare/obsolete usage)', 2),
-    ('่', '่', '่ — mai ek (low tone mark)', 2),
-    ('้', '้', '้ — mai tho (falling tone mark)', 2),
-    ('๊', '๊', '๊ — mai tri (high tone mark)', 2),
-    ('๋', '๋', '๋ — mai chattawa (rising tone mark)', 2),
-    ('็', '็', '็ — mai taikhu (short vowel mark)', 2),
-    ('์', '์', '์ — thanthakhat (silent final consonant)', 2),
-    ('ํ', 'ํ', 'ํ — nikhahit (nasal vowel mark (with ำ))', 2),
-    ('ะ', 'ะ', 'ะ — sara a (short a vowel)', 1),
-    ('ั', 'ั', 'ั — sara a (upper) (short a before consonant)', 2),
-    ('า', 'า', 'า — sara aa (long a vowel)', 1),
-    ('ำ', 'ำ', 'ำ — sara am (am vowel)', 1),
-    ('ิ', 'ิ', 'ิ — sara i (short i vowel)', 1),
-    ('ี', 'ี', 'ี — sara ii (long i vowel)', 1),
-    ('ึ', 'ึ', 'ึ — sara ue (short ue vowel)', 2),
-    ('ื', 'ื', 'ื — sara uue (long ue vowel)', 2),
-    ('ุ', 'ุ', 'ุ — sara u (short u vowel)', 1),
-    ('ู', 'ู', 'ู — sara uu (long u vowel)', 1),
-    ('เ', 'เ', 'เ — sara e (leading e vowel)', 1),
-    ('แ', 'แ', 'แ — sara ae (leading ae vowel)', 1),
-    ('โ', 'โ', 'โ — sara o (leading o vowel)', 1),
-    ('ใ', 'ใ', 'ใ — sara ai mai muan (ai vowel (ใ))', 2),
-    ('ไ', 'ไ', 'ไ — sara ai mai malai (ai vowel (ไ))', 2)
+    ('ฤ', 'ฤ', 'ฤ — rue / ri (ru vowel; means season in ฤดู)', 2),
+    ('ฦ', 'ฦ', 'ฦ — lue (lu vowel; obsolete)', 2),
+    ('่', '่', '่ — mai ek (low tone — lowers syllable pitch)', 2),
+    ('้', '้', '้ — mai tho (falling tone — pitch falls)', 2),
+    ('๊', '๊', '๊ — mai tri (high tone — high pitch)', 2),
+    ('๋', '๋', '๋ — mai chattawa (rising tone — pitch rises)', 2),
+    ('็', '็', '็ — mai taikhu (shortens the vowel it follows)', 2),
+    ('์', '์', '์ — thanthakhat (makes a final consonant silent (karan))', 2),
+    ('ํ', 'ํ', 'ํ — nikhahit (creates /am/ when paired with า (as in ำ))', 2),
+    ('ะ', 'ะ', 'ะ — a (short /a/ vowel (sara a))', 1),
+    ('ั', 'ั', 'ั — a (/a/ written above consonant (mai han-akat))', 2),
+    ('า', 'า', 'า — aa (long /aa/ vowel (sara aa))', 1),
+    ('ำ', 'ำ', 'ำ — am (/am/ vowel (sara am — as in น้ำ water))', 1),
+    ('ิ', 'ิ', 'ิ — i (short /i/ vowel (sara i))', 1),
+    ('ี', 'ี', 'ี — ii (long /ii/ vowel (sara ii))', 1),
+    ('ึ', 'ึ', 'ึ — ue (short /ue/ vowel (sara ue))', 2),
+    ('ื', 'ื', 'ื — uue (long /ue/ vowel (sara uue))', 2),
+    ('ุ', 'ุ', 'ุ — u (short /u/ vowel (sara u))', 1),
+    ('ู', 'ู', 'ู — uu (long /uu/ vowel (sara uu))', 1),
+    ('เ', 'เ', 'เ — ee (/ee/ before consonant (sara e))', 1),
+    ('แ', 'แ', 'แ — ae (/ae/ before consonant (sara ae))', 1),
+    ('โ', 'โ', 'โ — oo (/oo/ before consonant (sara o))', 1),
+    ('ใ', 'ใ', 'ใ — ai (/ai/ — only used in 20 common words)', 2),
+    ('ไ', 'ไ', 'ไ — ai (/ai/ diphthong (sara ai))', 2)
 ) as v(prompt_text, answer_text, explanation, difficulty)
 where d.slug = 'letters'
   and not exists (
@@ -87,15 +87,15 @@ set
   explanation = case c.prompt_text
     when 'ก' then 'ก — gaaw gài (Chicken)'
     when 'ข' then 'ข — khǎaw khài (Egg)'
-    when 'ฃ' then 'ฃ — khǎaw khùuat (Bottle)'
+    when 'ฃ' then 'ฃ — khǎaw khùuat (obsolete letter; keyword: bottle)'
     when 'ค' then 'ค — khaaw khwaai (Water Buffalo)'
-    when 'ฅ' then 'ฅ — khaaw khon (Person)'
+    when 'ฅ' then 'ฅ — khaaw khon (obsolete letter; keyword: person)'
     when 'ฆ' then 'ฆ — khaaw rá-khang (Temple Bell)'
     when 'ง' then 'ง — ngaaw nguu (Snake)'
     when 'จ' then 'จ — jaaw jaan (Plate)'
     when 'ฉ' then 'ฉ — chǎaw chìng (Small Cymbal)'
     when 'ช' then 'ช — chaaw cháang (Elephant)'
-    when 'ซ' then 'ซ — saaw sôo (Chain for Animals)'
+    when 'ซ' then 'ซ — saaw sôo (chain or shackle (โซ่))'
     when 'ฌ' then 'ฌ — chaaw chuuhr (Small Tree)'
     when 'ญ' then 'ญ — yaaw yǐng (Woman)'
     when 'ฎ' then 'ฎ — daaw chá-daa (Dance Hat)'
@@ -129,30 +129,30 @@ set
     when 'ฬ' then 'ฬ — laaw jù-laa (Kite)'
     when 'อ' then 'อ — aaw àang (Tub / Bucket)'
     when 'ฮ' then 'ฮ — haaw nók-hûuk (Owl)'
-    when 'ฤ' then 'ฤ — rue / ri (season)'
-    when 'ฦ' then 'ฦ — lue (rare/obsolete usage)'
-    when '่' then '่ — mai ek (low tone mark)'
-    when '้' then '้ — mai tho (falling tone mark)'
-    when '๊' then '๊ — mai tri (high tone mark)'
-    when '๋' then '๋ — mai chattawa (rising tone mark)'
-    when '็' then '็ — mai taikhu (short vowel mark)'
-    when '์' then '์ — thanthakhat (silent final consonant)'
-    when 'ํ' then 'ํ — nikhahit (nasal vowel mark (with ำ))'
-    when 'ะ' then 'ะ — sara a (short a vowel)'
-    when 'ั' then 'ั — sara a (upper) (short a before consonant)'
-    when 'า' then 'า — sara aa (long a vowel)'
-    when 'ำ' then 'ำ — sara am (am vowel)'
-    when 'ิ' then 'ิ — sara i (short i vowel)'
-    when 'ี' then 'ี — sara ii (long i vowel)'
-    when 'ึ' then 'ึ — sara ue (short ue vowel)'
-    when 'ื' then 'ื — sara uue (long ue vowel)'
-    when 'ุ' then 'ุ — sara u (short u vowel)'
-    when 'ู' then 'ู — sara uu (long u vowel)'
-    when 'เ' then 'เ — sara e (leading e vowel)'
-    when 'แ' then 'แ — sara ae (leading ae vowel)'
-    when 'โ' then 'โ — sara o (leading o vowel)'
-    when 'ใ' then 'ใ — sara ai mai muan (ai vowel (ใ))'
-    when 'ไ' then 'ไ — sara ai mai malai (ai vowel (ไ))'
+    when 'ฤ' then 'ฤ — rue / ri (ru vowel; means season in ฤดู)'
+    when 'ฦ' then 'ฦ — lue (lu vowel; obsolete)'
+    when '่' then '่ — mai ek (low tone — lowers syllable pitch)'
+    when '้' then '้ — mai tho (falling tone — pitch falls)'
+    when '๊' then '๊ — mai tri (high tone — high pitch)'
+    when '๋' then '๋ — mai chattawa (rising tone — pitch rises)'
+    when '็' then '็ — mai taikhu (shortens the vowel it follows)'
+    when '์' then '์ — thanthakhat (makes a final consonant silent (karan))'
+    when 'ํ' then 'ํ — nikhahit (creates /am/ when paired with า (as in ำ))'
+    when 'ะ' then 'ะ — a (short /a/ vowel (sara a))'
+    when 'ั' then 'ั — a (/a/ written above consonant (mai han-akat))'
+    when 'า' then 'า — aa (long /aa/ vowel (sara aa))'
+    when 'ำ' then 'ำ — am (/am/ vowel (sara am — as in น้ำ water))'
+    when 'ิ' then 'ิ — i (short /i/ vowel (sara i))'
+    when 'ี' then 'ี — ii (long /ii/ vowel (sara ii))'
+    when 'ึ' then 'ึ — ue (short /ue/ vowel (sara ue))'
+    when 'ื' then 'ื — uue (long /ue/ vowel (sara uue))'
+    when 'ุ' then 'ุ — u (short /u/ vowel (sara u))'
+    when 'ู' then 'ู — uu (long /uu/ vowel (sara uu))'
+    when 'เ' then 'เ — ee (/ee/ before consonant (sara e))'
+    when 'แ' then 'แ — ae (/ae/ before consonant (sara ae))'
+    when 'โ' then 'โ — oo (/oo/ before consonant (sara o))'
+    when 'ใ' then 'ใ — ai (/ai/ — only used in 20 common words)'
+    when 'ไ' then 'ไ — ai (/ai/ diphthong (sara ai))'
     else c.explanation
   end,
   difficulty = case c.prompt_text

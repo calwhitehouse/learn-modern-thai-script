@@ -1,23 +1,23 @@
 Category,Thai Letter,Phonetic,Meaning,Difficulty
-tone,่,mai ek,low tone mark,2
-tone,้,mai tho,falling tone mark,2
-tone,๊,mai tri,high tone mark,2
-tone,๋,mai chattawa,rising tone mark,2
-tone,็,mai taikhu,short vowel mark,2
-tone,์,thanthakhat,silent final consonant,2
-tone,ํ,nikhahit,nasal vowel mark (with ำ),2
-vowel,ะ,sara a,short a vowel,1
-vowel,ั,sara a (upper),short a before consonant,2
-vowel,า,sara aa,long a vowel,1
-vowel,ำ,sara am,am vowel,1
-vowel,ิ,sara i,short i vowel,1
-vowel,ี,sara ii,long i vowel,1
-vowel,ึ,sara ue,short ue vowel,2
-vowel,ื,sara uue,long ue vowel,2
-vowel,ุ,sara u,short u vowel,1
-vowel,ู,sara uu,long u vowel,1
-vowel,เ,sara e,leading e vowel,1
-vowel,แ,sara ae,leading ae vowel,1
-vowel,โ,sara o,leading o vowel,1
-vowel,ใ,sara ai mai muan,ai vowel (ใ),2
-vowel,ไ,sara ai mai malai,ai vowel (ไ),2
+tone,่,mai ek,low tone — lowers syllable pitch,2
+tone,้,mai tho,falling tone — pitch falls,2
+tone,๊,mai tri,high tone — high pitch,2
+tone,๋,mai chattawa,rising tone — pitch rises,2
+tone,็,mai taikhu,shortens the vowel it follows,2
+tone,์,thanthakhat,makes a final consonant silent (karan),2
+tone,ํ,nikhahit,creates /am/ when paired with า (as in ำ),2
+vowel,ะ,a,short /a/ vowel (sara a),1
+vowel,ั,a,/a/ written above consonant (mai han-akat),2
+vowel,า,aa,long /aa/ vowel (sara aa),1
+vowel,ำ,am,/am/ vowel (sara am — as in น้ำ water),1
+vowel,ิ,i,short /i/ vowel (sara i),1
+vowel,ี,ii,long /ii/ vowel (sara ii),1
+vowel,ึ,ue,short /ue/ vowel (sara ue),2
+vowel,ื,uue,long /ue/ vowel (sara uue),2
+vowel,ุ,u,short /u/ vowel (sara u),1
+vowel,ู,uu,long /uu/ vowel (sara uu),1
+vowel,เ,ee,/ee/ before consonant (sara e),1
+vowel,แ,ae,/ae/ before consonant (sara ae),1
+vowel,โ,oo,/oo/ before consonant (sara o),1
+vowel,ใ,ai,/ai/ — only used in 20 common words,2
+vowel,ไ,ai,/ai/ diphthong (sara ai),2

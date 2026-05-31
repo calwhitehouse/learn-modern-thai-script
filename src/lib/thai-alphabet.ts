@@ -95,6 +95,6 @@ export const THAI_SPELLING_KEYBOARD_GROUPS = [
     letters: THAI_CONSONANTS.filter((l) => !specialLetterSet.has(l)),
   },
   { id: "special", label: "Rare letters", letters: THAI_SPECIAL_CHARACTERS },
-  { id: "marks", label: "Tone marks", letters: THAI_TONE_MARKS },
   { id: "vowels", label: "Vowels", letters: THAI_VOWELS },
+  { id: "marks", label: "Tone marks", letters: THAI_TONE_MARKS },
 ] as const;

@@ -1,15 +1,15 @@
 ﻿Position,Thai Letter,Thai Word,Phonetic,Meaning,Class,Initial Sound,Final Sound
 1,ก,กไก่,gaaw gài,Chicken,Middle,g,k
 2,ข,ขไข่,khǎaw khài,Egg,High,kh,k
-3,ฃ,ฃขวด,khǎaw khùuat,Bottle,High,kh,k
+3,ฃ,ฃขวด,khǎaw khùuat,obsolete letter; keyword: bottle,High,kh,k
 4,ค,ค ควาย,khaaw khwaai,Water Buffalo,Low,kh,k
-5,ฅ,ฅ คน,khaaw khon,Person,Low,kh,k
+5,ฅ,ฅ คน,khaaw khon,obsolete letter; keyword: person,Low,kh,k
 6,ฆ,ฆ ระฆัง,khaaw rá-khang,Temple Bell,Low,kh,k
 7,ง,ง งู,ngaaw nguu,Snake,Low,ng,ng
 8,จ,จ จาน,jaaw jaan,Plate,Middle,j,t
 9,ฉ,ฉ ฉิ่ง,chǎaw chìng,Small Cymbal,High,ch,n/a
 10,ช,ช ช้าง,chaaw cháang,Elephant,Low,ch,t
-11,ซ,ซ โซ่,saaw sôo,Chain for Animals,Low,s,s (only used in foreign loanwords)
+11,ซ,ซ โซ่,saaw sôo,chain or shackle (โซ่),Low,s,s (only used in foreign loanwords)
 12,ฌ,ฌ เฌอ,chaaw chuuhr,Small Tree,Low,ch,t
 13,ญ,ญ หญิง,yaaw yǐng,Woman,Low,y,n
 14,ฎ,ฎ ชฎา,daaw chá-daa,Dance Hat,Middle,d,t
@@ -43,5 +43,5 @@
 42,ฬ,ฬ จุฬา,laaw jù-laa,Kite,Low,l,n
 43,อ,อ อ่าง,aaw àang,Tub / Bucket,Middle,-,(vowel)
 44,ฮ,ฮ นกฮูก,haaw nók-hûuk,Owl,Low,h,n/a
-45,ฤ,ฤดู,rue / ri,season,Special Character,r,-
-46,ฦ,ฦา,lue,rare/obsolete usage,Special Character,l,-
+45,ฤ,ฤดู,rue / ri,ru vowel; means season in ฤดู,Special Character,r,-
+46,ฦ,ฦา,lue,lu vowel; obsolete,Special Character,l,-
