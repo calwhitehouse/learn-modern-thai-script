@@ -78,9 +78,9 @@ export function SiteNav({ items, showSignOut = false }: SiteNavProps) {
             <img
               src="/learn-modern-thai-script-logo.png"
               alt="Learn Modern Thai Script"
-              width={300}
-              height={100}
-              className="h-11 w-auto max-w-[min(100%,20rem)] object-contain object-left"
+              width={1024}
+              height={244}
+              className="h-9 w-auto max-w-[min(100%,18rem)] object-contain object-left"
             />
           </Link>
 
