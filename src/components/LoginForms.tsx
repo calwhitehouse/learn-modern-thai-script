@@ -114,16 +114,65 @@ export function LoginForms({ next, isSignup }: LoginFormsProps) {
         </form>
       ) : null}
 
-      <div
-        id="create-account"
-        ref={createAccountRef}
-        className={
-          showSignUp
-            ? "mt-6 scroll-mt-4"
-            : "mt-6 scroll-mt-4 border-t border-stone-200 pt-6"
-        }
-      >
-        {!showSignUp ? (
+      {showSignUp ? (
+        <div id="create-account" ref={createAccountRef} className="scroll-mt-4">
+          <form id="signup-panel" action={signUp} className="mt-6 flex flex-col gap-3">
+            <input type="hidden" name="captchaToken" value={signUpCaptchaToken} />
+            <h2 className="text-sm font-semibold text-stone-900">Create your account</h2>
+            <label htmlFor="signup-email" className="text-sm text-stone-700">
+              Email
+              <input
+                id="signup-email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2"
+              />
+            </label>
+            <label htmlFor="signup-password" className="text-sm text-stone-700">
+              Password
+              <input
+                id="signup-password"
+                name="password"
+                type="password"
+                autoComplete="new-password"
+                required
+                minLength={6}
+                className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2"
+              />
+            </label>
+            <AuthCaptcha
+              onVerify={(token) => setSignUpCaptchaToken(token)}
+              onExpire={() => setSignUpCaptchaToken("")}
+            />
+            <AuthSubmitButton
+              disabled={!signUpReady}
+              pendingLabel="Creating account…"
+              className="mt-1 w-full"
+            >
+              Create account
+            </AuthSubmitButton>
+          </form>
+          <div className="mt-6 border-t border-stone-200 pt-6">
+            <button
+              type="button"
+              onClick={() => setShowSignUp(false)}
+              className="flex w-full items-center justify-between gap-3 rounded-xl border-2 border-stone-300 bg-stone-50 px-4 py-4 text-left transition-colors hover:border-stone-400 hover:bg-stone-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-800"
+            >
+              <span className="text-sm font-semibold text-stone-900">Display login form</span>
+              <AuthModeIcon>
+                <SignInIcon />
+              </AuthModeIcon>
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div
+          id="create-account"
+          ref={createAccountRef}
+          className="mt-6 scroll-mt-4 border-t border-stone-200 pt-6"
+        >
           <button
             type="button"
             onClick={() => setShowSignUp(true)}
@@ -134,59 +183,8 @@ export function LoginForms({ next, isSignup }: LoginFormsProps) {
               <CreateAccountIcon />
             </AuthModeIcon>
           </button>
-        ) : (
-          <>
-            <button
-              type="button"
-              onClick={() => setShowSignUp(false)}
-              className="mb-4 flex w-full items-center justify-between gap-3 rounded-xl bg-stone-50 px-4 py-4 text-left transition-colors hover:border-stone-400 hover:bg-stone-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-800"
-            >
-              <span className="text-sm font-semibold text-stone-900">Display login form</span>
-              <AuthModeIcon>
-                <SignInIcon />
-              </AuthModeIcon>
-            </button>
-            <form id="signup-panel" action={signUp} className="flex flex-col gap-3">
-              <input type="hidden" name="captchaToken" value={signUpCaptchaToken} />
-              <h2 className="text-sm font-semibold text-stone-900">Create your account</h2>
-              <label htmlFor="signup-email" className="text-sm text-stone-700">
-                Email
-                <input
-                  id="signup-email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2"
-                />
-              </label>
-              <label htmlFor="signup-password" className="text-sm text-stone-700">
-                Password
-                <input
-                  id="signup-password"
-                  name="password"
-                  type="password"
-                  autoComplete="new-password"
-                  required
-                  minLength={6}
-                  className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2"
-                />
-              </label>
-              <AuthCaptcha
-                onVerify={(token) => setSignUpCaptchaToken(token)}
-                onExpire={() => setSignUpCaptchaToken("")}
-              />
-              <AuthSubmitButton
-                disabled={!signUpReady}
-                pendingLabel="Creating account…"
-                className="mt-1 w-full"
-              >
-                Create account
-              </AuthSubmitButton>
-            </form>
-          </>
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 }
