@@ -3,11 +3,26 @@
 :root {
   --background: #fafaf9;
   --foreground: #1c1917;
+  /* Logo palette — #087988 (dark teal), #04bbcb (bright cyan) */
+  --brand-teal: #087988;
+  --brand-teal-hover: #066570;
+  --brand-cyan: #04bbcb;
+  --brand-cyan-hover: #03a8b6;
+  --brand-teal-tint: #e8f4f5;
+  --brand-cyan-tint: #e9f8fa;
+  --brand-border: #c2dfe3;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-brand-teal: #087988;
+  --color-brand-teal-hover: #066570;
+  --color-brand-cyan: #04bbcb;
+  --color-brand-cyan-hover: #03a8b6;
+  --color-brand-teal-tint: #e8f4f5;
+  --color-brand-cyan-tint: #e9f8fa;
+  --color-brand-border: #c2dfe3;
   --font-sans: var(--font-sans);
   --font-thai-modern: var(--font-thai-modern);
   --font-thai-looped: var(--font-thai-looped);
@@ -34,6 +49,12 @@ body {
   margin-right: auto;
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.landing-page {
+  max-width: 44rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* App nav: burger on small screens, horizontal pills on desktop */

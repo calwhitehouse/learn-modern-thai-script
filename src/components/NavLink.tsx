@@ -32,7 +32,7 @@ export function NavLink({
         "inline-flex items-center transition-colors",
         layout === "inline" && "whitespace-nowrap rounded-full px-3 py-1.5 text-sm",
         layout === "stack" && "w-full rounded-lg px-3 py-2.5 text-base",
-        active ? "bg-stone-900 text-white" : "text-stone-600 hover:bg-stone-100",
+        active ? "bg-brand-teal text-white" : "text-stone-600 hover:bg-stone-100",
       )}
     >
       {label}

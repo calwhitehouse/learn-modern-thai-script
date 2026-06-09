@@ -3,7 +3,12 @@
 import { redirect } from "next/navigation";
 import { assertSupabaseUrl, getAuthCallbackUrl, safeNextPath } from "@/lib/auth-utils";
 import { isHCaptchaConfigured } from "@/lib/hcaptcha";
+import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
+import {
+  clearSupabaseAuthCookies,
+  expiredSupabaseAuthCookieOptions,
+} from "@/lib/supabase/auth-cookies";
 
 function getCaptchaToken(formData: FormData): string {
   return String(formData.get("captchaToken") ?? "").trim();
@@ -84,8 +89,12 @@ export async function signUp(formData: FormData) {
   );
 }
 
+/** Prefer POST /auth/signout (clears cookies on the redirect response). */
 export async function signOut() {
-  const supabase = await createClient();
-  await supabase.auth.signOut();
+  const cookieStore = await cookies();
+  const expired = expiredSupabaseAuthCookieOptions();
+  clearSupabaseAuthCookies(cookieStore.getAll(), (name) => {
+    cookieStore.set(name, "", expired);
+  });
   redirect("/login");
 }

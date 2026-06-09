@@ -3,12 +3,19 @@ import type { Metadata } from "next";
 export const SITE_NAME = "Learn Modern Thai Script";
 
 export const DEFAULT_DESCRIPTION =
-  "Practice reading modern Thai script from old-style looped letterforms.";
+  "Bridge the gap between looped Thai script and modern Thai writing. Free reference chart and practice for non-native learners.";
 
-export const HOME_TITLE = "Thai Script Letter Reference";
+/** Home landing — primary SEO target: looped → modern script gap */
+export const HOME_TITLE = "Learn Modern Thai Script for Non-Native Learners";
 
 export const HOME_DESCRIPTION =
-  "Compare each Thai character in old-style looped script and modern script. Free letter reference for learners moving from looped to modern Thai writing.";
+  "You learned Thai with looped script in class, but signs and apps use modern Thai fonts. Compare characters, then practice reading modern Thai script with spaced repetition.";
+
+/** Quick reference — character chart SEO */
+export const QUICK_REFERENCE_TITLE = "Thai Script Quick Reference";
+
+export const QUICK_REFERENCE_DESCRIPTION =
+  "Side-by-side chart of looped Thai script and modern Thai script for every consonant, vowel, and tone mark. Free reference for learners reading Thai signs and menus.";
 
 export const NO_INDEX = { index: false, follow: false } as const;
 

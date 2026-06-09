@@ -13,7 +13,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
 
   return (
     <div className="flex min-h-full flex-col">
-      <SiteNav items={items} showSignOut={!!user} />
+      <SiteNav items={items} showSignOut={!!user} showLogin={!user} />
       <main className="app-container flex flex-1 flex-col py-6">
         <MainWithNavigationLoading>{children}</MainWithNavigationLoading>
       </main>

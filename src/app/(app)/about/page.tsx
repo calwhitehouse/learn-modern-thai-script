@@ -32,13 +32,14 @@ export default function AboutPage() {
         <h2 className="font-medium text-stone-900">How to practice</h2>
         <ol className="mt-2 list-inside list-decimal space-y-1">
           <li>
-            <strong>Letters:</strong> tap the matching looped letter from the full alphabet.
+            <strong>Letters:</strong> Choose the matching old-style looped letter which corresponds to the modern loopless letter.
           </li>
           <li>
-            <strong>Words & sentences:</strong> tap consonants, vowels, and tone marks in order
-            (e.g. บ้าน → บ, ้, า, น).
+            <strong>Words & sentences:</strong> Choose consonants, vowels, and tone marks in order
+            (e.g. บ้าน → บ, ้, า, น) to spell the word or sentence correctly.
           </li>
-          <li>Use Review for cards due today, including recent mistakes.</li>
+          <li>
+            <strong>Review:</strong> Use Review for cards due today, including practicing your recent mistakes.</li>
         </ol>
       </section>
     </article>

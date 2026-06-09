@@ -7,7 +7,6 @@ import { NavLink } from "@/components/NavLink";
 import { useNavigationLoading } from "@/components/NavigationLoading";
 import type { NavItem } from "@/lib/data";
 import { cn } from "@/lib/cn";
-import { signOut } from "@/app/actions/auth";
 
 function MenuIcon({ open }: { open: boolean }) {
   return (
@@ -44,9 +43,13 @@ function isNavActive(pathname: string, href: string): boolean {
 type SiteNavProps = {
   items: readonly NavItem[];
   showSignOut?: boolean;
+  showLogin?: boolean;
 };
 
-export function SiteNav({ items, showSignOut = false }: SiteNavProps) {
+const authLinkClass =
+  "text-xs text-stone-500 underline-offset-2 hover:text-stone-800 hover:underline";
+
+export function SiteNav({ items, showSignOut = false, showLogin = false }: SiteNavProps) {
   const pathname = usePathname();
   const startNavigation = useNavigationLoading();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -96,12 +99,18 @@ export function SiteNav({ items, showSignOut = false }: SiteNavProps) {
               <MenuIcon open={menuOpen} />
             </button>
 
+            {showLogin ? (
+              <Link
+                href="/login"
+                onClick={() => startNavigation?.()}
+                className={cn("app-nav-auth-desktop", authLinkClass)}
+              >
+                Login
+              </Link>
+            ) : null}
             {showSignOut ? (
-              <form action={signOut} className="app-nav-auth-desktop">
-                <button
-                  type="submit"
-                  className="text-xs text-stone-500 underline-offset-2 hover:text-stone-800 hover:underline"
-                >
+              <form action="/auth/signout" method="post" className="app-nav-auth-desktop">
+                <button type="submit" className={authLinkClass}>
                   Sign out
                 </button>
               </form>
@@ -141,9 +150,21 @@ export function SiteNav({ items, showSignOut = false }: SiteNavProps) {
               onNavigate={closeMenu}
             />
           ))}
+          {showLogin ? (
+            <div className="app-nav-auth-mobile mt-2 border-t border-stone-200 pt-2">
+              <Link
+                href="/login"
+                onClick={closeMenu}
+                className="block w-full rounded-lg px-3 py-2.5 text-base text-stone-600 hover:bg-stone-100"
+              >
+                Login
+              </Link>
+            </div>
+          ) : null}
           {showSignOut ? (
             <form
-              action={signOut}
+              action="/auth/signout"
+              method="post"
               className="app-nav-auth-mobile mt-2 border-t border-stone-200 pt-2"
             >
               <button

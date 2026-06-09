@@ -26,11 +26,12 @@ export type NavItem = { href: string; label: string };
 
 export const PUBLIC_NAV_ITEMS: readonly NavItem[] = [
   { href: "/", label: "Home" },
-  { href: "/login", label: "Login" },
+  { href: "/quick-reference", label: "Quick Reference" },
 ];
 
 export const AUTH_NAV_ITEMS: readonly NavItem[] = [
   { href: "/", label: "Home" },
+  { href: "/quick-reference", label: "Quick Reference" },
   { href: "/dashboard", label: "Dashboard" },
   { href: "/practice", label: "Practice" },
   { href: "/review", label: "Review" },

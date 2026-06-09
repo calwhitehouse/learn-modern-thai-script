@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { signIn, signUp } from "@/app/actions/auth";
 import { AuthCaptcha } from "@/components/AuthCaptcha";
+import { AuthSubmitButton } from "@/components/AuthSubmitButton";
 import { isHCaptchaConfigured } from "@/lib/hcaptcha";
 
 type LoginFormsProps = {
@@ -19,9 +20,28 @@ export function LoginForms({ next, isSignup }: LoginFormsProps) {
   const [showSignUp, setShowSignUp] = useState(isSignup);
   const [signInCaptchaToken, setSignInCaptchaToken] = useState("");
   const [signUpCaptchaToken, setSignUpCaptchaToken] = useState("");
+  const createAccountRef = useRef<HTMLDivElement>(null);
 
   const signInReady = !captchaRequired || signInCaptchaToken.length > 0;
   const signUpReady = !captchaRequired || signUpCaptchaToken.length > 0;
+
+  useEffect(() => {
+    const shouldOpen =
+      isSignup ||
+      (typeof window !== "undefined" && window.location.hash === "#create-account");
+
+    if (!shouldOpen) return;
+
+    setShowSignUp(true);
+
+    const scrollToForm = () => {
+      createAccountRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(scrollToForm);
+    });
+  }, [isSignup]);
 
   return (
     <>
@@ -55,16 +75,20 @@ export function LoginForms({ next, isSignup }: LoginFormsProps) {
           onVerify={(token) => setSignInCaptchaToken(token)}
           onExpire={() => setSignInCaptchaToken("")}
         />
-        <button
-          type="submit"
+        <AuthSubmitButton
           disabled={!signInReady}
-          className="mt-2 rounded-xl bg-stone-900 px-4 py-3 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-50"
+          pendingLabel="Signing in…"
+          className="mt-2"
         >
           Sign in
-        </button>
+        </AuthSubmitButton>
       </form>
 
-      <div className="mt-6 border-t border-stone-200 pt-6">
+      <div
+        id="create-account"
+        ref={createAccountRef}
+        className="mt-6 scroll-mt-4 border-t border-stone-200 pt-6"
+      >
         {!showSignUp ? (
           <button
             type="button"
@@ -139,13 +163,13 @@ export function LoginForms({ next, isSignup }: LoginFormsProps) {
                 onVerify={(token) => setSignUpCaptchaToken(token)}
                 onExpire={() => setSignUpCaptchaToken("")}
               />
-              <button
-                type="submit"
+              <AuthSubmitButton
                 disabled={!signUpReady}
-                className="mt-1 w-full rounded-xl bg-stone-900 px-4 py-3 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-50"
+                pendingLabel="Creating account…"
+                className="mt-1 w-full"
               >
                 Create account
-              </button>
+              </AuthSubmitButton>
             </form>
           </>
         )}

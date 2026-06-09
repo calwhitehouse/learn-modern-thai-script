@@ -5,6 +5,13 @@ import { assertSupabaseEnv } from "@/lib/env";
 const APP_PREFIXES = ["/dashboard", "/practice", "/review", "/progress", "/about"];
 
 export async function updateSession(request: NextRequest) {
+  const path = request.nextUrl.pathname;
+
+  // Sign-out clears cookies locally; skip getUser() so logout stays fast when Supabase is slow.
+  if (path === "/auth/signout") {
+    return NextResponse.next({ request });
+  }
+
   assertSupabaseEnv();
   let supabaseResponse = NextResponse.next({ request });
 
@@ -31,7 +38,6 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const path = request.nextUrl.pathname;
   const isAppRoute = APP_PREFIXES.some((p) => path === p || path.startsWith(`${p}/`));
   const isLogin = path === "/login";
 

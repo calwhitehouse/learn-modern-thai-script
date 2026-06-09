@@ -60,13 +60,14 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) for the public letter reference. Sign up on `/login`, then practice from `/dashboard`.
+Open [http://localhost:3000](http://localhost:3000) for the public landing page. The letter chart lives at `/quick-reference`. Sign up on `/login`, then practice from `/dashboard`.
 
 ## Routes
 
 | Route | Description |
 |-------|-------------|
-| `/` | Public letter reference (modern vs looped script) |
+| `/` | Public landing page (learn modern Thai script) |
+| `/quick-reference` | Public letter chart (modern vs looped script) |
 | `/login` | Email/password sign in and sign up |
 | `/dashboard` | Signed-in overview and deck shortcuts |
 | `/practice` | Deck list |
