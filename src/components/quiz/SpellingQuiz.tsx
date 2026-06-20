@@ -29,6 +29,7 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
     index,
     card,
     done,
+    sessionId,
     correctCount,
     recordWrongLetter,
     completeCard,
@@ -79,6 +80,9 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
         total={queue.length}
         correct={correctCount}
         onDone={() => router.push(finishHref)}
+        sessionId={sessionId}
+        deckId={deckId}
+        source="practice"
       />
     );
   }

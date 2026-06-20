@@ -1,18 +1,24 @@
-﻿import { ThaiText } from "@/components/ThaiText";
+﻿import { PracticeCalendar } from "@/components/progress/PracticeCalendar";
+import { ThaiText } from "@/components/ThaiText";
 import { cn } from "@/lib/cn";
-import { getFullProgressStats } from "@/lib/stats";
+import { getFullProgressStats, getPracticeActivityDays } from "@/lib/stats";
 
 export default async function ProgressPage() {
-  const stats = await getFullProgressStats();
+  const [stats, activityDays] = await Promise.all([
+    getFullProgressStats(),
+    getPracticeActivityDays(),
+  ]);
 
   return (
     <div className="flex flex-col gap-6">
       <header>
         <h1 className="text-2xl font-semibold text-stone-900">Progress</h1>
         <p className="mt-1 text-sm text-stone-600">
-          Wrong letter taps and perfect card completions.
+          Your practice calendar, session stats, and card-level progress in one place.
         </p>
       </header>
+
+      <PracticeCalendar activeDays={activityDays} />
 
       <dl className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <Item label="Wrong letter taps" value={stats.totalWrongLetterTaps} />
@@ -68,6 +74,9 @@ export default async function ProgressPage() {
       <section className="rounded-xl border border-stone-200 bg-white p-4 text-sm text-stone-600">
         <h2 className="font-medium text-stone-900">How progress is tracked</h2>
         <ul className="mt-2 list-outside list-disc space-y-1 px-4">
+          <li>
+            The calendar marks a day green when you finish a practice deck or a review session.
+          </li>
           <li>Each incorrect letter choice adds 1 to that card&apos;s wrong-tap count.</li>
           <li>Finishing a card with zero wrong taps counts as a perfect completion.</li>
           <li>Wrong taps reset the review streak; perfect completions advance it.</li>

@@ -31,6 +31,7 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
     queue,
     index,
     router,
+    sessionId,
     correctCount,
     recordWrongLetter,
     completeCard,
@@ -93,6 +94,8 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
         total={queue.length}
         correct={correctCount}
         onDone={() => router.push(finishHref)}
+        sessionId={sessionId}
+        source="review"
       />
     );
   }

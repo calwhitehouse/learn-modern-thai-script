@@ -27,6 +27,7 @@ export function LetterPickQuiz({ deckId, cards, finishHref }: LetterPickQuizProp
     index,
     card,
     done,
+    sessionId,
     correctCount,
     recordWrongLetter,
     completeCard,
@@ -67,6 +68,9 @@ export function LetterPickQuiz({ deckId, cards, finishHref }: LetterPickQuizProp
         total={queue.length}
         correct={correctCount}
         onDone={() => router.push(finishHref)}
+        sessionId={sessionId}
+        deckId={deckId}
+        source="practice"
       />
     );
   }

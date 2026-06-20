@@ -138,3 +138,48 @@ export async function submitCardCompletion(input: SubmitCardCompletionInput) {
 
   return { ok: true as const, perfect: input.perfect };
 }
+
+export type LogStudySessionInput = {
+  sessionId: string;
+  deckId: string | null;
+  source: "practice" | "review";
+  cardCount: number;
+  /** Local calendar date (YYYY-MM-DD). */
+  practicedOn: string;
+};
+
+/** Log a finished practice or review session for the progress calendar. */
+export async function logStudySession(input: LogStudySessionInput) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { ok: false as const, error: "Not signed in" };
+  }
+
+  if (input.cardCount < 1) {
+    return { ok: false as const, error: "Invalid card count" };
+  }
+
+  const { error } = await supabase.from("study_sessions").upsert(
+    {
+      user_id: user.id,
+      session_id: input.sessionId,
+      source: input.source,
+      deck_id: input.deckId,
+      card_count: input.cardCount,
+      practiced_on: input.practicedOn,
+    },
+    { onConflict: "user_id,session_id", ignoreDuplicates: true },
+  );
+
+  if (error) {
+    return { ok: false as const, error: error.message };
+  }
+
+  revalidateProgress();
+
+  return { ok: true as const };
+}

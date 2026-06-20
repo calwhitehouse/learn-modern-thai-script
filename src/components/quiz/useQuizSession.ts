@@ -58,6 +58,7 @@ export function useQuizSession({ cards, deckId, finishHref }: UseQuizSessionOpti
     index,
     card,
     done,
+    sessionId,
     correctCount: perfectCount,
     finishHref,
     recordWrongLetter,

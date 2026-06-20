@@ -27,6 +27,7 @@ export function SimilarLetterQuiz({ deckId, cards, finishHref }: SimilarLetterQu
     index,
     card,
     done,
+    sessionId,
     correctCount,
     recordWrongLetter,
     completeCard,
@@ -72,6 +73,9 @@ export function SimilarLetterQuiz({ deckId, cards, finishHref }: SimilarLetterQu
         total={queue.length}
         correct={correctCount}
         onDone={() => router.push(finishHref)}
+        sessionId={sessionId}
+        deckId={deckId}
+        source="practice"
       />
     );
   }

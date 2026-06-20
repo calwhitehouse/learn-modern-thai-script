@@ -121,3 +121,22 @@ export async function getFullProgressStats(): Promise<FullProgressStats> {
     mostMissed,
   };
 }
+
+/** Local calendar dates (YYYY-MM-DD) with at least one completed practice or review session. */
+export async function getPracticeActivityDays(): Promise<string[]> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return [];
+
+  const { data, error } = await supabase
+    .from("study_sessions")
+    .select("practiced_on")
+    .eq("user_id", user.id);
+
+  if (error) throw new Error(error.message);
+
+  return [...new Set((data ?? []).map((row) => row.practiced_on as string))];
+}

@@ -13,7 +13,7 @@ export function AppFooter() {
             : "app-container py-6 text-center text-sm text-stone-500"
         }
       >
-        <p>Built by Callum Whitehouse</p>
+        <p>Keep on learnin&apos;</p>
         {hasLinks ? (
           <nav
             className="flex flex-wrap justify-center gap-x-4 gap-y-1"
