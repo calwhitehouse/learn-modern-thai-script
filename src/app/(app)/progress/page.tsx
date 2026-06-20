@@ -1,4 +1,5 @@
 ﻿import { ThaiText } from "@/components/ThaiText";
+import { cn } from "@/lib/cn";
 import { getFullProgressStats } from "@/lib/stats";
 
 export default async function ProgressPage() {
@@ -28,6 +29,7 @@ export default async function ProgressPage() {
               ? `${stats.strongestDeck.title} (${stats.strongestDeck.accuracy}% perfect)`
               : "—"
           }
+          valueClassName="text-base"
         />
         <Item
           label="Weakest deck"
@@ -36,6 +38,7 @@ export default async function ProgressPage() {
               ? `${stats.weakestDeck.title} (${stats.weakestDeck.accuracy}% perfect)`
               : "—"
           }
+          valueClassName="text-base"
         />
       </dl>
 
@@ -74,11 +77,21 @@ export default async function ProgressPage() {
   );
 }
 
-function Item({ label, value }: { label: string; value: string | number }) {
+function Item({
+  label,
+  value,
+  valueClassName,
+}: {
+  label: string;
+  value: string | number;
+  valueClassName?: string;
+}) {
   return (
     <div className="rounded-xl border border-stone-200 bg-white p-4">
       <dt className="text-xs text-stone-500">{label}</dt>
-      <dd className="mt-1 text-xl font-semibold text-stone-900">{value}</dd>
+      <dd className={cn("mt-1 font-semibold text-stone-900", valueClassName ?? "text-xl")}>
+        {value}
+      </dd>
     </div>
   );
 }
