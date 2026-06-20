@@ -1,13 +1,10 @@
 import { MainWithNavigationLoading } from "@/components/NavigationLoading";
 import { SiteNav } from "@/components/SiteNav";
 import { AUTH_NAV_ITEMS, PUBLIC_NAV_ITEMS } from "@/lib/data";
-import { createClient } from "@/lib/supabase/server";
+import { getSessionUser } from "@/lib/supabase/get-user";
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getSessionUser();
 
   const items = user ? AUTH_NAV_ITEMS : PUBLIC_NAV_ITEMS;
 

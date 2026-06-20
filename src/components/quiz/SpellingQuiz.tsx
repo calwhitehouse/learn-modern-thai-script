@@ -48,7 +48,7 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
 
   const segments = useMemo(
     () => (card ? splitThaiForSpelling(card.answer_text) : []),
-    [card?.id, card?.answer_text],
+    [card],
   );
 
   useEffect(() => {

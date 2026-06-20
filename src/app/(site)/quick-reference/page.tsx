@@ -7,7 +7,7 @@ import {
   openGraphDefaults,
   twitterDefaults,
 } from "@/lib/seo";
-import { createClient } from "@/lib/supabase/server";
+import { getSessionUser } from "@/lib/supabase/get-user";
 
 export const metadata: Metadata = {
   title: QUICK_REFERENCE_TITLE,
@@ -27,10 +27,7 @@ export const metadata: Metadata = {
 };
 
 export default async function QuickReferencePage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getSessionUser();
 
   return (
     <div className="flex flex-col gap-6">

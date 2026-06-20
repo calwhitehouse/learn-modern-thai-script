@@ -54,7 +54,7 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
   const isLetter = card?.type === "letter";
   const segments = useMemo(
     () => (card && !isLetter ? splitThaiForSpelling(card.answer_text) : []),
-    [card?.id, card?.answer_text, isLetter],
+    [card, isLetter],
   );
 
   useEffect(() => {

@@ -10,7 +10,6 @@ import {
 import { SessionSummary } from "@/components/quiz/SessionSummary";
 import { useScrollToRefWhen } from "@/hooks/useScrollToRefWhen";
 import { useQuizSession } from "@/components/quiz/useQuizSession";
-import { ThaiText } from "@/components/ThaiText";
 import { THAI_LETTER_GRID } from "@/lib/thai-alphabet";
 import { thaiEquals } from "@/lib/thai-text";
 import type { QuizCardWithDeck } from "@/lib/types";

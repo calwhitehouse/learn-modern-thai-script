@@ -6,7 +6,7 @@ import {
   openGraphDefaults,
   twitterDefaults,
 } from "@/lib/seo";
-import { createClient } from "@/lib/supabase/server";
+import { getSessionUser } from "@/lib/supabase/get-user";
 
 export const metadata: Metadata = {
   title: HOME_TITLE,
@@ -26,10 +26,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getSessionUser();
 
   return <LandingPage isAuthenticated={!!user} />;
 }
