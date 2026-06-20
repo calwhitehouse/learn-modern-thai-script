@@ -95,28 +95,34 @@ export function PracticeCalendar({ activeDays }: PracticeCalendarProps) {
         ))}
       </div>
 
-      <div className="grid grid-cols-7 gap-0.5">
-        {cells.map((cell, index) => (
-          <div
-            key={cell.key ?? `pad-${index}`}
-            className="flex h-6 items-center justify-center"
-          >
-            {cell.day && cell.key ? (
-              <span
-                className={cn(
-                  "flex h-5 w-5 items-center justify-center rounded-full text-[11px] leading-none",
-                  activeSet.has(cell.key)
-                    ? "bg-emerald-500 font-medium text-white"
-                    : "text-stone-600",
-                  cell.key === todayKey &&
-                    (activeSet.has(cell.key) ? "ring-1 ring-emerald-700" : "ring-1 ring-stone-300"),
-                )}
-              >
-                {cell.day}
-              </span>
-            ) : null}
-          </div>
-        ))}
+      <div className="grid grid-cols-7 gap-1">
+        {cells.map((cell, index) => {
+          const isActive = Boolean(cell.key && activeSet.has(cell.key));
+          const isToday = cell.key === todayKey;
+
+          return (
+            <div
+              key={cell.key ?? `pad-${index}`}
+              className="flex items-center justify-center py-0.5"
+            >
+              {cell.day ? (
+                <span
+                  className={cn(
+                    "text-[11px] leading-none",
+                    (isActive || isToday) &&
+                      "inline-flex min-w-7 items-center justify-center rounded-lg px-3 py-1.5",
+                    isActive && "bg-emerald-500 font-medium text-white",
+                    !isActive && "text-stone-600",
+                    isToday && !isActive && "ring-1 ring-stone-300",
+                    isToday && isActive && "ring-1 ring-emerald-700",
+                  )}
+                >
+                  {cell.day}
+                </span>
+              ) : null}
+            </div>
+          );
+        })}
       </div>
 
       <p className="mt-2 text-[10px] leading-snug text-stone-500">
