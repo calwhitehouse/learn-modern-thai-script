@@ -1,4 +1,4 @@
-﻿export type DeckSlug = "letters" | "words" | "sentences";
+﻿export type DeckSlug = "letters" | "similar-letters" | "words" | "sentences";
 
 export type CardType = "letter" | "word" | "sentence";
 
@@ -25,7 +25,7 @@ export type QuizCard = Pick<
   "id" | "type" | "prompt_text" | "answer_text" | "explanation" | "difficulty"
 >;
 
-export type QuizCardWithDeck = QuizCard & { deck_id?: string };
+export type QuizCardWithDeck = QuizCard & { deck_id?: string; deck_slug?: DeckSlug };
 
 export type UserCardProgress = {
   user_id: string;

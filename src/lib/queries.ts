@@ -3,7 +3,7 @@ import { getFullProgressStats } from "@/lib/stats";
 import { isDue } from "@/lib/srs";
 import { shuffle } from "@/lib/quiz-utils";
 import { createClient } from "@/lib/supabase/server";
-import type { Deck, DeckSlug, ProgressStats, QuizCard } from "@/lib/types";
+import type { Deck, DeckSlug, ProgressStats, QuizCard, QuizCardWithDeck } from "@/lib/types";
 
 export async function getDecks(): Promise<Deck[]> {
   const supabase = await createClient();
@@ -71,9 +71,7 @@ export async function getCardsByDeckIds(
   return byDeck;
 }
 
-export async function getDueReviewCards(): Promise<
-  Array<QuizCard & { deck_id: string }>
-> {
+export async function getDueReviewCards(): Promise<QuizCardWithDeck[]> {
   const supabase = await createClient();
   const {
     data: { user },
@@ -100,16 +98,35 @@ export async function getDueReviewCards(): Promise<
 
   const { data: cards, error: cardsError } = await supabase
     .from("cards")
-    .select("id, deck_id, type, prompt_text, answer_text, explanation, difficulty")
+    .select(
+      "id, deck_id, type, prompt_text, answer_text, explanation, difficulty, decks(slug)",
+    )
     .in("id", dueIds)
     .eq("is_active", true);
 
   if (cardsError) throw new Error(cardsError.message);
 
-  const cardMap = new Map((cards ?? []).map((c) => [c.id as string, c]));
+  const cardMap = new Map(
+    (cards ?? []).map((c) => {
+      const rawDeck = c.decks as { slug: string } | { slug: string }[] | null;
+      const deckSlug = Array.isArray(rawDeck) ? rawDeck[0]?.slug : rawDeck?.slug;
+      const row: QuizCardWithDeck = {
+        id: c.id as string,
+        deck_id: c.deck_id as string,
+        deck_slug: deckSlug as DeckSlug | undefined,
+        type: c.type as QuizCard["type"],
+        prompt_text: c.prompt_text as string,
+        answer_text: c.answer_text as string,
+        explanation: c.explanation as string,
+        difficulty: c.difficulty as number,
+      };
+      return [row.id, row] as const;
+    }),
+  );
+
   const ordered = dueIds
     .map((id) => cardMap.get(id))
-    .filter(Boolean) as Array<QuizCard & { deck_id: string }>;
+    .filter(Boolean) as QuizCardWithDeck[];
 
   // Shuffle on server only so FlashcardQuiz hydration matches.
   return shuffle(ordered);

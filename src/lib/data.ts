@@ -10,6 +10,12 @@ export const DECK_META: Record<
       "Pick the matching looped consonant, vowel, or tone mark for each modern prompt.",
     href: "/practice/letters",
   },
+  "similar-letters": {
+    title: "Similar letters",
+    description:
+      "Easy-to-confuse letters — choose the right looped form from a small set.",
+    href: "/practice/similar-letters",
+  },
   words: {
     title: "Words",
     description: "Spell each word by choosing the old-style looped letters in order.",

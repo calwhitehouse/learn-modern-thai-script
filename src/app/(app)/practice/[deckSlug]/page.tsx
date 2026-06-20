@@ -1,6 +1,7 @@
 ﻿import { AppLink } from "@/components/AppLink";
 import { notFound } from "next/navigation";
 import { LetterPickQuiz } from "@/components/quiz/LetterPickQuiz";
+import { SimilarLetterQuiz } from "@/components/quiz/SimilarLetterQuiz";
 import { SpellingQuiz } from "@/components/quiz/SpellingQuiz";
 import { DECK_META } from "@/lib/data";
 import { SESSION_SIZE } from "@/lib/quiz";
@@ -11,7 +12,7 @@ type PracticeDeckPageProps = {
   params: Promise<{ deckSlug: string }>;
 };
 
-const SLUGS: DeckSlug[] = ["letters", "words", "sentences"];
+const SLUGS: DeckSlug[] = ["letters", "similar-letters", "words", "sentences"];
 
 export default async function PracticeDeckPage({ params }: PracticeDeckPageProps) {
   const { deckSlug } = await params;
@@ -43,6 +44,8 @@ export default async function PracticeDeckPage({ params }: PracticeDeckPageProps
 
       {sessionCards.length === 0 ? (
         <p className="text-sm text-stone-600">No cards in this deck yet. Run supabase/seed.sql.</p>
+      ) : slug === "similar-letters" ? (
+        <SimilarLetterQuiz deckId={deck.id} cards={sessionCards} finishHref="/practice" />
       ) : slug === "letters" ? (
         <LetterPickQuiz deckId={deck.id} cards={sessionCards} finishHref="/practice" />
       ) : (

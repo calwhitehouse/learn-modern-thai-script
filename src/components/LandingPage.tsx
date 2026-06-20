@@ -175,7 +175,7 @@ export function LandingPage({ isAuthenticated }: LandingPageProps) {
           Same word. Two ways to write it.
         </h2>
         <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <div className="rounded-xl border border-brand-border bg-stone-50 px-4 py-6 text-center">
+          <div className="rounded-xl border border-stone-200 bg-stone-50 px-4 py-6 text-center">
             <p className="text-xs font-semibold uppercase tracking-wide text-stone-800">
               Modern Thai script
             </p>
@@ -184,7 +184,7 @@ export function LandingPage({ isAuthenticated }: LandingPageProps) {
             </ThaiText>
             <p className="mt-2 text-xs text-stone-600">What you see on signs and apps</p>
           </div>
-          <div className="rounded-xl border border-brand-border bg-stone-50 px-4 py-6 text-center">
+          <div className="rounded-xl border border-stone-200 bg-stone-50 px-4 py-6 text-center">
             <p className="text-xs font-semibold uppercase tracking-wide text-stone-800">
               Looped Thai script
             </p>
@@ -261,7 +261,7 @@ export function LandingPage({ isAuthenticated }: LandingPageProps) {
             <div>
               <h3 className="font-semibold text-stone-900">Open Practice and pick a deck</h3>
               <p className="mt-1 text-sm leading-relaxed text-stone-600">
-                Start with Letters if you&apos;re still mapping shapes. Move on to Words and
+                Start with Letters and Similar Letters if you&apos;re still getting to grips with the modern script. Move on to Words and
                 Sentences when you want longer prompts. Each card shows modern Thai and asks you to
                 pick or spell the looped equivalent.
               </p>
@@ -304,8 +304,7 @@ export function LandingPage({ isAuthenticated }: LandingPageProps) {
           What you get with a free account
         </h2>
         <p className="mt-2 max-w-lg text-sm leading-relaxed text-stone-600">
-          Everything below unlocks after you sign in. Same account, same login — just pick where you
-          want to start.
+          Everything below unlocks after you sign in. Your progress is saved and you can pick up where you left off.
         </p>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2">
           <li className="rounded-lg bg-stone-50 px-4 py-3 text-sm text-stone-700">
@@ -335,7 +334,7 @@ export function LandingPage({ isAuthenticated }: LandingPageProps) {
         <h2 id="cta-heading" className="max-w-md text-2xl font-semibold text-white">
           Ready to read modern Thai script with confidence?
         </h2>
-        <p className="max-w-sm text-sm leading-relaxed text-white/90">
+        <p className="max-w-sm text-sm leading-relaxed text-white">
           {isAuthenticated
             ? "Pick up where you left off — practice a deck or clear your review queue."
             : "Create a free account and start with the letter deck. Five minutes a day adds up."}

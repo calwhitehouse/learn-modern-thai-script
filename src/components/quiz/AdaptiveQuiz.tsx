@@ -12,6 +12,7 @@ import { useScrollToRefWhen } from "@/hooks/useScrollToRefWhen";
 import { useQuizSession } from "@/components/quiz/useQuizSession";
 import { ThaiText } from "@/components/ThaiText";
 import { THAI_LETTER_GRID, THAI_SPELLING_KEYBOARD_GROUPS } from "@/lib/thai-alphabet";
+import { getSimilarLetterGroup, SIMILAR_LETTERS_DECK_SLUG } from "@/lib/similar-letters";
 import { splitThaiForSpelling, thaiEquals } from "@/lib/thai-text";
 import { cn } from "@/lib/cn";
 import type { QuizCardWithDeck } from "@/lib/types";
@@ -51,10 +52,16 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
   const successRef = useRef<HTMLDivElement>(null);
   const [promptScrollTick, setPromptScrollTick] = useState(0);
 
-  const isLetter = card?.type === "letter";
+  const isSimilarLetter = card?.deck_slug === SIMILAR_LETTERS_DECK_SLUG;
+  const isLetter = card?.type === "letter" && !isSimilarLetter;
+  const similarGroup = useMemo(
+    () =>
+      isSimilarLetter && card ? getSimilarLetterGroup(card.answer_text) : null,
+    [isSimilarLetter, card],
+  );
   const segments = useMemo(
-    () => (card && !isLetter ? splitThaiForSpelling(card.answer_text) : []),
-    [card, isLetter],
+    () => (card && !isLetter && !isSimilarLetter ? splitThaiForSpelling(card.answer_text) : []),
+    [card, isLetter, isSimilarLetter],
   );
 
   useEffect(() => {
@@ -92,6 +99,7 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
 
   const letterAnswered = Boolean(letterAnswer);
   const spellingFinished = spellingDone;
+  const isLetterPick = isLetter || isSimilarLetter;
 
   const onLetterPick = (letter: string) => {
     if (letterAnswered) return;
@@ -147,8 +155,15 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
   };
 
   const built = picked.join("");
-  const answered = isLetter ? letterAnswered : spellingFinished;
+  const answered = isLetterPick ? letterAnswered : spellingFinished;
   const showSuccess = Boolean(letterAnswer || spellingDone);
+
+  const promptSize = isSimilarLetter || isLetter ? "letter" : "word";
+  const promptHint = isSimilarLetter
+    ? "Tap the matching looped letter below — only the easy-to-confuse ones in this set."
+    : isLetter
+      ? "Tap the matching looped letter below"
+      : `Tap each looped letter in order (${picked.length}/${segments.length})`;
 
   return (
     <section className="flex w-full flex-col gap-5">
@@ -158,16 +173,12 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
 
       <QuizCard ref={promptRef}>
         <p className="text-sm text-stone-600">Modern Script</p>
-        <QuizPromptText size={isLetter ? "letter" : "word"}>
+        <QuizPromptText size={promptSize}>
           {card.prompt_text}
         </QuizPromptText>
-        <p className="mt-4 text-sm text-stone-600">
-          {isLetter
-            ? "Tap the matching looped letter below"
-            : `Tap each looped letter in order (${picked.length}/${segments.length})`}
-        </p>
+        <p className="mt-4 text-sm text-stone-600">{promptHint}</p>
 
-        {!isLetter && (
+        {!isLetter && !isSimilarLetter && (
           <>
             <QuizSpellingTrack>
               {segments.map((seg, i) => (
@@ -202,7 +213,7 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
 
       {showSuccess && (
         <QuizSuccessPanel ref={successRef}>
-          {isLetter ? (
+          {isLetterPick ? (
             <p className="text-emerald-800 font-semibold text-lg">Correct</p>
           ) : (
             <p className={hadWrong ? "text-amber-950 font-semibold text-lg" : "text-emerald-800 font-semibold text-lg"}>
@@ -211,7 +222,7 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
                 : "Correct — perfect spelling."}
             </p>
           )}
-          {!isLetter && (
+          {!isLetterPick && (
             <p className="mt-2">
               Answer:{" "}
               <ThaiText variant="looped" className="text-xl">
@@ -220,7 +231,10 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
             </p>
           )}
           {card.explanation ? (
-            <QuizSuccessExplanation text={card.explanation} prefix="English: " />
+            <QuizSuccessExplanation
+              text={card.explanation}
+              prefix={isLetterPick ? undefined : "English: "}
+            />
           ) : null}
           <button
             type="button"
@@ -232,16 +246,29 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
         </QuizSuccessPanel>
       )}
 
-      <LoopedLetterGrid
-        letters={isLetter ? THAI_LETTER_GRID : undefined}
-        groups={isLetter ? undefined : THAI_SPELLING_KEYBOARD_GROUPS}
-        onPick={isLetter ? onLetterPick : onSpellingPick}
-        disabled={answered}
-        flashWrong={flashWrong}
-        highlightCorrect={
-          isLetter && letterAnswer?.wasCorrect ? letterAnswer.picked : null
-        }
-      />
+      {isSimilarLetter && similarGroup ? (
+        <LoopedLetterGrid
+          letters={similarGroup.letters}
+          onPick={onLetterPick}
+          disabled={answered}
+          flashWrong={flashWrong}
+          highlightCorrect={
+            letterAnswer?.wasCorrect ? letterAnswer.picked : null
+          }
+          centered
+        />
+      ) : (
+        <LoopedLetterGrid
+          letters={isLetter ? THAI_LETTER_GRID : undefined}
+          groups={isLetter ? undefined : THAI_SPELLING_KEYBOARD_GROUPS}
+          onPick={isLetter ? onLetterPick : onSpellingPick}
+          disabled={answered}
+          flashWrong={flashWrong}
+          highlightCorrect={
+            isLetter && letterAnswer?.wasCorrect ? letterAnswer.picked : null
+          }
+        />
+      )}
     </section>
   );
 }

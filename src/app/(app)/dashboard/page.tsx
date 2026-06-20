@@ -48,7 +48,7 @@ export default async function DashboardPage() {
 
       <AppLink
         href="/review"
-        className="block rounded-xl border border-stone-300 bg-stone-100 px-4 py-3 text-center text-sm font-medium text-stone-800"
+        className="block rounded-xl bg-brand-teal px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-brand-teal-hover"
       >
         Review due cards ({stats.dueCount})
       </AppLink>

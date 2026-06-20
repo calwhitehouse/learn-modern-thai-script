@@ -10,7 +10,8 @@ export default async function PracticePage() {
       <header>
         <h1 className="text-2xl font-semibold text-stone-900">Practice</h1>
         <p className="mt-1 text-sm text-stone-600">
-          Each card shows modern non-looped text. Pick the matching looped form in order to learn how the old Thai script translates to the modern version.
+          Each card shows modern non-looped text. Letters uses the full looped chart; Similar
+          letters narrows the choices to sets that are easy to mix up.
         </p>
       </header>
 

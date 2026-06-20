@@ -19,6 +19,10 @@ type LoopedLetterGridProps = {
   disabled?: boolean;
   flashWrong?: string | null;
   highlightCorrect?: string | null;
+  /** Modern font for similar-letter drills; default looped. */
+  variant?: "modern" | "looped";
+  /** Center choice buttons (similar-letter small sets). */
+  centered?: boolean;
 };
 
 function LetterButtons({
@@ -28,6 +32,8 @@ function LetterButtons({
   flashWrongNorm,
   highlightCorrectNorm,
   keyPrefix,
+  variant = "looped",
+  centered = false,
 }: {
   letters: readonly string[];
   onPick: (letter: string) => void;
@@ -35,9 +41,19 @@ function LetterButtons({
   flashWrongNorm: string | null;
   highlightCorrectNorm: string | null;
   keyPrefix: string;
+  variant?: "modern" | "looped";
+  centered?: boolean;
 }) {
+  const containerClass = centered
+    ? "mx-auto flex w-full flex-wrap justify-center gap-2"
+    : "grid grid-cols-4 gap-2 sm:grid-cols-5";
+
+  const buttonClass = centered
+    ? "flex h-11 w-[4.25rem] shrink-0 touch-manipulation items-center justify-center rounded-lg border px-1 transition-colors sm:h-12 sm:w-[4.75rem]"
+    : "flex min-h-[44px] touch-manipulation items-center justify-center rounded-lg border px-1 py-2 transition-colors";
+
   return (
-    <div className="grid grid-cols-6 gap-2 sm:grid-cols-8 md:grid-cols-9">
+    <div className={containerClass}>
       {letters.map((letter, index) => {
         const letterNorm = normalizeThai(letter);
         const isWrongFlash = flashWrongNorm === letterNorm;
@@ -54,7 +70,7 @@ function LetterButtons({
               onPick(letter);
             }}
             className={cn(
-              "flex min-h-[44px] touch-manipulation items-center justify-center rounded-lg border px-1 py-2 transition-colors",
+              buttonClass,
               "border-stone-200 bg-white hover:border-stone-400 hover:bg-stone-50",
               "active:scale-[0.98]",
               "disabled:pointer-events-none disabled:opacity-50",
@@ -62,7 +78,7 @@ function LetterButtons({
               isCorrectHighlight && "!border-emerald-600 !bg-emerald-50",
             )}
           >
-            <ThaiText variant="looped" className="pointer-events-none text-xl sm:text-2xl">
+            <ThaiText variant={variant} className="pointer-events-none text-2xl sm:text-3xl">
               {letter}
             </ThaiText>
           </button>
@@ -79,6 +95,8 @@ export function LoopedLetterGrid({
   disabled,
   flashWrong,
   highlightCorrect,
+  variant = "looped",
+  centered = false,
 }: LoopedLetterGridProps) {
   const flashWrongNorm = flashWrong ? normalizeThai(flashWrong) : null;
   const highlightCorrectNorm = highlightCorrect ? normalizeThai(highlightCorrect) : null;
@@ -96,6 +114,8 @@ export function LoopedLetterGrid({
               flashWrongNorm={flashWrongNorm}
               highlightCorrectNorm={highlightCorrectNorm}
               keyPrefix={group.id}
+              variant={variant}
+              centered={centered}
             />
           </section>
         ))}
@@ -113,6 +133,8 @@ export function LoopedLetterGrid({
       flashWrongNorm={flashWrongNorm}
       highlightCorrectNorm={highlightCorrectNorm}
       keyPrefix="flat"
+      variant={variant}
+      centered={centered}
     />
   );
 }

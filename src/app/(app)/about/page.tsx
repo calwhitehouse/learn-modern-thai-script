@@ -10,7 +10,7 @@ export default function AboutPage() {
       <section className="rounded-xl border border-stone-200 bg-white p-4">
         <h2 className="font-medium text-stone-900">Modern vs looped</h2>
         <p className="mt-2">
-          Non-native Thai language learners often learn to read and write using the old-style looped font script. The modern Thai script is increasingly common esepcially on shop signs and the news. This resource is intended to help you learn how the old-style looped script translates into the modern script.
+          Non-native Thai language learners often learn to read and write using the old-style looped font script. The modern Thai script is increasingly common especially on shop signs and the news. This resource is intended to help you learn how the old-style looped script translates into the modern script.
         </p>
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
@@ -32,7 +32,7 @@ export default function AboutPage() {
         <h2 className="font-medium text-stone-900">How to practice</h2>
         <ol className="mt-2 list-inside list-decimal space-y-1">
           <li>
-            <strong>Letters:</strong> Choose the matching old-style looped letter which corresponds to the modern loopless letter.
+            <strong>Letters & similar letters:</strong> Choose the matching old-style looped letter which corresponds to the modern loopless letter.
           </li>
           <li>
             <strong>Words & sentences:</strong> Choose consonants, vowels, and tone marks in order
