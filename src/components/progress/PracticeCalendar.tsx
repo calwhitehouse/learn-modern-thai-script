@@ -95,7 +95,7 @@ export function PracticeCalendar({ activeDays }: PracticeCalendarProps) {
         ))}
       </div>
 
-      <div className="grid grid-cols-7 gap-1">
+      <div className="grid grid-cols-7 gap-x-0.5 gap-y-0.5">
         {cells.map((cell, index) => {
           const isActive = Boolean(cell.key && activeSet.has(cell.key));
           const isToday = cell.key === todayKey;
@@ -103,14 +103,12 @@ export function PracticeCalendar({ activeDays }: PracticeCalendarProps) {
           return (
             <div
               key={cell.key ?? `pad-${index}`}
-              className="flex items-center justify-center py-0.5"
+              className="flex h-6 items-center justify-center"
             >
               {cell.day ? (
                 <span
                   className={cn(
-                    "text-[11px] leading-none",
-                    (isActive || isToday) &&
-                      "inline-flex min-w-7 items-center justify-center rounded-lg px-3 py-1.5",
+                    "inline-flex h-6 min-w-7 items-center justify-center rounded-lg px-3 text-[11px] leading-none tabular-nums",
                     isActive && "bg-emerald-500 font-medium text-white",
                     !isActive && "text-stone-600",
                     isToday && !isActive && "ring-1 ring-stone-300",
