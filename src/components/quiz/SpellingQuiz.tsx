@@ -12,6 +12,7 @@ import { useScrollToRefWhen } from "@/hooks/useScrollToRefWhen";
 import { useQuizSession } from "@/components/quiz/useQuizSession";
 import { ThaiText } from "@/components/ThaiText";
 import { THAI_SPELLING_KEYBOARD_GROUPS } from "@/lib/thai-alphabet";
+import { collectSessionPrompts } from "@/lib/diverse-practice-session";
 import { splitThaiForSpelling, thaiEquals } from "@/lib/thai-text";
 import { cn } from "@/lib/cn";
 import type { QuizCardWithDeck } from "@/lib/types";
@@ -74,6 +75,8 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
   useScrollToRefWhen(promptScrollTick > 0, promptRef, { trigger: promptScrollTick });
   useScrollToRefWhen(finished, successRef);
 
+  const sessionPrompts = useMemo(() => collectSessionPrompts(queue), [queue]);
+
   if (done || !card) {
     return (
       <SessionSummary
@@ -83,6 +86,7 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
         sessionId={sessionId}
         deckId={deckId}
         source="practice"
+        sessionPrompts={sessionPrompts}
       />
     );
   }

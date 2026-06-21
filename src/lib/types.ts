@@ -18,11 +18,12 @@ export type Card = {
   answer_text: string;
   explanation: string;
   difficulty: number;
+  similar_set_id?: string | null;
 };
 
 export type QuizCard = Pick<
   Card,
-  "id" | "type" | "prompt_text" | "answer_text" | "explanation" | "difficulty"
+  "id" | "type" | "prompt_text" | "answer_text" | "explanation" | "difficulty" | "similar_set_id"
 >;
 
 export type QuizCardWithDeck = QuizCard & { deck_id?: string; deck_slug?: DeckSlug };

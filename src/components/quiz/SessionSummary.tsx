@@ -10,6 +10,8 @@ type SessionSummaryProps = {
   sessionId: string;
   deckId?: string;
   source: "practice" | "review";
+  drillSetIds?: string[];
+  sessionPrompts?: string[];
 };
 
 /** Tiers match a 10-card session: under 70%, 70–99%, 100%. Works for any session length. */
@@ -27,6 +29,8 @@ export function SessionSummary({
   sessionId,
   deckId,
   source,
+  drillSetIds,
+  sessionPrompts,
 }: SessionSummaryProps) {
   const loggedRef = useRef(false);
   const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
@@ -42,8 +46,11 @@ export function SessionSummary({
       source,
       cardCount: total,
       practicedOn: new Date().toLocaleDateString("en-CA"),
+      drillSetIds: drillSetIds?.length ? drillSetIds : undefined,
+      sessionPrompts:
+        source === "practice" && sessionPrompts?.length ? sessionPrompts : undefined,
     });
-  }, [sessionId, deckId, source, total]);
+  }, [sessionId, deckId, source, total, drillSetIds, sessionPrompts]);
 
   return (
     <section className="flex w-full flex-col gap-6 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">

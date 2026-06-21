@@ -1,4 +1,10 @@
-﻿import { selectPracticeSessionCards } from "@/lib/quiz";
+﻿import { selectDiversePracticeSessionCards } from "@/lib/diverse-practice-session";
+import { selectPracticeSessionCards } from "@/lib/quiz";
+import {
+  isSimilarLettersDeck,
+  selectSimilarLettersSessionCards,
+} from "@/lib/similar-letters-session";
+import { RECENT_SESSION_LOOKBACK } from "@/lib/session-variety";
 import { getFullProgressStats } from "@/lib/stats";
 import { isDue } from "@/lib/srs";
 import { shuffle } from "@/lib/quiz-utils";
@@ -32,7 +38,7 @@ export async function getDeckCards(deckId: string): Promise<QuizCard[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("cards")
-    .select("id, type, prompt_text, answer_text, explanation, difficulty")
+    .select("id, type, prompt_text, answer_text, explanation, difficulty, similar_set_id")
     .eq("deck_id", deckId)
     .eq("is_active", true)
     .order("difficulty", { ascending: true });
@@ -49,7 +55,7 @@ export async function getCardsByDeckIds(
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("cards")
-    .select("id, deck_id, type, prompt_text, answer_text, explanation, difficulty")
+    .select("id, deck_id, type, prompt_text, answer_text, explanation, difficulty, similar_set_id")
     .in("deck_id", deckIds)
     .eq("is_active", true);
 
@@ -66,6 +72,7 @@ export async function getCardsByDeckIds(
       answer_text: row.answer_text as string,
       explanation: row.explanation as string,
       difficulty: row.difficulty as number,
+      similar_set_id: (row.similar_set_id as string | null) ?? null,
     });
   }
   return byDeck;
@@ -99,7 +106,7 @@ export async function getDueReviewCards(): Promise<QuizCardWithDeck[]> {
   const { data: cards, error: cardsError } = await supabase
     .from("cards")
     .select(
-      "id, deck_id, type, prompt_text, answer_text, explanation, difficulty, decks(slug)",
+      "id, deck_id, type, prompt_text, answer_text, explanation, difficulty, similar_set_id, decks(slug)",
     )
     .in("id", dueIds)
     .eq("is_active", true);
@@ -119,6 +126,7 @@ export async function getDueReviewCards(): Promise<QuizCardWithDeck[]> {
         answer_text: c.answer_text as string,
         explanation: c.explanation as string,
         difficulty: c.difficulty as number,
+        similar_set_id: (c.similar_set_id as string | null) ?? null,
       };
       return [row.id, row] as const;
     }),
@@ -132,6 +140,56 @@ export async function getDueReviewCards(): Promise<QuizCardWithDeck[]> {
   return shuffle(ordered);
 }
 
+const RECENT_DRILL_SESSION_LOOKBACK = RECENT_SESSION_LOOKBACK;
+
+/** Drill set ids from the user's last few sessions that included similar-letter cards. */
+async function getRecentSessionDrillSetIds(userId: string): Promise<string[][]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("study_sessions")
+    .select("drill_set_ids, completed_at")
+    .eq("user_id", userId)
+    .order("completed_at", { ascending: false })
+    .limit(RECENT_DRILL_SESSION_LOOKBACK * 3);
+
+  if (error) throw new Error(error.message);
+
+  const sessions: string[][] = [];
+  for (const row of data ?? []) {
+    const ids = (row.drill_set_ids as string[] | null) ?? [];
+    if (ids.length === 0) continue;
+    sessions.push(ids);
+    if (sessions.length >= RECENT_DRILL_SESSION_LOOKBACK) break;
+  }
+
+  return sessions;
+}
+
+/** Prompt texts from recent practice sessions on one deck. */
+async function getRecentSessionPrompts(userId: string, deckId: string): Promise<string[][]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("study_sessions")
+    .select("session_prompts, completed_at")
+    .eq("user_id", userId)
+    .eq("deck_id", deckId)
+    .eq("source", "practice")
+    .order("completed_at", { ascending: false })
+    .limit(RECENT_SESSION_LOOKBACK * 3);
+
+  if (error) throw new Error(error.message);
+
+  const sessions: string[][] = [];
+  for (const row of data ?? []) {
+    const prompts = (row.session_prompts as string[] | null) ?? [];
+    if (prompts.length === 0) continue;
+    sessions.push(prompts);
+    if (sessions.length >= RECENT_SESSION_LOOKBACK) break;
+  }
+
+  return sessions;
+}
+
 export async function getPracticeSession(deckId: string): Promise<QuizCard[]> {
   const supabase = await createClient();
   const {
@@ -139,7 +197,13 @@ export async function getPracticeSession(deckId: string): Promise<QuizCard[]> {
   } = await supabase.auth.getUser();
 
   const cards = await getDeckCards(deckId);
-  if (!user) return selectPracticeSessionCards(cards, []);
+  const similarLetters = isSimilarLettersDeck(cards);
+
+  if (!user) {
+    return similarLetters
+      ? selectSimilarLettersSessionCards(cards, [])
+      : selectPracticeSessionCards(cards, []);
+  }
 
   if (cards.length === 0) return [];
 
@@ -151,7 +215,14 @@ export async function getPracticeSession(deckId: string): Promise<QuizCard[]> {
 
   if (error) throw new Error(error.message);
 
-  return selectPracticeSessionCards(cards, progressRows ?? []);
+  const progress = progressRows ?? [];
+  if (similarLetters) {
+    const recentSessionDrillSetIds = await getRecentSessionDrillSetIds(user.id);
+    return selectSimilarLettersSessionCards(cards, progress, { recentSessionDrillSetIds });
+  }
+
+  const recentSessionPrompts = await getRecentSessionPrompts(user.id, deckId);
+  return selectDiversePracticeSessionCards(cards, progress, { recentSessionPrompts });
 }
 
 export async function getProgressStats(): Promise<ProgressStats> {

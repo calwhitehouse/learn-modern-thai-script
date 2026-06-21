@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { LoopedLetterGrid } from "@/components/quiz/LoopedLetterGrid";
 import { QuizCard, QuizPromptText } from "@/components/quiz/QuizCard";
 import {
@@ -11,6 +11,7 @@ import { SessionSummary } from "@/components/quiz/SessionSummary";
 import { useScrollToRefWhen } from "@/hooks/useScrollToRefWhen";
 import { useQuizSession } from "@/components/quiz/useQuizSession";
 import { THAI_LETTER_GRID } from "@/lib/thai-alphabet";
+import { collectSessionPrompts } from "@/lib/diverse-practice-session";
 import { thaiEquals } from "@/lib/thai-text";
 import type { QuizCardWithDeck } from "@/lib/types";
 
@@ -62,6 +63,8 @@ export function LetterPickQuiz({ deckId, cards, finishHref }: LetterPickQuizProp
 
   useScrollToRefWhen(Boolean(answerState), successRef);
 
+  const sessionPrompts = useMemo(() => collectSessionPrompts(queue), [queue]);
+
   if (done || !card) {
     return (
       <SessionSummary
@@ -71,6 +74,7 @@ export function LetterPickQuiz({ deckId, cards, finishHref }: LetterPickQuizProp
         sessionId={sessionId}
         deckId={deckId}
         source="practice"
+        sessionPrompts={sessionPrompts}
       />
     );
   }

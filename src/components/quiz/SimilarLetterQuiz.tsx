@@ -10,7 +10,8 @@ import {
 import { SessionSummary } from "@/components/quiz/SessionSummary";
 import { useScrollToRefWhen } from "@/hooks/useScrollToRefWhen";
 import { useQuizSession } from "@/components/quiz/useQuizSession";
-import { getSimilarLetterGroup } from "@/lib/similar-letters";
+import { getSimilarDrillSetForCard } from "@/lib/similar-letters";
+import { collectDrillSetIds } from "@/lib/similar-letters-session";
 import { thaiEquals } from "@/lib/thai-text";
 import type { QuizCardWithDeck } from "@/lib/types";
 
@@ -44,8 +45,11 @@ export function SimilarLetterQuiz({ deckId, cards, finishHref }: SimilarLetterQu
   const flashTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const successRef = useRef<HTMLDivElement>(null);
 
-  const choiceGroup = useMemo(
-    () => (card ? getSimilarLetterGroup(card.answer_text) : null),
+  const choiceSet = useMemo(
+    () =>
+      card
+        ? getSimilarDrillSetForCard(card.answer_text, card.similar_set_id)
+        : null,
     [card],
   );
 
@@ -67,6 +71,8 @@ export function SimilarLetterQuiz({ deckId, cards, finishHref }: SimilarLetterQu
 
   useScrollToRefWhen(Boolean(answerState), successRef);
 
+  const sessionDrillSetIds = useMemo(() => collectDrillSetIds(queue), [queue]);
+
   if (done || !card) {
     return (
       <SessionSummary
@@ -76,11 +82,12 @@ export function SimilarLetterQuiz({ deckId, cards, finishHref }: SimilarLetterQu
         sessionId={sessionId}
         deckId={deckId}
         source="practice"
+        drillSetIds={sessionDrillSetIds}
       />
     );
   }
 
-  if (!choiceGroup) {
+  if (!choiceSet) {
     return (
       <p className="text-sm text-rose-700">
         This card is not part of a similar-letter set. Skip it in Review or re-sync the deck.
@@ -143,7 +150,7 @@ export function SimilarLetterQuiz({ deckId, cards, finishHref }: SimilarLetterQu
       )}
 
       <LoopedLetterGrid
-        letters={choiceGroup.letters}
+        letters={choiceSet.letters}
         onPick={onPick}
         disabled={answered}
         flashWrong={flashWrong}

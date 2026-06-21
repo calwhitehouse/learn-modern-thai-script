@@ -39,13 +39,12 @@ export function poolFromCards(cards: QuizCard[]): DistractorPoolItem[] {
   return items;
 }
 
-export function selectPracticeSessionCards(
+export function rankCardsForSession(
   cards: QuizCard[],
   progress: Pick<
     UserCardProgress,
     "card_id" | "next_review_at" | "mastered_at" | "correct_count" | "incorrect_count"
   >[],
-  limit = SESSION_SIZE,
 ): QuizCard[] {
   const progressByCard = new Map(progress.map((p) => [p.card_id, p]));
 
@@ -66,7 +65,19 @@ export function selectPracticeSessionCards(
     return a.attempts - b.attempts;
   });
 
-  const active = scored.map((s) => s.card);
+  return scored.map((s) => s.card);
+}
+
+export function selectPracticeSessionCards(
+  cards: QuizCard[],
+  progress: Pick<
+    UserCardProgress,
+    "card_id" | "next_review_at" | "mastered_at" | "correct_count" | "incorrect_count"
+  >[],
+  limit = SESSION_SIZE,
+): QuizCard[] {
+  const progressByCard = new Map(progress.map((p) => [p.card_id, p]));
+  const active = rankCardsForSession(cards, progress);
   const mastered = cards.filter((c) => progressByCard.get(c.id)?.mastered_at);
 
   const session = active.slice(0, limit);

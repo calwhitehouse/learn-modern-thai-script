@@ -9,7 +9,8 @@
     "lint": "eslint",
     "import:cards": "node scripts/generate-card-import.mjs",
     "generate:consonants": "node scripts/generate-consonants.mjs",
-    "generate:letters": "node scripts/generate-consonants.mjs"
+    "generate:letters": "node scripts/generate-consonants.mjs",
+    "generate:similar-letters": "node scripts/generate-similar-letters.mjs"
   },
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^2.0.2",

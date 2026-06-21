@@ -146,6 +146,10 @@ export type LogStudySessionInput = {
   cardCount: number;
   /** Local calendar date (YYYY-MM-DD). */
   practicedOn: string;
+  /** Similar-letters drill sets shown this session. */
+  drillSetIds?: string[];
+  /** Prompt texts shown — letters, words, sentences practice. */
+  sessionPrompts?: string[];
 };
 
 /** Log a finished practice or review session for the progress calendar. */
@@ -171,6 +175,8 @@ export async function logStudySession(input: LogStudySessionInput) {
       deck_id: input.deckId,
       card_count: input.cardCount,
       practiced_on: input.practicedOn,
+      drill_set_ids: input.drillSetIds ?? [],
+      session_prompts: input.sessionPrompts ?? [],
     },
     { onConflict: "user_id,session_id", ignoreDuplicates: true },
   );

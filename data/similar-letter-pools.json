@@ -1,0 +1,27 @@
+{
+  "maxChoices": 5,
+  "minCombinationSize": 4,
+  "pools": [
+    { "id": "w-shape", "letters": ["ผ", "ฝ", "พ", "ฟ", "ฬ"] },
+    { "id": "tall-ascender", "letters": ["ก", "ภ", "ถ", "ฤ", "ฦ"] },
+    { "id": "open-curve", "letters": ["ฮ", "อ", "ว"] },
+    { "id": "rare-descender", "letters": ["ฌ", "ญ", "ฎ", "ฏ", "ณ"] },
+    { "id": "bowl-kh", "letters": ["ด", "ต", "ถ", "ค", "ฅ"] },
+    { "id": "small-open", "letters": ["ง", "จ", "ฉ", "ด", "อ"] },
+    { "id": "rounded", "letters": ["น", "บ", "ป", "ม"] },
+    { "id": "wavy-kh", "letters": ["ซ", "ช", "ฆ", "ฃ", "ข"] },
+    { "id": "sao-trio", "letters": ["ศ", "ษ", "ส"] },
+    { "id": "tail-curve", "letters": ["ร", "ล", "ว"] },
+    { "id": "mid-tail", "letters": ["ด", "ต", "ท", "ธ"] },
+    { "id": "kh-core", "letters": ["ข", "ค", "ฆ"] },
+    { "id": "rounded-plus", "letters": ["น", "ณ", "บ", "ป", "ม"] },
+    { "id": "w-plus-tall", "letters": ["ผ", "ฝ", "พ", "ฟ", "ฬ", "ถ"] },
+    { "id": "mid-extended", "letters": ["ด", "ต", "ถ", "ท", "ธ", "ค"] },
+    { "id": "v-e", "letters": ["เ", "แ"] },
+    { "id": "v-a", "letters": ["า", "ำ"] },
+    { "id": "v-i", "letters": ["ิ", "ี"] },
+    { "id": "v-ue", "letters": ["ึ", "ื"] },
+    { "id": "v-u", "letters": ["ุ", "ู"] },
+    { "id": "v-ai", "letters": ["ใ", "ไ"] }
+  ]
+}

@@ -8,11 +8,19 @@ create table if not exists public.study_sessions (
   card_count int not null check (card_count > 0),
   practiced_on date not null,
   completed_at timestamptz not null default now(),
+  drill_set_ids text[] not null default '{}',
+  session_prompts text[] not null default '{}',
   primary key (user_id, session_id)
 );
 
 create index if not exists study_sessions_user_practiced_idx
   on public.study_sessions (user_id, practiced_on desc);
+
+create index if not exists study_sessions_user_completed_idx
+  on public.study_sessions (user_id, completed_at desc);
+
+create index if not exists study_sessions_deck_completed_idx
+  on public.study_sessions (user_id, deck_id, completed_at desc);
 
 alter table public.study_sessions enable row level security;
 

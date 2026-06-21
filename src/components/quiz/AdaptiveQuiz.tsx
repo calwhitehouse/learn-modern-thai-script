@@ -12,7 +12,8 @@ import { useScrollToRefWhen } from "@/hooks/useScrollToRefWhen";
 import { useQuizSession } from "@/components/quiz/useQuizSession";
 import { ThaiText } from "@/components/ThaiText";
 import { THAI_LETTER_GRID, THAI_SPELLING_KEYBOARD_GROUPS } from "@/lib/thai-alphabet";
-import { getSimilarLetterGroup, SIMILAR_LETTERS_DECK_SLUG } from "@/lib/similar-letters";
+import { getSimilarDrillSetForCard, SIMILAR_LETTERS_DECK_SLUG } from "@/lib/similar-letters";
+import { collectDrillSetIds } from "@/lib/similar-letters-session";
 import { splitThaiForSpelling, thaiEquals } from "@/lib/thai-text";
 import { cn } from "@/lib/cn";
 import type { QuizCardWithDeck } from "@/lib/types";
@@ -55,9 +56,11 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
 
   const isSimilarLetter = card?.deck_slug === SIMILAR_LETTERS_DECK_SLUG;
   const isLetter = card?.type === "letter" && !isSimilarLetter;
-  const similarGroup = useMemo(
+  const similarDrillSet = useMemo(
     () =>
-      isSimilarLetter && card ? getSimilarLetterGroup(card.answer_text) : null,
+      isSimilarLetter && card
+        ? getSimilarDrillSetForCard(card.answer_text, card.similar_set_id)
+        : null,
     [isSimilarLetter, card],
   );
   const segments = useMemo(
@@ -88,6 +91,8 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
   useScrollToRefWhen(promptScrollTick > 0, promptRef, { trigger: promptScrollTick });
   useScrollToRefWhen(Boolean(letterAnswer || spellingDone), successRef);
 
+  const sessionDrillSetIds = useMemo(() => collectDrillSetIds(queue), [queue]);
+
   if (done || !card) {
     return (
       <SessionSummary
@@ -95,7 +100,9 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
         correct={correctCount}
         onDone={() => router.push(finishHref)}
         sessionId={sessionId}
+        deckId={deckId}
         source="review"
+        drillSetIds={sessionDrillSetIds.length > 0 ? sessionDrillSetIds : undefined}
       />
     );
   }
@@ -249,9 +256,9 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
         </QuizSuccessPanel>
       )}
 
-      {isSimilarLetter && similarGroup ? (
+      {isSimilarLetter && similarDrillSet ? (
         <LoopedLetterGrid
-          letters={similarGroup.letters}
+          letters={similarDrillSet.letters}
           onPick={onLetterPick}
           disabled={answered}
           flashWrong={flashWrong}
