@@ -36,8 +36,8 @@ export default function PrivacyPage() {
       <section className="rounded-xl border border-stone-200 bg-white p-4">
         <h2 className="font-medium text-stone-900">Who we are</h2>
         <p className="mt-2">
-          This privacy policy applies to <strong>{SITE_NAME}</strong> (the
-          &ldquo;Service&rdquo;), a web application that helps learners practise reading
+          This privacy policy applies to <strong>{SITE_NAME}</strong>{" "}
+          (the &ldquo;Service&rdquo;), a web application that helps learners practise reading
           modern Thai script. The Service is available at{" "}
           <Link href="/" className="text-stone-900 underline-offset-2 hover:underline">
             learnmodernthaiscript.com
