@@ -49,7 +49,6 @@ export function getNavItemsForUser(isAuthenticated: boolean): readonly NavItem[]
   return isAuthenticated ? AUTH_NAV_ITEMS : PUBLIC_NAV_ITEMS;
 }
 
-/** Add entries here for Privacy Policy and other footer links. */
 export const FOOTER_LINKS: { href: string; label: string }[] = [
-  // { href: "/privacy", label: "Privacy policy" },
+  { href: "/privacy", label: "Privacy policy" },
 ];
