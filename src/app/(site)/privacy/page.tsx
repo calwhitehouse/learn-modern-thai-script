@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PRIVACY_CONTACT_EMAIL } from "@/lib/privacy";
 import { SITE_NAME, openGraphDefaults, twitterDefaults } from "@/lib/seo";
 
 const PRIVACY_TITLE = "Privacy Policy";
 const PRIVACY_DESCRIPTION =
-  "How Learn Modern Thai Script collects, uses, and protects your information when you use our website and practice tools.";
-const CONTACT_EMAIL = "hello@learnmodernthaiscript.com";
-const LAST_UPDATED = "30 May 2026";
+  "How Learn Modern Thai Script collects, uses, and protects your information.";
+const LAST_UPDATED = "24 June 2026";
 
 export const metadata: Metadata = {
   title: PRIVACY_TITLE,
@@ -34,298 +34,179 @@ export default function PrivacyPage() {
       </header>
 
       <section className="rounded-xl border border-stone-200 bg-white p-4">
-        <h2 className="font-medium text-stone-900">Who we are</h2>
+        <h2 className="font-medium text-stone-900">Overview</h2>
         <p className="mt-2">
-          This privacy policy applies to <strong>{SITE_NAME}</strong>{" "}
-          (the &ldquo;Service&rdquo;), a web application that helps learners practise reading
-          modern Thai script. The Service is available at{" "}
+          This policy describes how <strong>{SITE_NAME}</strong>{" "}
+          (the &ldquo;Service&rdquo;), available at{" "}
           <Link href="/" className="text-stone-900 underline-offset-2 hover:underline">
             learnmodernthaiscript.com
           </Link>
-          .
+          , handles personal information. The Service helps learners practise reading modern Thai
+          script with accounts, quizzes, spaced repetition, and progress tracking.
         </p>
         <p className="mt-2">
-          For privacy questions or to exercise your rights, contact us at{" "}
+          Contact:{" "}
           <a
-            href={`mailto:${CONTACT_EMAIL}`}
+            href={`mailto:${PRIVACY_CONTACT_EMAIL}`}
             className="text-stone-900 underline-offset-2 hover:underline"
           >
-            {CONTACT_EMAIL}
+            {PRIVACY_CONTACT_EMAIL}
           </a>
-          .
         </p>
-      </section>
-
-      <section className="rounded-xl border border-stone-200 bg-white p-4">
-        <h2 className="font-medium text-stone-900">What the Service does</h2>
-        <p className="mt-2">When you use the Service, we may process information so that you can:</p>
-        <ul className="mt-2 list-outside list-disc space-y-1 px-4">
-          <li>Create an account and sign in with email and password</li>
-          <li>Practise letters, similar letters, words, and sentences in quiz sessions</li>
-          <li>Track spaced-repetition progress, review due cards, and view practice statistics</li>
-          <li>See which days you completed practice on a calendar</li>
-          <li>Browse public pages such as the home page and quick reference chart without an account</li>
-        </ul>
       </section>
 
       <section className="rounded-xl border border-stone-200 bg-white p-4">
         <h2 className="font-medium text-stone-900">Information we collect</h2>
-
-        <h3 className="mt-4 font-medium text-stone-800">Account information</h3>
-        <p className="mt-2">
-          If you register, we collect your <strong>email address</strong> and{" "}
-          <strong>password</strong>. Passwords are handled by our authentication provider; we do
-          not store your password in plain text. We may also store a{" "}
-          <strong>display name</strong> derived from your sign-up details or email address.
-        </p>
-
-        <h3 className="mt-4 font-medium text-stone-800">Learning and usage data</h3>
-        <p className="mt-2">
-          When you are signed in and use practice or review, we store data linked to your account,
-          including:
-        </p>
-        <ul className="mt-2 list-outside list-disc space-y-1 px-4">
+        <ul className="mt-2 list-outside list-disc space-y-2 px-4">
           <li>
-            <strong>Progress records</strong> — correct and incorrect counts, streaks, review
-            schedules, and mastery status per card
+            <strong>Account data</strong> — email address, password (stored securely by our auth
+            provider, not in plain text), and an optional display name.
           </li>
           <li>
-            <strong>Quiz attempts</strong> — which card you answered, whether the attempt was
-            correct, the answer you selected, a session identifier, and a timestamp
+            <strong>Learning data</strong> — quiz progress, review schedules, quiz attempts, and
+            completed study sessions.
           </li>
           <li>
-            <strong>Study sessions</strong> — when you finish a practice or review session, how many
-            cards it included, the calendar date practised, and (for session variety) which prompts
-            or similar-letter drill sets appeared in that session
+            <strong>Technical data</strong> — IP address, browser type, and similar request data
+            processed by our hosting provider when you use the site.
+          </li>
+          <li>
+            <strong>hCaptcha data</strong> — on sign-in and sign-up, hCaptcha may process device and
+            interaction data for bot protection (
+            <a
+              href="https://www.hcaptcha.com/privacy"
+              className="text-stone-900 underline-offset-2 hover:underline"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              hCaptcha privacy policy
+            </a>
+            ).
+          </li>
+          <li>
+            <strong>Analytics data (with consent)</strong> — if you accept analytics cookies, Google
+            Analytics may collect pages viewed, approximate location, device and browser
+            information, and how you found the site.
+          </li>
+          <li>
+            <strong>Emails you send us</strong> — such as privacy or deletion requests.
           </li>
         </ul>
-
-        <h3 className="mt-4 font-medium text-stone-800">Technical and session data</h3>
-        <p className="mt-2">
-          We use <strong>cookies and similar technologies</strong> to keep you signed in and to
-          operate the site securely. Our hosting and database providers may also process technical
-          data such as IP address, browser type, and request logs when you access the Service.
-        </p>
-
-        <h3 className="mt-4 font-medium text-stone-800">Bot protection (hCaptcha)</h3>
-        <p className="mt-2">
-          On sign-in and sign-up, we use <strong>hCaptcha</strong> to reduce abuse. hCaptcha may
-          collect device and interaction data to distinguish humans from bots. See{" "}
-          <a
-            href="https://www.hcaptcha.com/privacy"
-            className="text-stone-900 underline-offset-2 hover:underline"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            hCaptcha&apos;s privacy policy
-          </a>
-          .
-        </p>
-
-        <h3 className="mt-4 font-medium text-stone-800">Information you send us by email</h3>
-        <p className="mt-2">
-          If you email us (for example to request account deletion), we receive your email address,
-          message content, and any information you choose to include.
-        </p>
       </section>
 
       <section className="rounded-xl border border-stone-200 bg-white p-4">
-        <h2 className="font-medium text-stone-900">How we use your information</h2>
-        <p className="mt-2">We use the information above to:</p>
+        <h2 className="font-medium text-stone-900">How we use information</h2>
+        <p className="mt-2">We use personal information to:</p>
         <ul className="mt-2 list-outside list-disc space-y-1 px-4">
-          <li>Provide, maintain, and secure the Service</li>
-          <li>Authenticate you and manage your account</li>
-          <li>Save your learning progress and power spaced repetition and review</li>
-          <li>Show practice statistics and calendar activity</li>
-          <li>Improve session variety (for example, avoiding repeated prompts in close succession)</li>
+          <li>Provide and secure the Service</li>
+          <li>Save your learning progress and run spaced repetition</li>
           <li>Respond to support and privacy requests</li>
-          <li>Protect the Service against fraud and abuse</li>
+          <li>Measure site usage when you consent to analytics</li>
+          <li>Prevent abuse and fraud</li>
         </ul>
         <p className="mt-2">
-          We rely on <strong>contract</strong> (to provide the Service you signed up for) and{" "}
-          <strong>legitimate interests</strong> (security, abuse prevention, and improving the
-          learning experience) as legal bases where applicable under UK and EU data protection law.
+          Depending on your location, we rely on <strong>contract</strong> (to deliver the Service),{" "}
+          <strong>legitimate interests</strong> (security and service improvement), and{" "}
+          <strong>consent</strong> (analytics cookies) as applicable.
         </p>
       </section>
 
       <section className="rounded-xl border border-stone-200 bg-white p-4">
-        <h2 className="font-medium text-stone-900">Who we share information with</h2>
+        <h2 className="font-medium text-stone-900">Service providers</h2>
         <p className="mt-2">
-          We use trusted service providers to run the Service. They process data on our instructions
-          and only as needed to provide their services:
+          We use processors that handle data on our behalf:{" "}
+          <strong>Supabase</strong> (auth and database), <strong>Vercel</strong> (hosting),{" "}
+          <strong>Google</strong> (Analytics, when consented), and <strong>hCaptcha</strong> (bot
+          protection). Their privacy policies apply to their processing.
         </p>
-        <ul className="mt-2 list-outside list-disc space-y-1 px-4">
-          <li>
-            <strong>Supabase</strong> — authentication, database, and storage of account and
-            learning data (
-            <a
-              href="https://supabase.com/privacy"
-              className="text-stone-900 underline-offset-2 hover:underline"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Supabase privacy policy
-            </a>
-            )
-          </li>
-          <li>
-            <strong>Vercel</strong> — website hosting and delivery (
-            <a
-              href="https://vercel.com/legal/privacy-policy"
-              className="text-stone-900 underline-offset-2 hover:underline"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Vercel privacy policy
-            </a>
-            )
-          </li>
-          <li>
-            <strong>hCaptcha</strong> — bot protection on authentication (see above)
-          </li>
-        </ul>
         <p className="mt-2">
-          We do not sell your personal information. We may disclose information if required by law or
-          to protect the rights, safety, and security of users and the Service.
+          We do <strong>not</strong> sell personal information. We do not share personal information
+          for cross-context behavioural advertising.
         </p>
       </section>
 
       <section className="rounded-xl border border-stone-200 bg-white p-4">
-        <h2 className="font-medium text-stone-900">Analytics and search tools (current and planned)</h2>
-
-        <h3 className="mt-4 font-medium text-stone-800">Currently</h3>
+        <h2 className="font-medium text-stone-900">Cookies and your choices</h2>
+        <p className="mt-2">We use cookies and similar technologies as follows:</p>
+        <ul className="mt-2 list-outside list-disc space-y-2 px-4">
+          <li>
+            <strong>Essential</strong> — required to keep you signed in (Supabase session cookies).
+            These run without consent because the Service cannot work without them.
+          </li>
+          <li>
+            <strong>Security</strong> — hCaptcha may set cookies when you sign in or sign up.
+          </li>
+          <li>
+            <strong>Analytics</strong> — placed only if you click <strong>Accept analytics</strong> in
+            our cookie banner. You can reject non-essential cookies or change your choice anytime
+            via <strong>Cookie settings</strong> in the footer.
+          </li>
+        </ul>
         <p className="mt-2">
-          We do not use Google Analytics or similar visitor analytics cookies on the Service at this
-          time. Basic technical logs may still be created by our hosting provider when pages are
-          requested.
-        </p>
-
-        <h3 className="mt-4 font-medium text-stone-800">Google Analytics (planned)</h3>
-        <p className="mt-2">
-          We plan to add <strong>Google Analytics</strong> to understand how visitors use the public
-          parts of the site (for example, which pages are visited and how users navigate). When
-          enabled, Google may set cookies such as <code className="text-xs">_ga</code> and collect
-          information such as pages viewed, approximate location (derived from IP), device and
-          browser type, and referral source. Google processes this data as described in the{" "}
-          <a
-            href="https://policies.google.com/privacy"
-            className="text-stone-900 underline-offset-2 hover:underline"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Google Privacy Policy
-          </a>
-          . You can opt out of Google Analytics using the{" "}
+          You can also control cookies in your browser. To opt out of Google Analytics after
+          consenting, reject analytics in Cookie settings or use{" "}
           <a
             href="https://tools.google.com/dlpage/gaoptout"
             className="text-stone-900 underline-offset-2 hover:underline"
             rel="noopener noreferrer"
             target="_blank"
           >
-            Google Analytics Opt-out Browser Add-on
-          </a>{" "}
-          or your browser&apos;s cookie settings. Where required by law, we will ask for your consent
-          before enabling non-essential analytics cookies and will update this policy when Analytics
-          goes live.
-        </p>
-
-        <h3 className="mt-4 font-medium text-stone-800">Google Search Console (planned)</h3>
-        <p className="mt-2">
-          We plan to use <strong>Google Search Console</strong>{" "}
-          to monitor how the site appears in
-          Google Search (for example, search queries, impressions, and indexing status). Search
-          Console is a site-owner tool: it does not place analytics cookies on visitors&apos; browsers.
-          Google may process aggregated search performance data relating to our site as described in
-          Google&apos;s privacy documentation.
+            Google&apos;s opt-out add-on
+          </a>
+          .
         </p>
       </section>
 
       <section className="rounded-xl border border-stone-200 bg-white p-4">
-        <h2 className="font-medium text-stone-900">Cookies</h2>
-        <p className="mt-2">The Service uses cookies and similar storage for:</p>
-        <ul className="mt-2 list-outside list-disc space-y-1 px-4">
-          <li>
-            <strong>Essential cookies</strong> — to keep you signed in and protect your session
-            (via Supabase authentication)
-          </li>
-          <li>
-            <strong>Security cookies</strong> — hCaptcha may set cookies when you use sign-in or
-            sign-up
-          </li>
-          <li>
-            <strong>Analytics cookies (planned)</strong> — if we enable Google Analytics, as
-            described above
-          </li>
-        </ul>
+        <h2 className="font-medium text-stone-900">Retention and international transfers</h2>
         <p className="mt-2">
-          You can control cookies through your browser settings. Blocking essential cookies may
-          prevent you from staying signed in.
+          We keep account and learning data while your account is active. If you request deletion,
+          we delete or anonymise associated personal data, except where limited retention is
+          required by law or for security.
         </p>
-      </section>
-
-      <section className="rounded-xl border border-stone-200 bg-white p-4">
-        <h2 className="font-medium text-stone-900">How long we keep information</h2>
         <p className="mt-2">
-          We keep your account and learning data while your account is active. If you delete your
-          account or ask us to delete your data, we delete or anonymise personal information
-          associated with your account, subject to any limited retention required by law or for
-          legitimate security purposes (for example, short-lived server logs).
-        </p>
-      </section>
-
-      <section className="rounded-xl border border-stone-200 bg-white p-4">
-        <h2 className="font-medium text-stone-900">International transfers</h2>
-        <p className="mt-2">
-          Our service providers may process data in countries outside your own, including the United
-          States. Where required, we rely on appropriate safeguards such as standard contractual
-          clauses or equivalent mechanisms offered by those providers.
+          Our providers may process data in countries other than yours (including the United
+          States). Where required, we rely on appropriate safeguards such as standard contractual
+          clauses.
         </p>
       </section>
 
       <section className="rounded-xl border border-stone-200 bg-white p-4">
         <h2 className="font-medium text-stone-900">Your rights</h2>
         <p className="mt-2">
-          Depending on where you live (including the UK and EEA), you may have the right to:
+          Depending on where you live, you may have rights to access, correct, delete, restrict, or
+          object to processing of your personal information, to data portability, and to withdraw
+          consent (including analytics cookies). California residents may have additional rights
+          under the CCPA/CPRA, including the right to know what we collect and to request deletion.
+          We do not sell or share personal information as defined under California law.
         </p>
-        <ul className="mt-2 list-outside list-disc space-y-1 px-4">
-          <li>Access the personal information we hold about you</li>
-          <li>Correct inaccurate information</li>
-          <li>Request deletion of your information</li>
-          <li>Object to or restrict certain processing</li>
-          <li>Data portability</li>
-          <li>Withdraw consent where processing is based on consent</li>
-          <li>Lodge a complaint with your local data protection authority</li>
-        </ul>
         <p className="mt-2">
-          To request access, correction, or <strong>deletion of your account and data</strong>,
-          email{" "}
+          To exercise your rights, including <strong>account and data deletion</strong>, email{" "}
           <a
-            href={`mailto:${CONTACT_EMAIL}`}
+            href={`mailto:${PRIVACY_CONTACT_EMAIL}`}
             className="text-stone-900 underline-offset-2 hover:underline"
           >
-            {CONTACT_EMAIL}
+            {PRIVACY_CONTACT_EMAIL}
           </a>{" "}
-          from the email address linked to your account. We will verify your request and respond
-          within a reasonable time.
+          from the email address linked to your account. You may also complain to your local data
+          protection authority where applicable.
         </p>
       </section>
 
       <section className="rounded-xl border border-stone-200 bg-white p-4">
         <h2 className="font-medium text-stone-900">Children</h2>
         <p className="mt-2">
-          The Service is not directed at children under 13. We do not knowingly collect personal
-          information from children under 13. If you believe a child has provided us with personal
-          information, contact us at {CONTACT_EMAIL} and we will take steps to delete it.
+          The Service is not directed at children. We do not knowingly collect personal information
+          from children under 13, or under the minimum age required in their jurisdiction. Contact
+          us if you believe a child has provided personal information.
         </p>
       </section>
 
       <section className="rounded-xl border border-stone-200 bg-white p-4">
-        <h2 className="font-medium text-stone-900">Changes to this policy</h2>
+        <h2 className="font-medium text-stone-900">Changes</h2>
         <p className="mt-2">
-          We may update this privacy policy from time to time (for example, when we enable Google
-          Analytics or Search Console). We will post the revised policy on this page and update the
-          &ldquo;Last updated&rdquo; date. Continued use of the Service after changes take effect
-          constitutes acceptance of the updated policy where permitted by law.
+          We may update this policy and will revise the date above. Material changes may be
+          highlighted on the site where appropriate.
         </p>
       </section>
     </article>

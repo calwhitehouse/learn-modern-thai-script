@@ -4,15 +4,17 @@ const isDev = process.env.NODE_ENV === "development";
 
 /** hCaptcha domains — required when Auth CAPTCHA is enabled (see Supabase auth-captcha guide). */
 const hcaptchaSources = "https://hcaptcha.com https://*.hcaptcha.com";
+const googleAnalyticsSources =
+  "https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com";
 
-/** Basic CSP compatible with Next.js (inline scripts/styles), self-hosted fonts, and hCaptcha. */
+/** Basic CSP compatible with Next.js (inline scripts/styles), self-hosted fonts, hCaptcha, and GA (after consent). */
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' ${hcaptchaSources}${isDev ? " 'unsafe-eval'" : ""}`,
+  `script-src 'self' 'unsafe-inline' ${hcaptchaSources} ${googleAnalyticsSources}${isDev ? " 'unsafe-eval'" : ""}`,
   `style-src 'self' 'unsafe-inline' ${hcaptchaSources}`,
-  `img-src 'self' data: blob: ${hcaptchaSources}`,
+  `img-src 'self' data: blob: ${hcaptchaSources} ${googleAnalyticsSources}`,
   "font-src 'self'",
-  `connect-src 'self' ${hcaptchaSources}${isDev ? " ws: wss:" : ""}`,
+  `connect-src 'self' ${hcaptchaSources} ${googleAnalyticsSources}${isDev ? " ws: wss:" : ""}`,
   `frame-src 'self' ${hcaptchaSources}`,
   "object-src 'none'",
   "base-uri 'self'",

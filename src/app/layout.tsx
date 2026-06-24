@@ -2,6 +2,7 @@
 import localFont from "next/font/local";
 import { Prompt, Sarabun } from "next/font/google";
 import { AppFooter } from "@/components/AppFooter";
+import { CookieConsentBanner } from "@/components/consent/CookieConsentBanner";
 import {
   DEFAULT_DESCRIPTION,
   SITE_NAME,
@@ -72,6 +73,7 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col bg-stone-50 text-stone-900 antialiased">
         <div className="flex flex-1 flex-col">{children}</div>
         <AppFooter />
+        <CookieConsentBanner />
       </body>
     </html>
   );

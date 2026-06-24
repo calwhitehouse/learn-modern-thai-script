@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CookieSettingsLink } from "@/components/consent/CookieSettingsLink";
 import { FOOTER_LINKS } from "@/lib/data";
 
 export function AppFooter() {
@@ -28,6 +29,7 @@ export function AppFooter() {
                 {link.label}
               </Link>
             ))}
+            <CookieSettingsLink />
           </nav>
         ) : null}
       </div>
