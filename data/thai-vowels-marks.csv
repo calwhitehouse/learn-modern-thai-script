@@ -3,13 +3,12 @@ tone,่,mai ek,low tone — lowers syllable pitch,2
 tone,้,mai tho,falling tone — pitch falls,2
 tone,๊,mai tri,high tone — high pitch,2
 tone,๋,mai chattawa,rising tone — pitch rises,2
-tone,็,mai taikhu,shortens the vowel it follows,2
-tone,์,thanthakhat,makes a final consonant silent (karan),2
-tone,ํ,nikhahit,creates /am/ when paired with า (as in ำ),2
+tone,็,mai taikhu,shortens the vowel it follows (not a tone),2
+tone,์,thanthakhat,makes a final consonant silent (karan — not a tone),2
 vowel,ะ,a,short /a/ vowel (sara a),1
 vowel,ั,a,/a/ written above consonant (mai han-akat),2
 vowel,า,aa,long /aa/ vowel (sara aa),1
-vowel,ำ,am,/am/ vowel (sara am — as in น้ำ water),1
+vowel,ำ,am,/am/ vowel (sara am — as in น้ำ water; written as one character),1
 vowel,ิ,i,short /i/ vowel (sara i),1
 vowel,ี,ii,long /ii/ vowel (sara ii),1
 vowel,ึ,ue,short /ue/ vowel (sara ue),2

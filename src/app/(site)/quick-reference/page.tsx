@@ -35,7 +35,7 @@ export default async function QuickReferencePage() {
         <h1 className="text-2xl font-semibold text-stone-900">Quick reference</h1>
         <p className="mt-2 text-sm leading-relaxed text-stone-600">
           Compare each character in old-style looped Thai script and modern Thai script — consonants,
-          vowels, and tone marks.
+          vowels, tone marks, and other diacritics.
         </p>
         <p className="mt-3">
           {user ? (

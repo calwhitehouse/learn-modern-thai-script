@@ -52,7 +52,6 @@ export const THAI_LETTER_PHONETICS: Record<string, string> = {
   "๋": "mai chattawa",
   "็": "mai taikhu",
   "์": "thanthakhat",
-  "ํ": "nikhahit",
   "ะ": "a",
   "ั": "a",
   "า": "aa",

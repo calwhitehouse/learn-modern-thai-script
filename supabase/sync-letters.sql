@@ -57,13 +57,12 @@ cross join (
     ('้', '้', '้ — mai tho (falling tone — pitch falls)', 2),
     ('๊', '๊', '๊ — mai tri (high tone — high pitch)', 2),
     ('๋', '๋', '๋ — mai chattawa (rising tone — pitch rises)', 2),
-    ('็', '็', '็ — mai taikhu (shortens the vowel it follows)', 2),
-    ('์', '์', '์ — thanthakhat (makes a final consonant silent (karan))', 2),
-    ('ํ', 'ํ', 'ํ — nikhahit (creates /am/ when paired with า (as in ำ))', 2),
+    ('็', '็', '็ — mai taikhu (shortens the vowel it follows (not a tone))', 2),
+    ('์', '์', '์ — thanthakhat (makes a final consonant silent (karan — not a tone))', 2),
     ('ะ', 'ะ', 'ะ — a (short /a/ vowel (sara a))', 1),
     ('ั', 'ั', 'ั — a (/a/ written above consonant (mai han-akat))', 2),
     ('า', 'า', 'า — aa (long /aa/ vowel (sara aa))', 1),
-    ('ำ', 'ำ', 'ำ — am (/am/ vowel (sara am — as in น้ำ water))', 1),
+    ('ำ', 'ำ', 'ำ — am (/am/ vowel (sara am — as in น้ำ water; written as one character))', 1),
     ('ิ', 'ิ', 'ิ — i (short /i/ vowel (sara i))', 1),
     ('ี', 'ี', 'ี — ii (long /ii/ vowel (sara ii))', 1),
     ('ึ', 'ึ', 'ึ — ue (short /ue/ vowel (sara ue))', 2),
@@ -135,13 +134,12 @@ set
     when '้' then '้ — mai tho (falling tone — pitch falls)'
     when '๊' then '๊ — mai tri (high tone — high pitch)'
     when '๋' then '๋ — mai chattawa (rising tone — pitch rises)'
-    when '็' then '็ — mai taikhu (shortens the vowel it follows)'
-    when '์' then '์ — thanthakhat (makes a final consonant silent (karan))'
-    when 'ํ' then 'ํ — nikhahit (creates /am/ when paired with า (as in ำ))'
+    when '็' then '็ — mai taikhu (shortens the vowel it follows (not a tone))'
+    when '์' then '์ — thanthakhat (makes a final consonant silent (karan — not a tone))'
     when 'ะ' then 'ะ — a (short /a/ vowel (sara a))'
     when 'ั' then 'ั — a (/a/ written above consonant (mai han-akat))'
     when 'า' then 'า — aa (long /aa/ vowel (sara aa))'
-    when 'ำ' then 'ำ — am (/am/ vowel (sara am — as in น้ำ water))'
+    when 'ำ' then 'ำ — am (/am/ vowel (sara am — as in น้ำ water; written as one character))'
     when 'ิ' then 'ิ — i (short /i/ vowel (sara i))'
     when 'ี' then 'ี — ii (long /ii/ vowel (sara ii))'
     when 'ึ' then 'ึ — ue (short /ue/ vowel (sara ue))'
@@ -208,7 +206,6 @@ set
     when '๋' then 2
     when '็' then 2
     when '์' then 2
-    when 'ํ' then 2
     when 'ะ' then 1
     when 'ั' then 2
     when 'า' then 1
