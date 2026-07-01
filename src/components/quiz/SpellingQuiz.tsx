@@ -9,6 +9,8 @@ import {
 } from "@/components/quiz/QuizSuccessPanel";
 import { SessionSummary } from "@/components/quiz/SessionSummary";
 import { useScrollToRefWhen } from "@/hooks/useScrollToRefWhen";
+import { useLetterTapFlash } from "@/hooks/useLetterTapFlash";
+import { useSpellingAutoScroll } from "@/hooks/useSpellingAutoScroll";
 import { useQuizSession } from "@/components/quiz/useQuizSession";
 import { ThaiText } from "@/components/ThaiText";
 import { THAI_SPELLING_KEYBOARD_GROUPS } from "@/lib/thai-alphabet";
@@ -39,14 +41,15 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
 
   const [picked, setPicked] = useState<string[]>([]);
   const [hadWrong, setHadWrong] = useState(false);
-  const [flashWrong, setFlashWrong] = useState<string | null>(null);
+  const { flashWrong, flashCorrect, flashWrongLetter, flashCorrectLetter, clearFlash } =
+    useLetterTapFlash();
   const [finished, setFinished] = useState(false);
   const prevCardIdRef = useRef<string | null>(null);
   const hadWrongRef = useRef(false);
-  const flashTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const promptRef = useRef<HTMLDivElement>(null);
   const successRef = useRef<HTMLDivElement>(null);
   const [promptScrollTick, setPromptScrollTick] = useState(0);
+  const { enabled: autoScrollEnabled } = useSpellingAutoScroll();
 
   const segments = useMemo(
     () => (card ? splitThaiForSpelling(card.answer_text) : []),
@@ -59,20 +62,14 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
     setPicked([]);
     setHadWrong(false);
     hadWrongRef.current = false;
-    setFlashWrong(null);
+    clearFlash();
     setFinished(false);
     setPromptScrollTick(0);
-    if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
-  }, [card?.id]);
+  }, [card?.id, clearFlash]);
 
-  useEffect(
-    () => () => {
-      if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
-    },
-    [],
-  );
-
-  useScrollToRefWhen(promptScrollTick > 0, promptRef, { trigger: promptScrollTick });
+  useScrollToRefWhen(promptScrollTick > 0 && autoScrollEnabled, promptRef, {
+    trigger: promptScrollTick,
+  });
   useScrollToRefWhen(finished, successRef);
 
   const sessionPrompts = useMemo(() => collectSessionPrompts(queue), [queue]);
@@ -101,12 +98,11 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
       hadWrongRef.current = true;
       setHadWrong(true);
       recordWrongLetter(letter);
-      setFlashWrong(letter);
-      if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
-      flashTimeoutRef.current = setTimeout(() => setFlashWrong(null), 500);
+      flashWrongLetter(letter);
       return;
     }
 
+    flashCorrectLetter(letter);
     const next = [...picked, letter];
     setPicked(next);
 
@@ -122,7 +118,7 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
     setPicked([]);
     setHadWrong(false);
     hadWrongRef.current = false;
-    setFlashWrong(null);
+    clearFlash();
     setFinished(false);
     goNext();
   };
@@ -203,6 +199,7 @@ export function SpellingQuiz({ deckId, cards, finishHref }: SpellingQuizProps) {
         onPick={onPick}
         disabled={finished}
         flashWrong={flashWrong}
+        flashCorrect={flashCorrect}
       />
     </section>
   );

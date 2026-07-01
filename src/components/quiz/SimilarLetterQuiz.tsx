@@ -9,6 +9,7 @@ import {
 } from "@/components/quiz/QuizSuccessPanel";
 import { SessionSummary } from "@/components/quiz/SessionSummary";
 import { useScrollToRefWhen } from "@/hooks/useScrollToRefWhen";
+import { useLetterTapFlash } from "@/hooks/useLetterTapFlash";
 import { useQuizSession } from "@/components/quiz/useQuizSession";
 import { getSimilarDrillSetForCard } from "@/lib/similar-letters";
 import { collectDrillSetIds } from "@/lib/similar-letters-session";
@@ -39,10 +40,10 @@ export function SimilarLetterQuiz({ deckId, cards, finishHref }: SimilarLetterQu
     picked: string;
     wasCorrect: boolean;
   } | null>(null);
-  const [flashWrong, setFlashWrong] = useState<string | null>(null);
+  const { flashWrong, flashCorrect, flashWrongLetter, flashCorrectLetter, clearFlash } =
+    useLetterTapFlash();
   const prevCardIdRef = useRef<string | null>(null);
   const hadWrongRef = useRef(false);
-  const flashTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const successRef = useRef<HTMLDivElement>(null);
 
   const choiceSet = useMemo(
@@ -58,16 +59,8 @@ export function SimilarLetterQuiz({ deckId, cards, finishHref }: SimilarLetterQu
     prevCardIdRef.current = card.id;
     hadWrongRef.current = false;
     setAnswerState(null);
-    setFlashWrong(null);
-    if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
-  }, [card?.id]);
-
-  useEffect(
-    () => () => {
-      if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
-    },
-    [],
-  );
+    clearFlash();
+  }, [card?.id, clearFlash]);
 
   useScrollToRefWhen(Boolean(answerState), successRef);
 
@@ -103,19 +96,18 @@ export function SimilarLetterQuiz({ deckId, cards, finishHref }: SimilarLetterQu
     if (!thaiEquals(letter, card.answer_text)) {
       hadWrongRef.current = true;
       recordWrongLetter(letter);
-      setFlashWrong(letter);
-      if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
-      flashTimeoutRef.current = setTimeout(() => setFlashWrong(null), 500);
+      flashWrongLetter(letter);
       return;
     }
 
+    flashCorrectLetter(letter);
     setAnswerState({ picked: letter, wasCorrect: true });
     completeCard(!hadWrongRef.current);
   };
 
   const onNext = () => {
     setAnswerState(null);
-    setFlashWrong(null);
+    clearFlash();
     goNext();
   };
 
@@ -154,6 +146,7 @@ export function SimilarLetterQuiz({ deckId, cards, finishHref }: SimilarLetterQu
         onPick={onPick}
         disabled={answered}
         flashWrong={flashWrong}
+        flashCorrect={flashCorrect}
         highlightCorrect={answerState?.wasCorrect ? answerState.picked : null}
         centered
       />

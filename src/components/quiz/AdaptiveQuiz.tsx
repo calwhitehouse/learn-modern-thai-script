@@ -9,6 +9,8 @@ import {
 } from "@/components/quiz/QuizSuccessPanel";
 import { SessionSummary } from "@/components/quiz/SessionSummary";
 import { useScrollToRefWhen } from "@/hooks/useScrollToRefWhen";
+import { useLetterTapFlash } from "@/hooks/useLetterTapFlash";
+import { useSpellingAutoScroll } from "@/hooks/useSpellingAutoScroll";
 import { useQuizSession } from "@/components/quiz/useQuizSession";
 import { ThaiText } from "@/components/ThaiText";
 import { THAI_LETTER_GRID, THAI_SPELLING_KEYBOARD_GROUPS } from "@/lib/thai-alphabet";
@@ -22,9 +24,15 @@ type AdaptiveQuizProps = {
   deckId: string;
   cards: QuizCardWithDeck[];
   finishHref: string;
+  onSpellingModeChange?: (isSpelling: boolean) => void;
 };
 
-export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
+export function AdaptiveQuiz({
+  deckId,
+  cards,
+  finishHref,
+  onSpellingModeChange,
+}: AdaptiveQuizProps) {
   const session = useQuizSession({ cards, deckId, finishHref });
   const {
     card,
@@ -45,17 +53,19 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
   } | null>(null);
   const [picked, setPicked] = useState<string[]>([]);
   const [hadWrong, setHadWrong] = useState(false);
-  const [flashWrong, setFlashWrong] = useState<string | null>(null);
+  const { flashWrong, flashCorrect, flashWrongLetter, flashCorrectLetter, clearFlash } =
+    useLetterTapFlash();
   const [spellingDone, setSpellingDone] = useState(false);
   const prevCardIdRef = useRef<string | null>(null);
   const hadWrongRef = useRef(false);
-  const flashTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const promptRef = useRef<HTMLDivElement>(null);
   const successRef = useRef<HTMLDivElement>(null);
   const [promptScrollTick, setPromptScrollTick] = useState(0);
+  const { enabled: autoScrollEnabled } = useSpellingAutoScroll();
 
   const isSimilarLetter = card?.deck_slug === SIMILAR_LETTERS_DECK_SLUG;
   const isLetter = card?.type === "letter" && !isSimilarLetter;
+  const isSpellingCard = card?.type === "word" || card?.type === "sentence";
   const similarDrillSet = useMemo(
     () =>
       isSimilarLetter && card
@@ -75,20 +85,18 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
     setPicked([]);
     setHadWrong(false);
     hadWrongRef.current = false;
-    setFlashWrong(null);
+    clearFlash();
     setSpellingDone(false);
     setPromptScrollTick(0);
-    if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
-  }, [card?.id]);
+  }, [card?.id, clearFlash]);
 
-  useEffect(
-    () => () => {
-      if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
-    },
-    [],
-  );
+  useEffect(() => {
+    onSpellingModeChange?.(Boolean(card && isSpellingCard));
+  }, [card?.id, isSpellingCard, onSpellingModeChange]);
 
-  useScrollToRefWhen(promptScrollTick > 0, promptRef, { trigger: promptScrollTick });
+  useScrollToRefWhen(promptScrollTick > 0 && autoScrollEnabled, promptRef, {
+    trigger: promptScrollTick,
+  });
   useScrollToRefWhen(Boolean(letterAnswer || spellingDone), successRef);
 
   const sessionDrillSetIds = useMemo(() => collectDrillSetIds(queue), [queue]);
@@ -117,12 +125,11 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
     if (!thaiEquals(letter, card.answer_text)) {
       hadWrongRef.current = true;
       recordWrongLetter(letter);
-      setFlashWrong(letter);
-      if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
-      flashTimeoutRef.current = setTimeout(() => setFlashWrong(null), 500);
+      flashWrongLetter(letter);
       return;
     }
 
+    flashCorrectLetter(letter);
     setLetterAnswer({ picked: letter, wasCorrect: true });
     completeCard(!hadWrongRef.current);
   };
@@ -137,12 +144,11 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
       hadWrongRef.current = true;
       setHadWrong(true);
       recordWrongLetter(letter);
-      setFlashWrong(letter);
-      if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
-      flashTimeoutRef.current = setTimeout(() => setFlashWrong(null), 500);
+      flashWrongLetter(letter);
       return;
     }
 
+    flashCorrectLetter(letter);
     const next = [...picked, letter];
     setPicked(next);
 
@@ -159,7 +165,7 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
     setPicked([]);
     setHadWrong(false);
     hadWrongRef.current = false;
-    setFlashWrong(null);
+    clearFlash();
     setSpellingDone(false);
     goNext();
   };
@@ -262,6 +268,7 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
           onPick={onLetterPick}
           disabled={answered}
           flashWrong={flashWrong}
+          flashCorrect={flashCorrect}
           highlightCorrect={
             letterAnswer?.wasCorrect ? letterAnswer.picked : null
           }
@@ -274,6 +281,7 @@ export function AdaptiveQuiz({ deckId, cards, finishHref }: AdaptiveQuizProps) {
           onPick={isLetter ? onLetterPick : onSpellingPick}
           disabled={answered}
           flashWrong={flashWrong}
+          flashCorrect={flashCorrect}
           highlightCorrect={
             isLetter && letterAnswer?.wasCorrect ? letterAnswer.picked : null
           }

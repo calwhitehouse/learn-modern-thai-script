@@ -18,6 +18,7 @@ type LoopedLetterGridProps = {
   onPick: (letter: string) => void;
   disabled?: boolean;
   flashWrong?: string | null;
+  flashCorrect?: string | null;
   highlightCorrect?: string | null;
   /** Modern font for similar-letter drills; default looped. */
   variant?: "modern" | "looped";
@@ -30,6 +31,7 @@ function LetterButtons({
   onPick,
   disabled,
   flashWrongNorm,
+  flashCorrectNorm,
   highlightCorrectNorm,
   keyPrefix,
   variant = "looped",
@@ -39,6 +41,7 @@ function LetterButtons({
   onPick: (letter: string) => void;
   disabled?: boolean;
   flashWrongNorm: string | null;
+  flashCorrectNorm: string | null;
   highlightCorrectNorm: string | null;
   keyPrefix: string;
   variant?: "modern" | "looped";
@@ -57,6 +60,7 @@ function LetterButtons({
       {letters.map((letter, index) => {
         const letterNorm = normalizeThai(letter);
         const isWrongFlash = flashWrongNorm === letterNorm;
+        const isCorrectFlash = flashCorrectNorm === letterNorm;
         const isCorrectHighlight = highlightCorrectNorm === letterNorm;
 
         return (
@@ -75,7 +79,7 @@ function LetterButtons({
               "active:scale-[0.98]",
               "disabled:pointer-events-none disabled:opacity-50",
               isWrongFlash && "!border-rose-500 !bg-rose-50",
-              isCorrectHighlight && "!border-emerald-600 !bg-emerald-50",
+              (isCorrectFlash || isCorrectHighlight) && "!border-emerald-600 !bg-emerald-50",
             )}
           >
             <ThaiText variant={variant} className="pointer-events-none text-2xl sm:text-3xl">
@@ -94,11 +98,13 @@ export function LoopedLetterGrid({
   onPick,
   disabled,
   flashWrong,
+  flashCorrect,
   highlightCorrect,
   variant = "looped",
   centered = false,
 }: LoopedLetterGridProps) {
   const flashWrongNorm = flashWrong ? normalizeThai(flashWrong) : null;
+  const flashCorrectNorm = flashCorrect ? normalizeThai(flashCorrect) : null;
   const highlightCorrectNorm = highlightCorrect ? normalizeThai(highlightCorrect) : null;
 
   if (groups && groups.length > 0) {
@@ -112,6 +118,7 @@ export function LoopedLetterGrid({
               onPick={onPick}
               disabled={disabled}
               flashWrongNorm={flashWrongNorm}
+              flashCorrectNorm={flashCorrectNorm}
               highlightCorrectNorm={highlightCorrectNorm}
               keyPrefix={group.id}
               variant={variant}
@@ -131,6 +138,7 @@ export function LoopedLetterGrid({
       onPick={onPick}
       disabled={disabled}
       flashWrongNorm={flashWrongNorm}
+      flashCorrectNorm={flashCorrectNorm}
       highlightCorrectNorm={highlightCorrectNorm}
       keyPrefix="flat"
       variant={variant}
